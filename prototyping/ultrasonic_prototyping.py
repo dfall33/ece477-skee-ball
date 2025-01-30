@@ -15,6 +15,9 @@ echo_timeout = int(echo_timeout)
 print(f"timeout: {echo_timeout}")
 print("ultrasonic")
 
+current_sensor_id = 0 # 0 through 5
+num_sensors = 6 # 6 total sensors, labeled 0 through 5
+
 def duration_to_cm(duration):
     
     # duration in us
@@ -26,26 +29,29 @@ def duration_to_cm(duration):
 
 def trigger():
     
-    global trig
+    global trig, current_sensor_id, num_sensors 
     trig.value(0)
     time.sleep_us(10)
     trig.value(1)
     time.sleep_us(10)
     trig.value(0)
+    current_sensor_id = (current_sensor_id + 1) % num_sensors
 
 def main():
-    global trig, echo
-    while True:
+    global trig, echo, current_sensor_id
+    num_cycles = 20
+    count = 0
+    while count < num_cycles * num_sensors:
         trigger()
         duration_us = time_pulse_us(echo, 1, 30000)
-        
+        pause = 1000
         if duration_us == -1 or duration_us == -2:
-            print(duration_us)
-            time.sleep(0.5)
-            continue
-        cm = duration_to_cm(duration_us)
-        print(cm)
-        time.sleep(0.5)
+            print(f"Sensor={current_sensor_id}, error={duration_us}")
+        else: 
+            cm = duration_to_cm(duration_us)
+            print(f"Sensor={current_sensor_id}, distance={cm}cm")
+        time.sleep_us(pause)
+        count += 1
         
     
     pass
@@ -53,6 +59,4 @@ def main():
 
 if __name__ == "__main__":
     main()
-    print("ultrasonic proto")
-    #machine.soft_reset()
     
