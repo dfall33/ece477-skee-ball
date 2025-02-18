@@ -2,9 +2,15 @@
 #include <math.h> // for M_PI
 #include <stdint.h>
 #include <stdio.h>
+#include "ultrasonic.h"
 
 void nano_wait(int);
 void micro_wait(int);
+
+#define PULSE_TIMEOUT_US 30000
+#define PULSE_THRESHOLD_US 200
+
+volatile int detected_streak = 0;
 
 void spi_cmd(unsigned int);
 void spi_clear();
@@ -14,61 +20,60 @@ void spi1_display1(const char *);
 void spi1_display2(const char *);
 void init_spi1();
 void init_gpio();
-void init_exti();
 void setup_tim14();
-void read_hcsr04();
-
-/* ----- Global Variables ----- */
+void setup_tim15();
 
 #define FALSE 0
 #define TRUE 1
-volatile int ultrasonic_timed_out = FALSE;
-volatile int ultrasonic_detected = FALSE;
 
 void init_gpio()
 {
-    // enable clock to GPIOA
-    RCC->AHBENR |= RCC_AHBENR_GPIOAEN;
+    // Enable clock for GPIOC (for PC0 and PC1)
+    RCC->AHBENR |= RCC_AHBENR_GPIOCEN;
 
-    // configure PA0 to be in output mode
-    GPIOA->MODER &= ~(GPIO_MODER_MODER0); // reset it
-    GPIOA->MODER |= GPIO_MODER_MODER0_0;  // set it to output mode
+    // Configure PC0 as output (if used for triggering, for example)
+    GPIOC->MODER &= ~(GPIO_MODER_MODER0);
+    GPIOC->MODER |= GPIO_MODER_MODER0_0; // Output mode
 
-    // configure PA1 to be in input mode
-    GPIOA->MODER &= ~(GPIO_MODER_MODER1); // reset it
-}
+    // Configure PC1 as input with internal pull-down
+    GPIOC->MODER &= ~(GPIO_MODER_MODER1);
+    GPIOC->PUPDR &= ~(GPIO_PUPDR_PUPDR1);
 
-void init_exti()
-{
-    // enable clock to SYSCFG
-    RCC->APB2ENR |= RCC_APB2ENR_SYSCFGEN;
+    // Configure PC2 as input with internal pull-down
+    GPIOC->MODER &= ~(GPIO_MODER_MODER2);
+    GPIOC->PUPDR &= ~(GPIO_PUPDR_PUPDR2);
 
-    // configure PA1 to be an EXTI line
-    SYSCFG->EXTICR[0] &= ~(SYSCFG_EXTICR1_EXTI1); // reset it
-    SYSCFG->EXTICR[0] |= SYSCFG_EXTICR1_EXTI1_PA; // set it to PA1
+    // Configure PC3 as input with internal pull-down
+    GPIOC->MODER &= ~(GPIO_MODER_MODER3);
+    GPIOC->PUPDR &= ~(GPIO_PUPDR_PUPDR3);
 
-    // enable the interrupt on EXTI1
-    EXTI->IMR |= EXTI_IMR_IM1;
+    // Configure PC4 as input with internal pull-down
+    GPIOC->MODER &= ~(GPIO_MODER_MODER4);
+    GPIOC->PUPDR &= ~(GPIO_PUPDR_PUPDR4);
 
-    // configure the trigger to be on the rising edge
-    EXTI->RTSR |= EXTI_RTSR_TR1;
+    // Configure PC5 as input with internal pull-down
+    GPIOC->MODER &= ~(GPIO_MODER_MODER5);
+    GPIOC->PUPDR &= ~(GPIO_PUPDR_PUPDR5);
 
-    // enable the interrupt in the NVIC
-    NVIC_EnableIRQ(EXTI0_1_IRQn);
-}
+    // Configure PC6 as output
+    GPIOC->MODER &= ~(GPIO_MODER_MODER6);
+    GPIOC->MODER |= GPIO_MODER_MODER6_0; // Output mode
 
-void EXTI0_1_IRQHandler()
-{
-    // clear the interrupt flag
-    EXTI->PR |= EXTI_PR_PR1;
+    // Configure PC7 as output
+    GPIOC->MODER &= ~(GPIO_MODER_MODER7);
+    GPIOC->MODER |= GPIO_MODER_MODER7_0; // Output mode
 
-    // set the ultrasonic_detected flag
-    ultrasonic_detected = TRUE;
-}
+    // Configure PC8 as output
+    GPIOC->MODER &= ~(GPIO_MODER_MODER8);
+    GPIOC->MODER |= GPIO_MODER_MODER8_0; // Output mode
 
-int us_to_cm(int us)
-{
-    return us / 58;
+    // Configure PC9 as output
+    GPIOC->MODER &= ~(GPIO_MODER_MODER9);
+    GPIOC->MODER |= GPIO_MODER_MODER9_0; // Output mode
+
+    // Configure PC10 as output
+    GPIOC->MODER &= ~(GPIO_MODER_MODER10);
+    GPIOC->MODER |= GPIO_MODER_MODER10_0; // Output mode
 }
 
 void setup_tim14()
@@ -93,68 +98,46 @@ void setup_tim14()
     // don't enable the timer yet, because we want to start it when we start the ultrasonic sensor
 }
 
-void TIM14_IRQHandler()
+void setup_tim15()
 {
-    // clear the interrupt flag
-    TIM14->SR &= ~TIM_SR_UIF;
+    RCC->APB2ENR |= RCC_APB2ENR_TIM15EN;
+    TIM15->PSC = 48 - 1;                   // 48 MHz / 48 = 1 MHz
+    TIM15->ARR = HCSR04_SEARCH_TIMEOUT_US; // 1 MHz / 10000 = 100 Hz
 
-    // time out the ultrasonic sensor
-    ultrasonic_timed_out = TRUE;
+    TIM15->DIER |= TIM_DIER_UIE;
+    NVIC_EnableIRQ(TIM15_IRQn);
 }
 
-void read_hcsr04()
+void TIM14_IRQHandler(void)
 {
-    // set PA0 to high
-    GPIOA->ODR |= GPIO_ODR_0;
+    TIM14->SR &= ~TIM_SR_UIF;
+    time_out_pulse();
+}
 
-    // hold for 40 microseconds
-    micro_wait(40);
+void TIM15_IRQHandler(void)
+{
+    TIM15->SR &= ~TIM_SR_UIF;
+    time_out_hcsr04_search();
+}
 
-    // set PA0 to low
-    GPIOA->ODR &= ~GPIO_ODR_0;
+void send_pulse()
+{
+    // set PC0 to high
+    GPIOC->ODR |= GPIO_ODR_0;
 
-    // make sure flags are reset
-    ultrasonic_timed_out = FALSE;
-    ultrasonic_detected = FALSE;
+    // hold for 10 microseconds
+    micro_wait(10);
 
-    spi_clear();
-    spi1_display1("reading");
+    // set PC0 to low
+    GPIOC->ODR &= ~GPIO_ODR_0;
+}
 
-    // enable the timer
+void start_timer()
+{
+    // enable the timer interrupt
+    TIM14->DIER |= TIM_DIER_UIE;
     TIM14->CNT = 0;
     TIM14->CR1 |= TIM_CR1_CEN;
-
-    spi1_display2("reading");
-
-    // wait for the ultrasonic sensor to time out
-    while (!ultrasonic_timed_out && !ultrasonic_detected)
-        ;
-
-    // disable the timer
-    spi_clear();
-    spi1_display1("done");
-
-    // if the ultrasonic sensor timed out, print "timed out"
-    if (ultrasonic_timed_out)
-    {
-        // printf("timed out\n");
-        spi_clear();
-        spi1_display1("timed out");
-    }
-
-    // if the ultrasonic sensor detected something, print the distance
-    if (ultrasonic_detected)
-    {
-        int distance = us_to_cm(TIM14->CNT);
-        spi_clear();
-
-        // create a string to hold the distance
-        char distance_str[16];
-        snprintf(distance_str, 16, "%d", distance);
-
-        // spi1_display1(distance_str);
-        spi1_display2(distance_str);
-    }
 }
 
 void init_spi1()
@@ -264,9 +247,6 @@ void spi_clear()
     // move the cursor to the home position
     spi_cmd(0x02);
 
-    // for each character in the string
-    // call spi_data with the character
-
     // iterate over the string using string++
     for (int i = 0; i < 16; i++)
     {
@@ -300,17 +280,29 @@ void spi1_display2(const char *string)
 int main(void)
 {
     internal_clock();
-    // printf("Hello, World!\n");
     init_gpio();
-    init_exti();
     setup_tim14();
-
     init_spi1();
     spi1_init_oled();
-    spi1_display1("Hello, World!");
-
-    read_hcsr04();
+    spi_clear();
+    spi1_display1("Not Detected");
 
     while (1)
-        ;
+    {
+        int index = search_hcsr04(100);
+        if (index != -1)
+        {
+            spi_clear();
+            char str[16];
+            snprintf(str, 16, "Detected %d", index + 1);
+            spi1_display1(str);
+            micro_wait(1000000);
+            micro_wait(1000000);
+            spi_clear();
+            spi1_display1("Not Detected");
+        }
+        micro_wait(250);
+    }
+
+    return 0;
 }
