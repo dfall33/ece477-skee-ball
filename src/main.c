@@ -284,25 +284,5 @@ int main(void)
     setup_tim14();
     init_spi1();
     spi1_init_oled();
-    spi_clear();
-    spi1_display1("Not Detected");
-
-    while (1)
-    {
-        int index = search_hcsr04(100);
-        if (index != -1)
-        {
-            spi_clear();
-            char str[16];
-            snprintf(str, 16, "Detected %d", index + 1);
-            spi1_display1(str);
-            micro_wait(1000000);
-            micro_wait(1000000);
-            spi_clear();
-            spi1_display1("Not Detected");
-        }
-        micro_wait(250);
-    }
-
     return 0;
 }

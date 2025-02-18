@@ -1,10 +1,14 @@
 #ifndef __ULTRASONIC_H
 #define __ULTRASONIC_H
 #include <stdint.h>
+
+/* ---- Constants ----- */
 #define HCSR04_PULSE_THRESHOLD_US 250
 #define HCSR04_PULSE_TIMEOUT_US 30000
 #define HCSR04_SEARCH_TIMEOUT_US 10000000
 #define HCSR04_GAP_TIME_US 250
+
+/* ---- Function Prototypes ----- */
 int read_hcsr04(int index);
 void pulse_hcsr04_trigger();
 void start_hcsr04_pulse_timer();
