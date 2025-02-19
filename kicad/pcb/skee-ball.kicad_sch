@@ -4696,6 +4696,16 @@
 	)
 	(wire
 		(pts
+			(xy 254 64.77) (xy 259.08 64.77)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "9ca6edb2-a850-460f-b42e-8d697d53c66b")
+	)
+	(wire
+		(pts
 			(xy 254 59.69) (xy 259.08 59.69)
 		)
 		(stroke
@@ -4803,16 +4813,6 @@
 			(type default)
 		)
 		(uuid "eb7bc5d2-47e7-4cf7-8598-ce32d7f0067a")
-	)
-	(wire
-		(pts
-			(xy 254 62.23) (xy 259.08 62.23)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "ee3601af-eaba-4a98-bebb-98e936216783")
 	)
 	(wire
 		(pts
@@ -4951,7 +4951,7 @@
 	)
 	(global_label "SPI1-MOSI"
 		(shape input)
-		(at 259.08 62.23 0)
+		(at 259.08 64.77 0)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -4961,7 +4961,7 @@
 		)
 		(uuid "00ca9826-d44c-446c-9150-53306982a641")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 272.5276 62.23 0)
+			(at 272.5276 64.77 0)
 			(effects
 				(font
 					(size 1.27 1.27)

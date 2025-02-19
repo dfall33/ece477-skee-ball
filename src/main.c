@@ -10,7 +10,7 @@
 
 volatile int detected_streak = 0;
 
-/* ----- Function Declaratiosn ----- */
+/* ----- Function Declarations ----- */
 void nano_wait(int);
 void micro_wait(int);
 
@@ -176,26 +176,6 @@ void TIM15_IRQHandler(void)
 {
     TIM15->SR &= ~TIM_SR_UIF;
     time_out_hcsr04_search();
-}
-
-void send_pulse()
-{
-    // set PC0 to high
-    GPIOC->ODR |= GPIO_ODR_0;
-
-    // hold for 10 microseconds
-    micro_wait(10);
-
-    // set PC0 to low
-    GPIOC->ODR &= ~GPIO_ODR_0;
-}
-
-void start_timer()
-{
-    // enable the timer interrupt
-    TIM14->DIER |= TIM_DIER_UIE;
-    TIM14->CNT = 0;
-    TIM14->CR1 |= TIM_CR1_CEN;
 }
 
 void init_spi1()
