@@ -3,7 +3,11 @@
 	(generator "eeschema")
 	(generator_version "8.0")
 	(uuid "b076432b-4158-489f-bddc-473465d87ac4")
-	(paper "A4")
+	(paper "User" 177.8 127)
+	(title_block
+		(title "Offboard 8-Ohm Speaker")
+		(company "ECE 47700 Team 01")
+	)
 	(lib_symbols
 		(symbol "Motor:Motor_Servo"
 			(pin_names
@@ -516,7 +520,7 @@
 	)
 	(wire
 		(pts
-			(xy 127 92.71) (xy 137.16 92.71)
+			(xy 78.74 53.34) (xy 88.9 53.34)
 		)
 		(stroke
 			(width 0)
@@ -526,7 +530,7 @@
 	)
 	(wire
 		(pts
-			(xy 127 95.25) (xy 137.16 95.25)
+			(xy 78.74 55.88) (xy 88.9 55.88)
 		)
 		(stroke
 			(width 0)
@@ -536,7 +540,7 @@
 	)
 	(wire
 		(pts
-			(xy 125.73 90.17) (xy 137.16 90.17)
+			(xy 77.47 50.8) (xy 88.9 50.8)
 		)
 		(stroke
 			(width 0)
@@ -545,7 +549,7 @@
 		(uuid "8f8e6ef1-45d0-4a9a-a2c8-b0b99b2be9f5")
 	)
 	(label "TIM16"
-		(at 125.73 90.17 0)
+		(at 77.47 50.8 0)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -556,7 +560,7 @@
 	)
 	(symbol
 		(lib_id "Motor:Motor_Servo")
-		(at 144.78 92.71 0)
+		(at 96.52 53.34 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -565,7 +569,7 @@
 		(fields_autoplaced yes)
 		(uuid "5360c0b6-0e03-4a29-b2c1-94d14d24b501")
 		(property "Reference" "M2"
-			(at 153.67 91.0065 0)
+			(at 105.41 51.6365 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -574,7 +578,7 @@
 			)
 		)
 		(property "Value" "Motor_Servo"
-			(at 153.67 93.5465 0)
+			(at 105.41 54.1765 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -583,7 +587,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 144.78 97.536 0)
+			(at 96.52 58.166 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -592,7 +596,7 @@
 			)
 		)
 		(property "Datasheet" "http://forums.parallax.com/uploads/attachments/46831/74481.png"
-			(at 144.78 97.536 0)
+			(at 96.52 58.166 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -601,7 +605,7 @@
 			)
 		)
 		(property "Description" "Servo Motor (Futaba, HiTec, JR connector)"
-			(at 144.78 92.71 0)
+			(at 96.52 53.34 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -629,7 +633,7 @@
 	)
 	(symbol
 		(lib_id "power:GND")
-		(at 127 95.25 270)
+		(at 78.74 55.88 270)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -638,7 +642,7 @@
 		(fields_autoplaced yes)
 		(uuid "56c2b66a-d166-4708-87ab-62397ed93c1b")
 		(property "Reference" "#PWR02"
-			(at 120.65 95.25 0)
+			(at 72.39 55.88 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -647,7 +651,7 @@
 			)
 		)
 		(property "Value" "GND"
-			(at 123.19 95.2499 90)
+			(at 74.93 55.8799 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -656,7 +660,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 127 95.25 0)
+			(at 78.74 55.88 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -665,7 +669,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 127 95.25 0)
+			(at 78.74 55.88 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -674,7 +678,7 @@
 			)
 		)
 		(property "Description" "Power symbol creates a global label with name \"GND\" , ground"
-			(at 127 95.25 0)
+			(at 78.74 55.88 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -696,7 +700,7 @@
 	)
 	(symbol
 		(lib_id "power:+6V")
-		(at 127 92.71 90)
+		(at 78.74 53.34 90)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -705,7 +709,7 @@
 		(fields_autoplaced yes)
 		(uuid "f87d7106-433f-49c8-80d0-bccddff722d6")
 		(property "Reference" "#PWR01"
-			(at 130.81 92.71 0)
+			(at 82.55 53.34 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -714,7 +718,7 @@
 			)
 		)
 		(property "Value" "+6V"
-			(at 123.19 92.7099 90)
+			(at 74.93 53.3399 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -723,7 +727,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 127 92.71 0)
+			(at 78.74 53.34 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -732,7 +736,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 127 92.71 0)
+			(at 78.74 53.34 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -741,7 +745,7 @@
 			)
 		)
 		(property "Description" "Power symbol creates a global label with name \"+6V\""
-			(at 127 92.71 0)
+			(at 78.74 53.34 0)
 			(effects
 				(font
 					(size 1.27 1.27)

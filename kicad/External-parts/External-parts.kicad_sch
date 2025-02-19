@@ -3,7 +3,11 @@
 	(generator "eeschema")
 	(generator_version "8.0")
 	(uuid "f30e32cb-2739-4c2d-b8a9-29b638d16cbf")
-	(paper "A4")
+	(paper "User" 177.8 127)
+	(title_block
+		(title "Offboard 8-Ohm Speaker")
+		(company "ECE 47700 Team 01")
+	)
 	(lib_symbols
 		(symbol "Driver_Motor:TB6612FNG"
 			(pin_names
@@ -1400,6 +1404,84 @@
 		)
 	)
 	(sheet
+		(at 205.74 -62.23)
+		(size 82.55 52.07)
+		(fields_autoplaced yes)
+		(stroke
+			(width 0.1524)
+			(type solid)
+		)
+		(fill
+			(color 0 0 0 0.0000)
+		)
+		(uuid "2b0e10f9-3fdd-4d1b-a753-804c8fce9531")
+		(property "Sheetname" "Speaker"
+			(at 205.74 -62.9416 0)
+			(show_name yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left bottom)
+			)
+		)
+		(property "Sheetfile" "speaker.kicad_sch"
+			(at 205.74 -9.5754 0)
+			(show_name yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left top)
+			)
+		)
+		(instances
+			(project "External-parts"
+				(path "/f30e32cb-2739-4c2d-b8a9-29b638d16cbf"
+					(page "6")
+				)
+			)
+		)
+	)
+	(sheet
+		(at -125.73 -74.93)
+		(size 127 67.31)
+		(fields_autoplaced yes)
+		(stroke
+			(width 0.1524)
+			(type solid)
+		)
+		(fill
+			(color 0 0 0 0.0000)
+		)
+		(uuid "b8c789c6-65cf-4fb7-beae-d4de926f9a24")
+		(property "Sheetname" "NHD-0440AZ"
+			(at -125.73 -75.6416 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left bottom)
+			)
+		)
+		(property "Sheetfile" "nhd_0440az.kicad_sch"
+			(at -125.73 -7.0354 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left top)
+			)
+		)
+		(instances
+			(project "External-parts"
+				(path "/f30e32cb-2739-4c2d-b8a9-29b638d16cbf"
+					(page "4")
+				)
+			)
+		)
+	)
+	(sheet
 		(at -128.27 0)
 		(size 128.27 127)
 		(fields_autoplaced yes)
@@ -1433,6 +1515,44 @@
 			(project "External-parts"
 				(path "/f30e32cb-2739-4c2d-b8a9-29b638d16cbf"
 					(page "2")
+				)
+			)
+		)
+	)
+	(sheet
+		(at 41.91 -66.04)
+		(size 129.54 53.34)
+		(fields_autoplaced yes)
+		(stroke
+			(width 0.1524)
+			(type solid)
+		)
+		(fill
+			(color 0 0 0 0.0000)
+		)
+		(uuid "fd93ef1e-547d-4a9d-a9cc-176b0e081ebd")
+		(property "Sheetname" "HC-SR04 Array"
+			(at 41.91 -66.7516 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left bottom)
+			)
+		)
+		(property "Sheetfile" "ultrasonic.kicad_sch"
+			(at 41.91 -12.1154 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left top)
+			)
+		)
+		(instances
+			(project "External-parts"
+				(path "/f30e32cb-2739-4c2d-b8a9-29b638d16cbf"
+					(page "5")
 				)
 			)
 		)

@@ -394,6 +394,18 @@
     [
       "23f09b23-f609-446a-936c-707a792aaa9a",
       "Servo-motor"
+    ],
+    [
+      "b8c789c6-65cf-4fb7-beae-d4de926f9a24",
+      "NHD-0440AZ"
+    ],
+    [
+      "fd93ef1e-547d-4a9d-a9cc-176b0e081ebd",
+      "HC-SR04 Array"
+    ],
+    [
+      "2b0e10f9-3fdd-4d1b-a753-804c8fce9531",
+      "Speaker"
     ]
   ],
   "text_variables": {}

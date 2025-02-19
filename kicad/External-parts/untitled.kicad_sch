@@ -3,7 +3,11 @@
 	(generator "eeschema")
 	(generator_version "8.0")
 	(uuid "c95b6326-7434-4782-a8fc-08041445afb8")
-	(paper "A4")
+	(paper "User" 177.8 127)
+	(title_block
+		(title "Offboard 8-Ohm Speaker")
+		(company "ECE 47700 Team 01")
+	)
 	(lib_symbols
 		(symbol "Connector:Conn_01x05_Pin"
 			(pin_names
@@ -506,16 +510,16 @@
 		)
 	)
 	(no_connect
-		(at 142.24 85.09)
+		(at 71.12 58.42)
 		(uuid "378c9024-065a-4c88-9070-85f9d5e546d6")
 	)
 	(no_connect
-		(at 142.24 82.55)
+		(at 71.12 55.88)
 		(uuid "4af4753a-21f8-4e95-90e2-551bc4733f87")
 	)
 	(wire
 		(pts
-			(xy 142.24 80.01) (xy 154.94 80.01)
+			(xy 71.12 53.34) (xy 83.82 53.34)
 		)
 		(stroke
 			(width 0)
@@ -525,7 +529,7 @@
 	)
 	(wire
 		(pts
-			(xy 142.24 74.93) (xy 153.67 74.93)
+			(xy 71.12 48.26) (xy 82.55 48.26)
 		)
 		(stroke
 			(width 0)
@@ -535,7 +539,7 @@
 	)
 	(wire
 		(pts
-			(xy 142.24 77.47) (xy 153.67 77.47)
+			(xy 71.12 50.8) (xy 82.55 50.8)
 		)
 		(stroke
 			(width 0)
@@ -544,7 +548,7 @@
 		(uuid "c84e4128-5a2b-41f5-a5f3-f284bdd9cb1f")
 	)
 	(label "VRX"
-		(at 154.94 80.01 0)
+		(at 83.82 53.34 0)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -555,7 +559,7 @@
 	)
 	(symbol
 		(lib_id "power:+5V")
-		(at 153.67 74.93 270)
+		(at 82.55 48.26 270)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -564,7 +568,7 @@
 		(fields_autoplaced yes)
 		(uuid "3ff08638-1067-4378-9840-2612e6be0a97")
 		(property "Reference" "#PWR05"
-			(at 149.86 74.93 0)
+			(at 78.74 48.26 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -573,7 +577,7 @@
 			)
 		)
 		(property "Value" "+5V"
-			(at 157.48 74.9299 90)
+			(at 86.36 48.2599 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -582,7 +586,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 153.67 74.93 0)
+			(at 82.55 48.26 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -591,7 +595,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 153.67 74.93 0)
+			(at 82.55 48.26 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -600,7 +604,7 @@
 			)
 		)
 		(property "Description" "Power symbol creates a global label with name \"+5V\""
-			(at 153.67 74.93 0)
+			(at 82.55 48.26 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -622,7 +626,7 @@
 	)
 	(symbol
 		(lib_id "power:GND")
-		(at 153.67 77.47 90)
+		(at 82.55 50.8 90)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -630,7 +634,7 @@
 		(dnp no)
 		(uuid "da96fa65-6028-477e-a5dc-8f2a7065dafc")
 		(property "Reference" "#PWR06"
-			(at 160.02 77.47 0)
+			(at 88.9 50.8 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -639,7 +643,7 @@
 			)
 		)
 		(property "Value" "GND"
-			(at 157.48 77.4699 90)
+			(at 86.36 50.7999 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -648,7 +652,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 153.67 77.47 0)
+			(at 82.55 50.8 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -657,7 +661,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 153.67 77.47 0)
+			(at 82.55 50.8 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -666,7 +670,7 @@
 			)
 		)
 		(property "Description" "Power symbol creates a global label with name \"GND\" , ground"
-			(at 153.67 77.47 0)
+			(at 82.55 50.8 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -688,7 +692,7 @@
 	)
 	(symbol
 		(lib_id "Connector:Conn_01x05_Pin")
-		(at 137.16 80.01 0)
+		(at 66.04 53.34 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -697,7 +701,7 @@
 		(fields_autoplaced yes)
 		(uuid "fa2a8076-fa10-4aeb-b8bc-90ec1f6e0753")
 		(property "Reference" "J1"
-			(at 137.795 69.85 0)
+			(at 66.675 43.18 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -705,7 +709,7 @@
 			)
 		)
 		(property "Value" "Joystick"
-			(at 137.795 72.39 0)
+			(at 66.675 45.72 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -713,7 +717,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 137.16 80.01 0)
+			(at 66.04 53.34 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -722,7 +726,7 @@
 			)
 		)
 		(property "Datasheet" "~"
-			(at 137.16 80.01 0)
+			(at 66.04 53.34 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -731,7 +735,7 @@
 			)
 		)
 		(property "Description" "Generic connector, single row, 01x05, script generated"
-			(at 137.16 80.01 0)
+			(at 66.04 53.34 0)
 			(effects
 				(font
 					(size 1.27 1.27)
