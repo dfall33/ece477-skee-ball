@@ -4716,16 +4716,6 @@
 	)
 	(wire
 		(pts
-			(xy 256.54 114.3) (xy 257.81 114.3)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "b6d7f827-da3a-46ed-8941-d1094d7e8d83")
-	)
-	(wire
-		(pts
 			(xy 41.91 58.42) (xy 44.45 58.42)
 		)
 		(stroke
@@ -5136,7 +5126,7 @@
 			)
 		)
 	)
-	(global_label "PWM_SERVO"
+	(global_label "PWM_SERVO (TIM16_CH1)"
 		(shape input)
 		(at 254 110.49 0)
 		(fields_autoplaced yes)
@@ -5149,7 +5139,7 @@
 		)
 		(uuid "7bec58ce-7ff2-44ae-9af6-b46bc330d657")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 268.6492 110.49 0)
+			(at 281.0546 110.49 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -6594,7 +6584,7 @@
 	)
 	(symbol
 		(lib_id "Connector_Generic:Conn_01x01")
-		(at 262.89 114.3 0)
+		(at 261.62 114.3 0)
 		(mirror x)
 		(unit 1)
 		(exclude_from_sim no)
@@ -6603,7 +6593,7 @@
 		(dnp no)
 		(uuid "2ce5194f-efe9-4349-b715-99e578efe6f1")
 		(property "Reference" "J27"
-			(at 265.938 114.3 0)
+			(at 264.668 114.3 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -6611,8 +6601,8 @@
 				(justify left)
 			)
 		)
-		(property "Value" "PWM_DC"
-			(at 270.51 114.3 0)
+		(property "Value" "PWM_DC (TIM17_CH1)"
+			(at 257.556 117.094 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -6621,7 +6611,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 262.89 114.3 0)
+			(at 261.62 114.3 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -6630,7 +6620,7 @@
 			)
 		)
 		(property "Datasheet" "~"
-			(at 262.89 114.3 0)
+			(at 261.62 114.3 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -6639,7 +6629,7 @@
 			)
 		)
 		(property "Description" "Generic connector, single row, 01x01, script generated (kicad-library-utils/schlib/autogen/connector/)"
-			(at 262.89 114.3 0)
+			(at 261.62 114.3 0)
 			(effects
 				(font
 					(size 1.27 1.27)
