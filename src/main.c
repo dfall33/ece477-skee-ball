@@ -37,9 +37,13 @@ void init_gpio()
     /* ----- Configure Port A ----- */
     // =======================================================
     RCC->AHBENR |= RCC_AHBENR_GPIOAEN;
-    /* ----- Configure PA4 as Output ----- */
+    /* ----- Configure PA4 as Output for RCLK ----- */
     GPIOA->MODER &= ~(GPIO_MODER_MODER4);
     GPIOA->MODER |= GPIO_MODER_MODER4_0; // Output mode
+
+    /* ----- Configure PA2 and PA3 as NHD E1 and NHD E2, respectively ----- */
+    GPIOA->MODER &= ~(GPIO_MODER_MODER2 | GPIO_MODER_MODER3);
+    GPIOA->MODER |= GPIO_MODER_MODER2_0 | GPIO_MODER_MODER3_0; // Output mode
 
     // =======================================================
     /* ----- Configure Port C ----- */
@@ -336,6 +340,14 @@ int main(void)
     init_spi1();
     spi1_init_oled();
     init_exti();
+
+    init_display();
+    spi_write_str("Line 1, abc", 0);
+    spi_write_str("Line 2, def", 1);
+    spi_write_str("Line 3, ghi", 2);
+    spi_write_str("Line 4, jkl", 3);
+
+    return 0;
 
     uint16_t flash_val = 0x0200;
     load_shift_registers(0x0000);
