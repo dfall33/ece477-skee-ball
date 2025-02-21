@@ -7593,7 +7593,7 @@
 				(justify left)
 			)
 		)
-		(property "Value" "NHD_E2"
+		(property "Value" "NHD_E1"
 			(at 381.254 158.75 0)
 			(effects
 				(font
