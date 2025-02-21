@@ -4,6 +4,7 @@
 #include <stdio.h>
 #include "ultrasonic.h"
 #include "button.h"
+#include "nhd_0440az.h"
 
 #define PULSE_TIMEOUT_US 30000
 #define PULSE_THRESHOLD_US 200
@@ -32,7 +33,18 @@ void setup_tim15();
 void init_gpio()
 {
 
+    // =======================================================
+    /* ----- Configure Port A ----- */
+    // =======================================================
+    RCC->AHBENR |= RCC_AHBENR_GPIOAEN;
+    /* ----- Configure PA4 as Output ----- */
+    GPIOA->MODER &= ~(GPIO_MODER_MODER4);
+    GPIOA->MODER |= GPIO_MODER_MODER4_0; // Output mode
+
+    // =======================================================
     /* ----- Configure Port C ----- */
+    // =======================================================
+
     RCC->AHBENR |= RCC_AHBENR_GPIOCEN;
 
     /* ----- Configure PC0 for Push Button */
@@ -204,9 +216,9 @@ void init_spi1()
     // set baud rate to max possible
     SPI1->CR1 |= SPI_CR1_BR;
 
-    // configure for 10-bit word size
-    SPI1->CR2 |= SPI_CR2_DS_3 | SPI_CR2_DS_0; // 0x1001 used for 10-bit word size
-    SPI1->CR2 &= ~(SPI_CR2_DS_2 | SPI_CR2_DS_1);
+    // configure for 16-bit word size
+    SPI1->CR2 |= SPI_CR2_DS;
+    // SPI1->CR2 &= ~(SPI_CR2_DS_2 | SPI_CR2_DS_1);
 
     // configure the SPI channel to be in master configuration
     SPI1->CR1 |= SPI_CR1_MSTR;
@@ -324,4 +336,25 @@ int main(void)
     init_spi1();
     spi1_init_oled();
     init_exti();
+
+    uint16_t flash_val = 0x0200;
+    load_shift_registers(0x0000);
+    micro_wait(1000000);
+    load_shift_registers(flash_val);
+    micro_wait(1000000);
+
+    load_shift_registers(0x0000);
+    micro_wait(1000000);
+    load_shift_registers(flash_val);
+    micro_wait(1000000);
+
+    load_shift_registers(0x0000);
+    micro_wait(1000000);
+    load_shift_registers(flash_val);
+    micro_wait(1000000);
+
+    load_shift_registers(0x0000);
+    micro_wait(1000000);
+    load_shift_registers(flash_val);
+    micro_wait(1000000);
 }
