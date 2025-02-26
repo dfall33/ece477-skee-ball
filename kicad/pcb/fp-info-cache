@@ -1,4 +1,4 @@
-24414388766610768
+24416129347497718
 12V_2.2A_STEP-DOWN_D24V22F12
 XDCR_12V_2.2A_STEP-DOWN_D24V22F12
 
@@ -90509,6 +90509,13 @@ rotary encoder illuminated switch vertical
 0
 9
 8
+SN74LS08N
+N14
+
+SN74LS08N 
+0
+14
+14
 Sensor
 ASAIR_AM2302_P2.54mm_Lead2.75mm_TabDown
 Temperature and humidity module, http://akizukidenshi.com/download/ds/aosong/AM2302.pdf
