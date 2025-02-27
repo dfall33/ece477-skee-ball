@@ -1,4 +1,4 @@
-24416129347497718
+24417869941045702
 12V_2.2A_STEP-DOWN_D24V22F12
 XDCR_12V_2.2A_STEP-DOWN_D24V22F12
 
@@ -6,6 +6,13 @@ XDCR_12V_2.2A_STEP-DOWN_D24V22F12
 0
 6
 6
+74HC595N
+SOT38-4_NXP
+
+74HC595N_112 
+0
+16
+16
 Audio_Module
 Reverb_BTDR-1H
 Digital Reverberation Unit, http://www.belton.co.kr/inc/downfile.php?seq=17&file=pdf (footprint from http://www.uk-electronic.de/PDF/BTDR-1.pdf)
