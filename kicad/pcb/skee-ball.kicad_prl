@@ -1,6 +1,6 @@
 {
   "board": {
-    "active_layer": 2,
+    "active_layer": 7,
     "active_layer_preset": "",
     "auto_track_width": true,
     "hidden_netclasses": [],
@@ -8,10 +8,7 @@
       "SPI2-NSS(I2S_WS)",
       "VDD",
       "SPI2-SCK(I2S_CK)",
-      "Net-(J1-Pin_1)",
-      "Net-(J1-Pin_2)",
       "SPI2-MOSI(I2S_SD)",
-      "VDA",
       "PWM_SERVO_6",
       "US_TRIG0_5",
       "NRST",
@@ -50,7 +47,6 @@
       "PB6",
       "PB7",
       "PWM_DC",
-      "Net-(U4-VSSA)",
       "US_TRIG3_3.3",
       "US_TRIG4_3.3",
       "US_TRIG2_3.3",
@@ -74,12 +70,12 @@
     "high_contrast_mode": 0,
     "net_color_mode": 1,
     "opacity": {
-      "images": 0.6,
+      "images": 0.699999988079071,
       "pads": 1.0,
-      "shapes": 1.0,
+      "shapes": 0.7699999809265137,
       "tracks": 1.0,
       "vias": 1.0,
-      "zones": 0.6
+      "zones": 0.30000001192092896
     },
     "selection_filter": {
       "dimensions": true,
@@ -97,23 +93,21 @@
     "visible_items": [
       "vias",
       "footprint_text",
-      "footprint_anchors",
       "ratsnest",
       "grid",
       "footprints_front",
       "footprints_back",
       "footprint_values",
+      "footprint_references",
       "tracks",
       "drc_errors",
-      "drawing_sheet",
+      "bitmaps",
       "pads",
       "zones",
       "drc_warnings",
-      "locked_item_shadows",
-      "conflict_shadows",
       "shapes"
     ],
-    "visible_layers": "00000000_00000000_0803ffdf_fdffffff",
+    "visible_layers": "00000000_00000000_0fffffff_ffffffff",
     "zone_display_mode": 0
   },
   "git": {
