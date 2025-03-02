@@ -5887,6 +5887,89 @@
 			)
 			(embedded_fonts no)
 		)
+		(symbol "Mechanical:MountingHole"
+			(pin_names
+				(offset 1.016)
+			)
+			(exclude_from_sim yes)
+			(in_bom no)
+			(on_board yes)
+			(property "Reference" "H"
+				(at 0 5.08 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Value" "MountingHole"
+				(at 0 3.175 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Footprint" ""
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Datasheet" "~"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Description" "Mounting Hole without connection"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "ki_keywords" "mounting hole"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "ki_fp_filters" "MountingHole*"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(symbol "MountingHole_0_1"
+				(circle
+					(center 0 0)
+					(radius 1.27)
+					(stroke
+						(width 1.27)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+			)
+			(embedded_fonts no)
+		)
 		(symbol "Regulator_Linear:LD1117S33TR_SOT223"
 			(exclude_from_sim no)
 			(in_bom yes)
@@ -11436,8 +11519,72 @@
 		)
 	)
 	(symbol
+		(lib_id "Mechanical:MountingHole")
+		(at 335.28 39.37 0)
+		(unit 1)
+		(exclude_from_sim yes)
+		(in_bom no)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "0891740d-543e-4c36-bc1a-88e24b1585ab")
+		(property "Reference" "H1"
+			(at 337.82 38.0999 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "MountingHole"
+			(at 337.82 40.6399 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "MountingHole:MountingHole_3.2mm_M3"
+			(at 335.28 39.37 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 335.28 39.37 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Mounting Hole without connection"
+			(at 335.28 39.37 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(instances
+			(project ""
+				(path "/547d9dcb-6f5f-42b4-90d7-bfc006b86b9a"
+					(reference "H1")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
 		(lib_id "power:+5V")
-		(at 166.37 214.63 270)
+		(at 166.37 222.25 270)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -11446,7 +11593,7 @@
 		(fields_autoplaced yes)
 		(uuid "10a8ef41-915b-4f9c-96f9-62e20c97428d")
 		(property "Reference" "#PWR026"
-			(at 162.56 214.63 0)
+			(at 162.56 222.25 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -11455,7 +11602,7 @@
 			)
 		)
 		(property "Value" "+5V"
-			(at 170.18 214.6299 90)
+			(at 170.18 222.2499 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -11464,7 +11611,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 166.37 214.63 0)
+			(at 166.37 222.25 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -11473,7 +11620,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 166.37 214.63 0)
+			(at 166.37 222.25 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -11482,7 +11629,7 @@
 			)
 		)
 		(property "Description" "Power symbol creates a global label with name \"+5V\""
-			(at 166.37 214.63 0)
+			(at 166.37 222.25 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -15451,7 +15598,7 @@
 	)
 	(symbol
 		(lib_id "power:GND")
-		(at 195.58 222.25 90)
+		(at 195.58 214.63 90)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -15460,7 +15607,7 @@
 		(fields_autoplaced yes)
 		(uuid "61aa9d3d-a216-4fa6-b941-35d187b0d53b")
 		(property "Reference" "#PWR061"
-			(at 201.93 222.25 0)
+			(at 201.93 214.63 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -15469,7 +15616,7 @@
 			)
 		)
 		(property "Value" "GND"
-			(at 199.39 222.2499 90)
+			(at 199.39 214.6299 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -15478,7 +15625,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 195.58 222.25 0)
+			(at 195.58 214.63 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -15487,7 +15634,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 195.58 222.25 0)
+			(at 195.58 214.63 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -15496,7 +15643,7 @@
 			)
 		)
 		(property "Description" "Power symbol creates a global label with name \"GND\" , ground"
-			(at 195.58 222.25 0)
+			(at 195.58 214.63 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -16666,7 +16813,7 @@
 	)
 	(symbol
 		(lib_id "power:+5V")
-		(at 195.58 214.63 270)
+		(at 195.58 222.25 270)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -16675,7 +16822,7 @@
 		(fields_autoplaced yes)
 		(uuid "856e3774-b521-45ad-8042-8700dfee6cf5")
 		(property "Reference" "#PWR063"
-			(at 191.77 214.63 0)
+			(at 191.77 222.25 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -16684,7 +16831,7 @@
 			)
 		)
 		(property "Value" "+5V"
-			(at 199.39 214.6299 90)
+			(at 199.39 222.2499 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -16693,7 +16840,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 195.58 214.63 0)
+			(at 195.58 222.25 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -16702,7 +16849,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 195.58 214.63 0)
+			(at 195.58 222.25 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -16711,7 +16858,7 @@
 			)
 		)
 		(property "Description" "Power symbol creates a global label with name \"+5V\""
-			(at 195.58 214.63 0)
+			(at 195.58 222.25 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -17287,16 +17434,15 @@
 	)
 	(symbol
 		(lib_id "power:GND")
-		(at 166.37 205.74 90)
+		(at 166.37 198.12 90)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
-		(fields_autoplaced yes)
 		(uuid "93caa9c3-b9c5-448c-880f-b78816dea3cb")
 		(property "Reference" "#PWR023"
-			(at 172.72 205.74 0)
+			(at 172.72 198.12 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -17305,7 +17451,7 @@
 			)
 		)
 		(property "Value" "GND"
-			(at 170.18 205.7399 90)
+			(at 170.18 198.1199 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -17314,7 +17460,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 166.37 205.74 0)
+			(at 166.37 198.12 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -17323,7 +17469,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 166.37 205.74 0)
+			(at 166.37 198.12 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -17332,7 +17478,7 @@
 			)
 		)
 		(property "Description" "Power symbol creates a global label with name \"GND\" , ground"
-			(at 166.37 205.74 0)
+			(at 166.37 198.12 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -17558,7 +17704,7 @@
 	)
 	(symbol
 		(lib_id "power:+5V")
-		(at 195.58 198.12 270)
+		(at 195.58 205.74 270)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -17567,7 +17713,7 @@
 		(fields_autoplaced yes)
 		(uuid "9b6bb235-bb2f-47c3-aa5c-72ed58f42233")
 		(property "Reference" "#PWR032"
-			(at 191.77 198.12 0)
+			(at 191.77 205.74 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -17576,7 +17722,7 @@
 			)
 		)
 		(property "Value" "+5V"
-			(at 199.39 198.1199 90)
+			(at 199.39 205.7399 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -17585,7 +17731,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 195.58 198.12 0)
+			(at 195.58 205.74 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -17594,7 +17740,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 195.58 198.12 0)
+			(at 195.58 205.74 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -17603,7 +17749,7 @@
 			)
 		)
 		(property "Description" "Power symbol creates a global label with name \"+5V\""
-			(at 195.58 198.12 0)
+			(at 195.58 205.74 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -17938,6 +18084,70 @@
 			(project ""
 				(path "/547d9dcb-6f5f-42b4-90d7-bfc006b86b9a"
 					(reference "#PWR071")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Mechanical:MountingHole")
+		(at 336.55 49.53 0)
+		(unit 1)
+		(exclude_from_sim yes)
+		(in_bom no)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "a0f60dce-dd21-46e4-be99-2e3922168cbe")
+		(property "Reference" "H3"
+			(at 339.09 48.2599 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "MountingHole"
+			(at 339.09 50.7999 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "MountingHole:MountingHole_3.2mm_M3"
+			(at 336.55 49.53 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 336.55 49.53 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Mounting Hole without connection"
+			(at 336.55 49.53 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(instances
+			(project "skee-ball"
+				(path "/547d9dcb-6f5f-42b4-90d7-bfc006b86b9a"
+					(reference "H3")
 					(unit 1)
 				)
 			)
@@ -19164,7 +19374,7 @@
 	)
 	(symbol
 		(lib_id "power:GND")
-		(at 166.37 222.25 90)
+		(at 166.37 214.63 90)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -19173,7 +19383,7 @@
 		(fields_autoplaced yes)
 		(uuid "c568434c-3750-4f39-a1f5-ec5a906abfaa")
 		(property "Reference" "#PWR025"
-			(at 172.72 222.25 0)
+			(at 172.72 214.63 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -19182,7 +19392,7 @@
 			)
 		)
 		(property "Value" "GND"
-			(at 170.18 222.2499 90)
+			(at 170.18 214.6299 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -19191,7 +19401,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 166.37 222.25 0)
+			(at 166.37 214.63 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -19200,7 +19410,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 166.37 222.25 0)
+			(at 166.37 214.63 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -19209,7 +19419,7 @@
 			)
 		)
 		(property "Description" "Power symbol creates a global label with name \"GND\" , ground"
-			(at 166.37 222.25 0)
+			(at 166.37 214.63 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -19430,6 +19640,70 @@
 			(project ""
 				(path "/547d9dcb-6f5f-42b4-90d7-bfc006b86b9a"
 					(reference "#PWR037")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Mechanical:MountingHole")
+		(at 356.87 49.53 0)
+		(unit 1)
+		(exclude_from_sim yes)
+		(in_bom no)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "c6cd05a2-161f-418e-a375-0eacf18f68b9")
+		(property "Reference" "H4"
+			(at 359.41 48.2599 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "MountingHole"
+			(at 359.41 50.7999 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "MountingHole:MountingHole_3.2mm_M3"
+			(at 356.87 49.53 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 356.87 49.53 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Mounting Hole without connection"
+			(at 356.87 49.53 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(instances
+			(project "skee-ball"
+				(path "/547d9dcb-6f5f-42b4-90d7-bfc006b86b9a"
+					(reference "H4")
 					(unit 1)
 				)
 			)
@@ -19951,16 +20225,15 @@
 	)
 	(symbol
 		(lib_id "power:GND")
-		(at 195.58 205.74 90)
+		(at 195.58 198.12 90)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
-		(fields_autoplaced yes)
 		(uuid "db7dad29-a40c-47d6-854e-2dd9b916cc34")
 		(property "Reference" "#PWR027"
-			(at 201.93 205.74 0)
+			(at 201.93 198.12 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -19969,7 +20242,7 @@
 			)
 		)
 		(property "Value" "GND"
-			(at 199.39 205.7399 90)
+			(at 199.39 198.1199 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -19978,7 +20251,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 195.58 205.74 0)
+			(at 195.58 198.12 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -19987,7 +20260,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 195.58 205.74 0)
+			(at 195.58 198.12 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -19996,7 +20269,7 @@
 			)
 		)
 		(property "Description" "Power symbol creates a global label with name \"GND\" , ground"
-			(at 195.58 205.74 0)
+			(at 195.58 198.12 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -20011,6 +20284,70 @@
 			(project "skee-ball"
 				(path "/547d9dcb-6f5f-42b4-90d7-bfc006b86b9a"
 					(reference "#PWR027")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Mechanical:MountingHole")
+		(at 356.87 39.37 0)
+		(unit 1)
+		(exclude_from_sim yes)
+		(in_bom no)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "dca7f75d-17fb-4bb1-b48a-02bfe8ce5202")
+		(property "Reference" "H2"
+			(at 359.41 38.0999 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "MountingHole"
+			(at 359.41 40.6399 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "MountingHole:MountingHole_3.2mm_M3"
+			(at 356.87 39.37 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 356.87 39.37 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Mounting Hole without connection"
+			(at 356.87 39.37 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(instances
+			(project "skee-ball"
+				(path "/547d9dcb-6f5f-42b4-90d7-bfc006b86b9a"
+					(reference "H2")
 					(unit 1)
 				)
 			)
@@ -21104,16 +21441,15 @@
 	)
 	(symbol
 		(lib_id "power:+5V")
-		(at 166.37 198.12 270)
+		(at 166.37 205.74 270)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
-		(fields_autoplaced yes)
 		(uuid "f8a83137-554a-43e0-be63-ab2b61c763c5")
 		(property "Reference" "#PWR024"
-			(at 162.56 198.12 0)
+			(at 162.56 205.74 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -21122,7 +21458,7 @@
 			)
 		)
 		(property "Value" "+5V"
-			(at 170.18 198.1199 90)
+			(at 170.18 205.7399 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -21131,7 +21467,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 166.37 198.12 0)
+			(at 166.37 205.74 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -21140,7 +21476,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 166.37 198.12 0)
+			(at 166.37 205.74 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -21149,7 +21485,7 @@
 			)
 		)
 		(property "Description" "Power symbol creates a global label with name \"+5V\""
-			(at 166.37 198.12 0)
+			(at 166.37 205.74 0)
 			(effects
 				(font
 					(size 1.27 1.27)
