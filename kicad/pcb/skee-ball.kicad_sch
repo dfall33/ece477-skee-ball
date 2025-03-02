@@ -13272,7 +13272,7 @@
 				(hide yes)
 			)
 		)
-		(property "Datasheet" ""
+		(property "Datasheet" "https://engineering.purdue.edu/477grp1/Files/refs/d24v22f5.pdf"
 			(at 69.85 41.91 0)
 			(effects
 				(font
@@ -13281,7 +13281,7 @@
 				(hide yes)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "24V - 5V Regulator"
 			(at 69.85 41.91 0)
 			(effects
 				(font
@@ -14727,7 +14727,7 @@
 				(hide yes)
 			)
 		)
-		(property "Datasheet" "https://www.st.com/resource/en/datasheet/stm32f091rc.pdf"
+		(property "Datasheet" "https://engineering.purdue.edu/477grp1/Files/refs/stm32f091cc.pdf"
 			(at 361.95 181.61 0)
 			(effects
 				(font
@@ -15391,7 +15391,7 @@
 				(hide yes)
 			)
 		)
-		(property "Datasheet" ""
+		(property "Datasheet" "https://engineering.purdue.edu/477grp1/Files/refs/d24v22f6.pdf"
 			(at 69.85 62.23 0)
 			(effects
 				(font
@@ -15400,7 +15400,7 @@
 				(hide yes)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "24V - 6V Regulator"
 			(at 69.85 62.23 0)
 			(effects
 				(font
