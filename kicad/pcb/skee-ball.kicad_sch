@@ -5836,6 +5836,88 @@
 				)
 			)
 		)
+		(symbol "Mechanical:MountingHole"
+			(pin_names
+				(offset 1.016)
+			)
+			(exclude_from_sim yes)
+			(in_bom no)
+			(on_board yes)
+			(property "Reference" "H"
+				(at 0 5.08 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Value" "MountingHole"
+				(at 0 3.175 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Footprint" ""
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Datasheet" "~"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Description" "Mounting Hole without connection"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "ki_keywords" "mounting hole"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "ki_fp_filters" "MountingHole*"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(symbol "MountingHole_0_1"
+				(circle
+					(center 0 0)
+					(radius 1.27)
+					(stroke
+						(width 1.27)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+			)
+		)
 		(symbol "Regulator_Linear:LD1117S33TR_SOT223"
 			(exclude_from_sim no)
 			(in_bom yes)
@@ -6743,12 +6825,6 @@
 		(uuid "7ed0a6a4-f414-47fa-942a-3955e0a3c3bd")
 	)
 	(junction
-		(at 364.49 236.22)
-		(diameter 0)
-		(color 0 0 0 0)
-		(uuid "82c6bb7a-1921-4cae-918c-47e4ef067b17")
-	)
-	(junction
 		(at 242.57 71.12)
 		(diameter 0)
 		(color 0 0 0 0)
@@ -6783,12 +6859,6 @@
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "ca193ff3-678a-43f9-af5e-cf411cf1ff5e")
-	)
-	(junction
-		(at 356.87 236.22)
-		(diameter 0)
-		(color 0 0 0 0)
-		(uuid "d642ae08-a502-4535-b993-fb7bf88bc6f0")
 	)
 	(junction
 		(at 243.84 109.22)
@@ -7090,7 +7160,7 @@
 	)
 	(wire
 		(pts
-			(xy 356.87 232.41) (xy 356.87 236.22)
+			(xy 356.87 232.41) (xy 356.87 242.57)
 		)
 		(stroke
 			(width 0)
@@ -7477,16 +7547,6 @@
 			(type default)
 		)
 		(uuid "b266b131-3f79-4058-9250-f27b56e81fb7")
-	)
-	(wire
-		(pts
-			(xy 356.87 236.22) (xy 356.87 242.57)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "b338826a-6ebe-459e-bf98-31b130820f16")
 	)
 	(wire
 		(pts
@@ -8459,6 +8519,28 @@
 			)
 		)
 	)
+	(global_label "SPEAKER-"
+		(shape input)
+		(at 43.18 97.79 180)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right)
+		)
+		(uuid "28a84876-545f-418d-968b-7cfba599b6bf")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}"
+			(at 30.2163 97.79 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+				(hide yes)
+			)
+		)
+	)
 	(global_label "US_ECHO0_5"
 		(shape input)
 		(at 58.42 223.52 0)
@@ -8499,6 +8581,28 @@
 					(size 1.27 1.27)
 				)
 				(justify left)
+				(hide yes)
+			)
+		)
+	)
+	(global_label "SPEAKER+"
+		(shape input)
+		(at 43.18 95.25 180)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right)
+		)
+		(uuid "2c4ef6b8-7cec-4afd-a5fd-2b77d212180e")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}"
+			(at 30.2163 95.25 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
 				(hide yes)
 			)
 		)
@@ -9295,7 +9399,7 @@
 			)
 		)
 	)
-	(global_label "VDA"
+	(global_label "VDDA"
 		(shape input)
 		(at 194.31 250.19 0)
 		(fields_autoplaced yes)
@@ -9307,7 +9411,7 @@
 		)
 		(uuid "6938350b-8dda-4151-9aad-f142dd21ea2f")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 200.7424 250.19 0)
+			(at 202.0124 250.19 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -9383,7 +9487,7 @@
 			)
 		)
 	)
-	(global_label "VDA"
+	(global_label "VDDA"
 		(shape input)
 		(at 55.88 90.17 90)
 		(fields_autoplaced yes)
@@ -9395,7 +9499,7 @@
 		)
 		(uuid "7085d7c0-d92f-412e-b349-61061f87cc2a")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 55.88 83.7376 90)
+			(at 55.88 82.4676 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -10880,7 +10984,7 @@
 			)
 		)
 	)
-	(global_label "VDA"
+	(global_label "VDDA"
 		(shape input)
 		(at 223.52 163.83 90)
 		(fields_autoplaced yes)
@@ -10892,7 +10996,7 @@
 		)
 		(uuid "f76df577-33a5-4742-b77b-364104d73e8c")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 223.52 157.3976 90)
+			(at 223.52 156.1276 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -12178,7 +12282,7 @@
 				(justify right)
 			)
 		)
-		(property "Footprint" "LED_SMD:LED_0201_0603Metric"
+		(property "Footprint" "LED_SMD:LED_0805_2012Metric_Pad1.15x1.40mm_HandSolder"
 			(at 240.03 175.26 0)
 			(effects
 				(font
@@ -12806,7 +12910,7 @@
 				(justify right)
 			)
 		)
-		(property "Footprint" "LED_SMD:LED_0201_0603Metric"
+		(property "Footprint" "LED_SMD:LED_0805_2012Metric_Pad1.15x1.40mm_HandSolder"
 			(at 205.74 162.56 0)
 			(effects
 				(font
@@ -14652,7 +14756,7 @@
 				(justify right)
 			)
 		)
-		(property "Footprint" "LED_SMD:LED_0201_0603Metric"
+		(property "Footprint" "LED_SMD:LED_0805_2012Metric_Pad1.15x1.40mm_HandSolder"
 			(at 223.52 175.26 0)
 			(effects
 				(font
@@ -14722,7 +14826,7 @@
 				(justify right)
 			)
 		)
-		(property "Footprint" "LED_SMD:LED_0201_0603Metric"
+		(property "Footprint" "LED_SMD:LED_0805_2012Metric_Pad1.15x1.40mm_HandSolder"
 			(at 223.52 147.32 0)
 			(effects
 				(font
@@ -14897,6 +15001,70 @@
 		)
 	)
 	(symbol
+		(lib_id "Mechanical:MountingHole")
+		(at 326.39 50.8 0)
+		(unit 1)
+		(exclude_from_sim yes)
+		(in_bom no)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "5a5fd96e-bc61-4a64-8649-f60212158f20")
+		(property "Reference" "H3"
+			(at 328.93 49.5299 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "MountingHole"
+			(at 328.93 52.0699 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "MountingHole:MountingHole_3.2mm_M3"
+			(at 326.39 50.8 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 326.39 50.8 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Mounting Hole without connection"
+			(at 326.39 50.8 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(instances
+			(project "skee-ball"
+				(path "/547d9dcb-6f5f-42b4-90d7-bfc006b86b9a"
+					(reference "H3")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
 		(lib_id "power:+5V")
 		(at 281.94 147.32 90)
 		(unit 1)
@@ -14991,7 +15159,7 @@
 				(justify right)
 			)
 		)
-		(property "Footprint" "LED_SMD:LED_0201_0603Metric"
+		(property "Footprint" "LED_SMD:LED_0805_2012Metric_Pad1.15x1.40mm_HandSolder"
 			(at 162.56 162.56 0)
 			(effects
 				(font
@@ -16007,32 +16175,35 @@
 		)
 	)
 	(symbol
-		(lib_id "Device:R")
-		(at 360.68 236.22 90)
+		(lib_id "Mechanical:MountingHole")
+		(at 326.39 41.91 0)
 		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
+		(exclude_from_sim yes)
+		(in_bom no)
 		(on_board yes)
 		(dnp no)
-		(uuid "72fdff1f-ca08-42fa-bee8-e0de86efcb4d")
-		(property "Reference" "R12"
-			(at 360.426 239.522 90)
+		(fields_autoplaced yes)
+		(uuid "77f82960-0b41-441c-8cce-9995f676fe3e")
+		(property "Reference" "H1"
+			(at 328.93 40.6399 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
+				(justify left)
 			)
 		)
-		(property "Value" "0"
-			(at 360.426 242.062 90)
+		(property "Value" "MountingHole"
+			(at 328.93 43.1799 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
+				(justify left)
 			)
 		)
-		(property "Footprint" "Resistor_SMD:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder"
-			(at 360.68 237.998 90)
+		(property "Footprint" "MountingHole:MountingHole_3.2mm_M3"
+			(at 326.39 41.91 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -16041,7 +16212,7 @@
 			)
 		)
 		(property "Datasheet" "~"
-			(at 360.68 236.22 0)
+			(at 326.39 41.91 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -16049,25 +16220,19 @@
 				(hide yes)
 			)
 		)
-		(property "Description" "Resistor"
-			(at 360.68 236.22 0)
+		(property "Description" "Mounting Hole without connection"
+			(at 326.39 41.91 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
 				(hide yes)
 			)
-		)
-		(pin "1"
-			(uuid "dc9652bc-4946-4bb3-96b9-590ec2f158f9")
-		)
-		(pin "2"
-			(uuid "de2100e6-a3e9-493a-b554-0c986b1374c1")
 		)
 		(instances
 			(project ""
 				(path "/547d9dcb-6f5f-42b4-90d7-bfc006b86b9a"
-					(reference "R12")
+					(reference "H1")
 					(unit 1)
 				)
 			)
@@ -17110,6 +17275,70 @@
 		)
 	)
 	(symbol
+		(lib_id "Mechanical:MountingHole")
+		(at 345.44 40.64 0)
+		(unit 1)
+		(exclude_from_sim yes)
+		(in_bom no)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "900125e2-e07d-41e5-8353-64ea3e8b5f18")
+		(property "Reference" "H4"
+			(at 347.98 39.3699 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "MountingHole"
+			(at 347.98 41.9099 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "MountingHole:MountingHole_3.2mm_M3"
+			(at 345.44 40.64 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 345.44 40.64 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Mounting Hole without connection"
+			(at 345.44 40.64 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(instances
+			(project "skee-ball"
+				(path "/547d9dcb-6f5f-42b4-90d7-bfc006b86b9a"
+					(reference "H4")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
 		(lib_id "Device:FerriteBead")
 		(at 279.4 60.96 90)
 		(unit 1)
@@ -17720,7 +17949,7 @@
 				(justify right)
 			)
 		)
-		(property "Footprint" "LED_SMD:LED_0201_0603Metric"
+		(property "Footprint" "LED_SMD:LED_0805_2012Metric_Pad1.15x1.40mm_HandSolder"
 			(at 195.58 162.56 0)
 			(effects
 				(font
@@ -19932,7 +20161,7 @@
 				(justify right)
 			)
 		)
-		(property "Footprint" "LED_SMD:LED_0201_0603Metric"
+		(property "Footprint" "LED_SMD:LED_0805_2012Metric_Pad1.15x1.40mm_HandSolder"
 			(at 173.99 162.56 0)
 			(effects
 				(font
@@ -20103,6 +20332,70 @@
 			(project ""
 				(path "/547d9dcb-6f5f-42b4-90d7-bfc006b86b9a"
 					(reference "#PWR067")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Mechanical:MountingHole")
+		(at 345.44 52.07 0)
+		(unit 1)
+		(exclude_from_sim yes)
+		(in_bom no)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "e012ee11-9037-495d-ae7f-5fcc5529993b")
+		(property "Reference" "H2"
+			(at 347.98 50.7999 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "MountingHole"
+			(at 347.98 53.3399 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "MountingHole:MountingHole_3.2mm_M3"
+			(at 345.44 52.07 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 345.44 52.07 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Mounting Hole without connection"
+			(at 345.44 52.07 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(instances
+			(project "skee-ball"
+				(path "/547d9dcb-6f5f-42b4-90d7-bfc006b86b9a"
+					(reference "H2")
 					(unit 1)
 				)
 			)
@@ -20346,7 +20639,7 @@
 				(justify right)
 			)
 		)
-		(property "Footprint" "LED_SMD:LED_0201_0603Metric"
+		(property "Footprint" "LED_SMD:LED_0805_2012Metric_Pad1.15x1.40mm_HandSolder"
 			(at 185.42 162.56 0)
 			(effects
 				(font
@@ -20453,73 +20746,6 @@
 			(project ""
 				(path "/547d9dcb-6f5f-42b4-90d7-bfc006b86b9a"
 					(reference "C1")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "Connector_Generic:Conn_01x02")
-		(at 38.1 97.79 180)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(uuid "e67994b0-27b5-497c-954d-51586d882cf2")
-		(property "Reference" "J1"
-			(at 33.782 97.79 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Value" "SPEAKER"
-			(at 31.496 95.25 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Footprint" "Connector_PinHeader_2.54mm:PinHeader_1x02_P2.54mm_Vertical"
-			(at 38.1 97.79 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" "~"
-			(at 38.1 97.79 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Description" "Generic connector, single row, 01x02, script generated (kicad-library-utils/schlib/autogen/connector/)"
-			(at 38.1 97.79 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(pin "1"
-			(uuid "0f319460-de24-4bd2-bbd1-9f3546b35fa0")
-		)
-		(pin "2"
-			(uuid "345aec61-3eec-4148-bbd7-1232660a7238")
-		)
-		(instances
-			(project ""
-				(path "/547d9dcb-6f5f-42b4-90d7-bfc006b86b9a"
-					(reference "J1")
 					(unit 1)
 				)
 			)
@@ -21152,7 +21378,7 @@
 				(justify right)
 			)
 		)
-		(property "Footprint" "LED_SMD:LED_0201_0603Metric"
+		(property "Footprint" "LED_SMD:LED_0805_2012Metric_Pad1.15x1.40mm_HandSolder"
 			(at 240.03 147.32 0)
 			(effects
 				(font
