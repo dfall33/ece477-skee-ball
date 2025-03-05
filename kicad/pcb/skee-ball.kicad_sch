@@ -11314,7 +11314,7 @@
 				(hide yes)
 			)
 		)
-		(property "Datasheet" "http://www.st.com/st-web-ui/static/active/en/resource/technical/document/datasheet/CD00000544.pdf"
+		(property "Datasheet" "https://engineering.purdue.edu/477grp1/Files/refs/ld1117.pdf"
 			(at 120.65 44.45 0)
 			(effects
 				(font
@@ -12061,7 +12061,7 @@
 				(hide yes)
 			)
 		)
-		(property "Datasheet" "https://www.analog.com/media/en/technical-documentation/data-sheets/MAX98357A-MAX98357B.pdf"
+		(property "Datasheet" "https://engineering.purdue.edu/477grp1/Files/refs/max98357.pdf"
 			(at 55.88 105.41 0)
 			(effects
 				(font
@@ -12175,7 +12175,7 @@
 				(hide yes)
 			)
 		)
-		(property "Datasheet" ""
+		(property "Datasheet" "https://engineering.purdue.edu/477grp1/Files/refs/bob12009.pdf"
 			(at 90.17 231.14 0)
 			(effects
 				(font
@@ -12545,7 +12545,7 @@
 				(hide yes)
 			)
 		)
-		(property "Datasheet" "~"
+		(property "Datasheet" "https://engineering.purdue.edu/477grp1/Files/refs/3339P-1-103.pdf"
 			(at 121.92 105.41 0)
 			(effects
 				(font
@@ -13171,7 +13171,7 @@
 				(hide yes)
 			)
 		)
-		(property "Datasheet" ""
+		(property "Datasheet" "https://engineering.purdue.edu/477grp1/Files/refs/d24v22f5.pdf"
 			(at 69.85 41.91 0)
 			(effects
 				(font
@@ -13343,7 +13343,7 @@
 				(hide yes)
 			)
 		)
-		(property "Datasheet" ""
+		(property "Datasheet" "https://engineering.purdue.edu/477grp1/Files/refs/bob12009.pdf"
 			(at 121.92 204.47 0)
 			(effects
 				(font
@@ -14560,7 +14560,7 @@
 				(hide yes)
 			)
 		)
-		(property "Datasheet" "https://www.st.com/resource/en/datasheet/stm32f091rc.pdf"
+		(property "Datasheet" "https://engineering.purdue.edu/477grp1/Files/refs/stm32f091cc.pdf"
 			(at 358.14 132.08 0)
 			(effects
 				(font
@@ -15288,7 +15288,7 @@
 				(hide yes)
 			)
 		)
-		(property "Datasheet" ""
+		(property "Datasheet" "https://engineering.purdue.edu/477grp1/Files/refs/d24v22f6.pdf"
 			(at 69.85 62.23 0)
 			(effects
 				(font
@@ -17083,7 +17083,7 @@
 				(hide yes)
 			)
 		)
-		(property "Datasheet" "http://www.ti.com/lit/gpn/sn74LS08"
+		(property "Datasheet" "https://engineering.purdue.edu/477grp1/Files/refs/sn74hc08.pdf"
 			(at 213.36 36.83 0)
 			(effects
 				(font
@@ -17256,7 +17256,7 @@
 				(hide yes)
 			)
 		)
-		(property "Datasheet" "http://www.ti.com/lit/gpn/sn74LS08"
+		(property "Datasheet" "https://engineering.purdue.edu/477grp1/Files/refs/sn74hc08.pdf"
 			(at 204.47 59.69 0)
 			(effects
 				(font
@@ -17760,7 +17760,7 @@
 				(hide yes)
 			)
 		)
-		(property "Datasheet" "~"
+		(property "Datasheet" "~https://engineering.purdue.edu/477grp1/Files/refs/barrel_jack.pdf"
 			(at 31.75 44.196 0)
 			(effects
 				(font
@@ -17896,7 +17896,7 @@
 				(hide yes)
 			)
 		)
-		(property "Datasheet" "http://www.ti.com/lit/ds/symlink/sn74hc595.pdf"
+		(property "Datasheet" "https://engineering.purdue.edu/477grp1/Files/refs/sn74hc595.pdf"
 			(at 110.49 156.21 0)
 			(effects
 				(font
@@ -18415,7 +18415,7 @@
 				(hide yes)
 			)
 		)
-		(property "Datasheet" "http://www.ti.com/lit/ds/symlink/sn74hc595.pdf"
+		(property "Datasheet" "https://engineering.purdue.edu/477grp1/Files/refs/sn74hc595.pdf"
 			(at 48.26 156.21 0)
 			(effects
 				(font
@@ -18591,7 +18591,7 @@
 				(hide yes)
 			)
 		)
-		(property "Datasheet" "http://www.ti.com/lit/gpn/sn74LS08"
+		(property "Datasheet" "https://engineering.purdue.edu/477grp1/Files/refs/sn74hc08.pdf"
 			(at 173.99 68.58 0)
 			(effects
 				(font
@@ -18960,7 +18960,7 @@
 				(hide yes)
 			)
 		)
-		(property "Datasheet" "http://www.ti.com/lit/gpn/sn74LS08"
+		(property "Datasheet" "https://engineering.purdue.edu/477grp1/Files/refs/sn74hc08.pdf"
 			(at 173.99 36.83 0)
 			(effects
 				(font
@@ -19199,7 +19199,7 @@
 				(hide yes)
 			)
 		)
-		(property "Datasheet" ""
+		(property "Datasheet" "https://engineering.purdue.edu/477grp1/Files/refs/bob12009.pdf"
 			(at 52.07 213.36 0)
 			(effects
 				(font
@@ -20113,7 +20113,7 @@
 				(hide yes)
 			)
 		)
-		(property "Datasheet" "http://www.ti.com/lit/gpn/sn74LS08"
+		(property "Datasheet" "https://engineering.purdue.edu/477grp1/Files/refs/sn74hc08.pdf"
 			(at 173.99 52.07 0)
 			(effects
 				(font
