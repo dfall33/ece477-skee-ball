@@ -7,6 +7,13 @@
 		(legacy_teardrops no)
 	)
 	(paper "A4")
+	(title_block
+		(title "Electronic Skee Ball")
+		(date "03/05/2025")
+		(rev "2")
+		(company "Purdue University")
+		(comment 1 "Created by Andrew Cali, David Fall, Jennifer Ferguson, and Madeline Flanagan for ECE 47700 Digital Systems Senior Design, Spring 2025.")
+	)
 	(layers
 		(0 "F.Cu" signal)
 		(31 "B.Cu" signal)
@@ -20263,6 +20270,19 @@
 		(fill none)
 		(layer "Edge.Cuts")
 		(uuid "77bbd4e5-9bbf-46bc-951d-c33e4cd976e1")
+	)
+	(gr_text "Revision #2"
+		(at 108.43 115.56 0)
+		(layer "B.SilkS")
+		(uuid "0cbb8e36-2a15-4d67-bbda-372444f2c91b")
+		(effects
+			(font
+				(size 1.5 1.5)
+				(thickness 0.3)
+				(bold yes)
+			)
+			(justify left bottom mirror)
+		)
 	)
 	(gr_text "ECE 47700 Team #1\nElectronic Skee Ball\nSpring 2025"
 		(at 108.204 111.76 0)
