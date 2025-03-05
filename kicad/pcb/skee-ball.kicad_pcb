@@ -20335,6 +20335,19 @@
 			(justify left bottom)
 		)
 	)
+	(gr_text "GND"
+		(at 160.97 106.1 0)
+		(layer "F.SilkS")
+		(uuid "1d5d4e67-6234-4099-8f00-939b9a85440d")
+		(effects
+			(font
+				(size 1.5 1.5)
+				(thickness 0.3)
+				(bold yes)
+			)
+			(justify left bottom)
+		)
+	)
 	(gr_text "VDDA"
 		(at 109.728 102.616 0)
 		(layer "F.SilkS")
@@ -20540,6 +20553,19 @@
 		)
 	)
 	(gr_text "GND"
+		(at 66.95 106 0)
+		(layer "F.SilkS")
+		(uuid "770dd0e1-0d75-4a30-902e-315fdd3a9512")
+		(effects
+			(font
+				(size 1.5 1.5)
+				(thickness 0.3)
+				(bold yes)
+			)
+			(justify left bottom)
+		)
+	)
+	(gr_text "GND"
 		(at 117.348 50.292 0)
 		(layer "F.SilkS")
 		(uuid "78b2f0e5-0e57-42e7-8054-f47b136cf100")
@@ -20607,6 +20633,19 @@
 			(font
 				(size 0.5 0.5)
 				(thickness 0.125)
+			)
+			(justify left bottom)
+		)
+	)
+	(gr_text "GND"
+		(at 145.66 30.72 0)
+		(layer "F.SilkS")
+		(uuid "7f1c2eac-c106-4c2a-afdd-00151b3b198d")
+		(effects
+			(font
+				(size 1.5 1.5)
+				(thickness 0.3)
+				(bold yes)
 			)
 			(justify left bottom)
 		)
@@ -20727,6 +20766,19 @@
 			(font
 				(size 1 1)
 				(thickness 0.1875)
+			)
+			(justify left bottom)
+		)
+	)
+	(gr_text "GND"
+		(at 81.58 30.72 0)
+		(layer "F.SilkS")
+		(uuid "a4d22077-41f2-4d2b-b5f1-9d62a4cb90ed")
+		(effects
+			(font
+				(size 1.5 1.5)
+				(thickness 0.3)
+				(bold yes)
 			)
 			(justify left bottom)
 		)
@@ -22058,6 +22110,24 @@
 		(uuid "72d335cd-72f7-445e-b3fe-fc4b8af85e09")
 	)
 	(via
+		(at 150.98 28.82)
+		(size 1)
+		(drill 0.7)
+		(layers "F.Cu" "B.Cu")
+		(free yes)
+		(net 3)
+		(uuid "77f71854-adb9-41c3-abcd-3ee8387ab955")
+	)
+	(via
+		(at 72.27 105.02)
+		(size 1)
+		(drill 0.7)
+		(layers "F.Cu" "B.Cu")
+		(free yes)
+		(net 3)
+		(uuid "78ddf12e-a3e6-478e-96a9-79ee3c7101ab")
+	)
+	(via
 		(at 139.7 79.502)
 		(size 0.6)
 		(drill 0.3)
@@ -22074,12 +22144,30 @@
 		(uuid "7d7e33e9-e0f4-4829-b49b-33e30d621cf7")
 	)
 	(via
+		(at 86.9 28.82)
+		(size 1)
+		(drill 0.7)
+		(layers "F.Cu" "B.Cu")
+		(free yes)
+		(net 3)
+		(uuid "8685940f-4ff9-4abd-a7dc-4db97f45a977")
+	)
+	(via
 		(at 95.04 79.24)
 		(size 0.6)
 		(drill 0.3)
 		(layers "F.Cu" "B.Cu")
 		(net 3)
 		(uuid "9c3508b2-2574-4282-a59f-0b74074823c8")
+	)
+	(via
+		(at 166.29 105.12)
+		(size 1)
+		(drill 0.7)
+		(layers "F.Cu" "B.Cu")
+		(free yes)
+		(net 3)
+		(uuid "bf4b484e-c317-4a87-b576-a24b145d768c")
 	)
 	(via
 		(at 138.38 98.39)
