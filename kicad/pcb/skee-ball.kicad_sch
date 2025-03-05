@@ -6810,6 +6810,12 @@
 		(uuid "5ad2c4b8-bc90-4998-bfb1-124613d3ad0f")
 	)
 	(junction
+		(at 358.14 182.88)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "6b52a52a-f5ec-4d6a-9344-d5a44e8c0d4c")
+	)
+	(junction
 		(at 242.57 38.1)
 		(diameter 0)
 		(color 0 0 0 0)
@@ -7140,16 +7146,6 @@
 			(type default)
 		)
 		(uuid "18fb3271-f038-42e9-80a9-1080ddb6022f")
-	)
-	(wire
-		(pts
-			(xy 360.68 180.34) (xy 360.68 186.69)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "1914aa7f-bf03-4561-9654-b41bcb3e15a1")
 	)
 	(wire
 		(pts
@@ -7593,6 +7589,16 @@
 	)
 	(wire
 		(pts
+			(xy 360.68 180.34) (xy 360.68 182.88)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "c7d25e6e-08cb-472f-ba1c-dfff9bf27943")
+	)
+	(wire
+		(pts
 			(xy 248.92 36.83) (xy 248.92 38.1)
 		)
 		(stroke
@@ -7600,6 +7606,16 @@
 			(type default)
 		)
 		(uuid "d218fc78-e3ac-4213-9c4f-0c804dbea32b")
+	)
+	(wire
+		(pts
+			(xy 360.68 182.88) (xy 358.14 182.88)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "d4559da3-ec4e-4987-8a6d-2cbd4fdbc413")
 	)
 	(wire
 		(pts
@@ -18787,73 +18803,6 @@
 			(project "skee-ball"
 				(path "/547d9dcb-6f5f-42b4-90d7-bfc006b86b9a"
 					(reference "#PWR069")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "power:PWR_FLAG")
-		(at 360.68 186.69 270)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(fields_autoplaced yes)
-		(uuid "abc3249a-42c0-4e23-b4af-73706d83d751")
-		(property "Reference" "#FLG05"
-			(at 362.585 186.69 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Value" "PWR_FLAG"
-			(at 364.49 186.6899 90)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(property "Footprint" ""
-			(at 360.68 186.69 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" "~"
-			(at 360.68 186.69 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Description" "Special symbol for telling ERC where power comes from"
-			(at 360.68 186.69 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(pin "1"
-			(uuid "a1d47ede-dc78-472d-8b8c-087b47cb82a6")
-		)
-		(instances
-			(project ""
-				(path "/547d9dcb-6f5f-42b4-90d7-bfc006b86b9a"
-					(reference "#FLG05")
 					(unit 1)
 				)
 			)
