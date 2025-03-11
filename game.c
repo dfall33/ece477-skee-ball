@@ -1,26 +1,65 @@
 #include "game.h"
 
+volatile int score = 0;
+volatile int remaining_attempts = MAX_ATTEMPTS;
+
 void game_idle()
 {
     // enable interrupts for joystick and button
-    // disable interrupts for ball detection
+    enable_button_interrupt();
+
+    // reset the score in between sessions
+    score = 0;
+
+    // reset the number of attempts between sessions
+    remaining_attempts = MAX_ATTEMPTS;
 }
 
 void game_active()
 {
     // enable interrupts for joystick and button
-    // disable interrupts for ball detection
+    enable_button_interrupt();
 }
 
 void game_button_press()
 {
-    // leave only the button release interrupt enabled
+
+    /* ----- Leave only the button press interrupt enabled ----- */
+    uint8_t press_level = get_press_duration(); // get the press duration from the button module (**BLOCKING**)
+
+    // power the motor to launch the ball
+    // power_motor(press_duration); // motor is not yet implemented
+
+    // be done with the button for now
+    disable_button_interrupt();
+
+    // ball has been launched, so transition to the ball detection state
+    game_ball_detection();
 }
 
 void game_ball_detection()
 {
-    // enable interrupts for tim14 / search timeout and ball detection
-    // disable the others
+
+    // **BLOCKING** function that searches for the ball
+    int sensor_index = search_hcsr04(1); // enables the necessary interrupts at the beginning and disables them at the end
+    if (sensor_index != BALL_NOT_FOUND)  // -1 = not found, otherwise, gives index of the sensor that found the ball
+    {
+        score += SENSOR_SCORES[sensor_index]; // increment the score based on the sensor that found the ball
+        // play_sound() // not yet implemented, Jen will do this
+        // display_score(score); // update the score on the 4-line display, David will implement this
+    }
+
+    remaining_attempts--; // doing all this used one attempt, so decrement the number of attempts
+
+    // transition to the next state, depending on how many attempts remain
+    if (remaining_attempts == 0) // no more attempts, so go back to idle state
+    {
+        game_idle();
+    }
+    else // more attempts remain, so go back to active state
+    {
+        game_active();
+    }
 }
 
 void game()

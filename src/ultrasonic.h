@@ -7,6 +7,7 @@
 #define HCSR04_PULSE_TIMEOUT_US 30000
 #define HCSR04_SEARCH_TIMEOUT_US 10000000
 #define HCSR04_GAP_TIME_US 250
+#define BALL_NOT_FOUND -1
 
 /* ---- Function Prototypes ----- */
 int read_hcsr04(int index);

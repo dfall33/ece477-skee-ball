@@ -148,5 +148,5 @@ int search_hcsr04(int stability_count)
     }
 
     stop_hcsr04_search_timer();
-    return -1;
+    return BALL_NOT_FOUND;
 }

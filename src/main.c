@@ -92,6 +92,10 @@ void init_gpio()
     GPIOC->MODER |= GPIO_MODER_MODER10_0; // Output mode
 }
 
+/**
+ * @brief Initializes external interrupt to be triggered from button press or release (for ball launching with DC motor)
+ *
+ */
 void init_exti()
 {
     // enable SYSCFG clock
@@ -109,24 +113,39 @@ void init_exti()
     EXTI->IMR |= EXTI_IMR_MR0;
 
     // don't enable the interrupt until the game has started / button can be pressed
-    NVIC_EnableIRQ(EXTI0_1_IRQn);
+    // NVIC_EnableIRQ(EXTI0_1_IRQn);
 }
 
 /* ----- External Interrupt Handler for PC ----- */
+
+/**
+ * @brief External interrupt handler for PC0 (push button)
+ *
+ */
 void EXTI0_1_IRQHandler(void)
 {
-    EXTI->PR |= EXTI_PR_PR0;
+
+    EXTI->PR |= EXTI_PR_PR0; // acknowledge the interrupt
+
+    // if the input data register is high, then the button is pressed and being held down,
+    // so start the button press timer (will time out after BUTTON_MAX_PRESS_US, defined in src/button.h)
     if (GPIOC->IDR & GPIO_IDR_0)
     {
         start_button_press();
     }
+
+    // if the input data register is low, then the button has been released
+    // so stop the button press timer and do whatever is necessary
     else
     {
         stop_button_press();
     }
 }
 
-/* ----- This timer is used for timing out individual ultrasonic sensor readings ----- */
+/**
+ * @brief This timer is used for timing out individual ultrasonic sensor readings
+ *
+ */
 void setup_tim14()
 {
 
@@ -160,6 +179,12 @@ void setup_tim15()
     NVIC_EnableIRQ(TIM15_IRQn);
 }
 
+/**
+ * @brief TIM3 is used for timing how long the button is pressed. The prescaler is set such that
+ * the timer counter represents the time pressed in microseconds. The timer has an interrupt so that the button can be constrained to a
+ * maximum press time (defined in src/button.h)
+ *
+ */
 void setup_tim3()
 {
     RCC->APB1ENR |= RCC_APB1ENR_TIM3EN;
@@ -172,18 +197,31 @@ void setup_tim3()
     // don't enable the timer until we are ready to accept button presses (depends on game state)
 }
 
+/**
+ * @brief This is the interrupt handler for TIM3. This is invoked if the user holds down the button longer than the
+ * maximum press duration
+ *
+ */
 void TIM3_IRQHandler(void)
 {
-    TIM3->SR &= ~TIM_SR_UIF;
-    time_out_button();
+    TIM3->SR &= ~TIM_SR_UIF; // acknowledge the interrupt
+    time_out_button();       // time out the button (disables the timer and forces the motor to launch the ball)
 }
 
+/**
+ * @brief This is the interrupt handler for TIM14. This is invoked if the ultrasonic sensor pulse times out
+ *
+ */
 void TIM14_IRQHandler(void)
 {
     TIM14->SR &= ~TIM_SR_UIF;
     time_out_pulse();
 }
 
+/**
+ * @brief This is the interrupt handler for TIM15. This is invoked if the ultrasonic sensor search times out (ball not detected within a certain window)
+ *
+ */
 void TIM15_IRQHandler(void)
 {
     TIM15->SR &= ~TIM_SR_UIF;

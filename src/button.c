@@ -48,14 +48,24 @@ void stop_button_timer()
     TIM3->DIER &= ~TIM_DIER_UIE;
 }
 
+void disable_button_interrupt()
+{
+    // disable the external interrupt associated with the button
+    // EXTI->IMR &= ~EXTI_IMR_IM0;
+    NVIC_DisableIRQ(EXTI0_1_IRQn);
+}
+
+void enable_button_interrupt()
+{
+    // enable the external interrupt associated with the button
+    // EXTI->IMR |= EXTI_IMR_IM0;
+    NVIC_EnableIRQ(EXTI0_1_IRQn);
+}
+
 int get_press_duration()
 {
 
-    // if (!button_pressed)
-    // {
-    //     return 0;
-    // }
-
+    // wait for the button to be released, or for the press to time out (max press duration exceeded)
     while (!button_released && !button_timed_out)
         ;
 
@@ -65,7 +75,8 @@ int get_press_duration()
         button_pressed = 0;
         button_timed_out = 0;
 
-        // return 5;
+        // scale the timer counter to an integer between 1 and 10
+        // (interpoliation of press duration 0us <= t <= BUTTON_MAX_PRESS_US to digital value 1 <= x <= 10)
         return (10 * TIM3->CNT) / BUTTON_MAX_PRESS_US;
     }
     else
@@ -73,6 +84,6 @@ int get_press_duration()
         button_timed_out = 0;
         button_pressed = 0;
         button_released = 0;
-        return -1;
+        return 10;
     }
 }
