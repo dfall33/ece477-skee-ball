@@ -3,4 +3,4 @@ kicad/*/#*
 kicad/*/~*
 kicad/*/_*
 kicad/*/*-backups/
-
+*.wav

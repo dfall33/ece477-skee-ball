@@ -143,7 +143,7 @@ void read_pcm_data(uint16_t *buffer, uint32_t offset, uint32_t length)
         samples_read++;
     }
 }
-int main_I2S(void)
+int play_sound(void)
 {
     // initialize spi2
     init_spi2();

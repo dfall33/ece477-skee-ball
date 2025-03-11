@@ -45,7 +45,7 @@ void game_ball_detection()
     if (sensor_index != BALL_NOT_FOUND)  // -1 = not found, otherwise, gives index of the sensor that found the ball
     {
         score += SENSOR_SCORES[sensor_index]; // increment the score based on the sensor that found the ball
-        // play_sound() // not yet implemented, Jen will do this
+        play_sound();                         // not yet implemented, Jen will do this
         // display_score(score); // update the score on the 4-line display, David will implement this
     }
 
