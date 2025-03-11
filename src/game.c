@@ -13,6 +13,10 @@ void game_idle()
 
     // reset the number of attempts between sessions
     remaining_attempts = MAX_ATTEMPTS;
+
+    spi_write_str(
+        "Press to play",
+        0);
 }
 
 void game_active()
