@@ -18,12 +18,8 @@ void micro_wait(int);
 void init_exti();
 void init_gpio();
 
-void spi1_init_oled();
-void spi1_display1(const char *);
-void spi1_display2(const char *);
-void spi_cmd(unsigned int);
-void spi_clear();
-void spi_data(unsigned int);
+void init_all();
+
 void init_spi1();
 
 void setup_tim3();
@@ -238,135 +234,31 @@ void init_spi1()
     SPI1->CR1 |= SPI_CR1_SPE;
 }
 
-void spi_cmd(unsigned int data)
+void init_all()
 {
-    // wait until spi1 TX is empty
-    while ((SPI1->SR & SPI_SR_TXE) == 0)
-        ;
 
-    // copy data to spi1 data register
-    SPI1->DR = data;
-}
-void spi_data(unsigned int data)
-{
-    // call spi_cmd with (data | 0x200)
-    unsigned int val = data | 0x200;
-    spi_cmd(val);
-}
-void spi1_init_oled()
-{
-    int millisecond = 1000000;
-    // wait 1ms with nano_wait
-    nano_wait(millisecond);
-
-    // call spi_cmd with 0x38 to do a function set
-    spi_cmd(0x38);
-
-    // call spi_cmd with 0x08 to turn off the display
-    spi_cmd(0x08);
-
-    // call spi_cmd with 0x01 to clear the display
-    spi_cmd(0x01);
-
-    // wait 2ms using nano_wait
-    nano_wait(2 * millisecond);
-
-    // call spi_cmd with 0x06 to set the entry mode
-    spi_cmd(0x06);
-
-    // call spi_cmd with 0x02 to move the cursor to the home position
-    spi_cmd(0x02);
-
-    // call spi_cmd with 0x0c to turn on the display
-    spi_cmd(0x0c);
-}
-void spi1_display1(const char *string)
-{
-    // move the cursor to the home position
-    spi_cmd(0x02);
-
-    // for each character in the string
-    // call spi_data with the character
-
-    // iterate over the string using string++
-    while (*string != '\0')
-    {
-        spi_data(*string);
-        string++;
-    }
-}
-
-void spi_clear()
-{
-    // move the cursor to the home position
-    spi_cmd(0x02);
-
-    // iterate over the string using string++
-    for (int i = 0; i < 16; i++)
-    {
-        spi_data(' ');
-    }
-
-    // clear the second row
-    spi_cmd(0xc0);
-    for (int i = 0; i < 16; i++)
-    {
-        spi_data(' ');
-    }
-}
-
-void spi1_display2(const char *string)
-{
-    // move the cursor to the second row
-    spi_cmd(0xc0);
-
-    // for each character in the string
-    // call spi_data with the character
-
-    // iterate until null terminator
-    while (*string != '\0')
-    {
-        spi_data(*string);
-        string++;
-    }
-}
-
-int main(void)
-{
     internal_clock();
     init_gpio();
     setup_tim3();
     setup_tim14();
+    setup_tim15();
     init_spi1();
     spi1_init_oled();
     init_exti();
-
     init_display();
-    spi_write_str("Line 1, abc", 0);
-    spi_write_str("Line 2, def", 1);
-    spi_write_str("Line 3, ghi", 2);
-    spi_write_str("Line 4, jkl", 3);
+}
+
+int main(void)
+{
+    // internal_clock();
+    // init_gpio();
+    // setup_tim3();
+    // setup_tim14();
+    // init_spi1();
+    // spi1_init_oled();
+    // init_exti();
+    // init_display();
+    init_all();
 
     return 0;
-
-    uint16_t flash_val = 0x0200;
-    load_shift_registers(0x0000);
-    micro_wait(1000000);
-    load_shift_registers(flash_val);
-    micro_wait(1000000);
-
-    load_shift_registers(0x0000);
-    micro_wait(1000000);
-    load_shift_registers(flash_val);
-    micro_wait(1000000);
-
-    load_shift_registers(0x0000);
-    micro_wait(1000000);
-    load_shift_registers(flash_val);
-    micro_wait(1000000);
-
-    load_shift_registers(0x0000);
-    micro_wait(1000000);
-    load_shift_registers(flash_val);
-    micro_wait(1000000);
 }
