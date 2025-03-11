@@ -7,6 +7,7 @@
 #include "I2S_STM32.h"
 #include "nhd_0440az.h"
 #include "ultrasonic.h"
+#include <stdio.h>
 
 /* ----- Game Constants ----- */
 #define MAX_ATTEMPTS 3

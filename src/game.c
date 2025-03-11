@@ -3,6 +3,10 @@
 volatile int score = 0;
 volatile int remaining_attempts = MAX_ATTEMPTS;
 
+char score_str[20];    // string to hold the score for display
+char success_str[20];  // string to hold the success message for display
+char attempts_str[20]; // string to hold the attempts left for display
+
 void game_idle()
 {
     // enable interrupts for joystick and button
@@ -17,12 +21,18 @@ void game_idle()
     spi_write_str(
         "Press to play",
         0);
+
+    snprintf(attempts_str, sizeof(attempts_str), "Attempts: %d", remaining_attempts); // format the score string for display
+    spi_write_str(attempts_str, 2);                                                   // display the score on the top line of the display
 }
 
 void game_active()
 {
     // enable interrupts for joystick and button
     enable_button_interrupt();
+
+    snprintf(score_str, sizeof(score_str), "Score: %d", score); // format the score string for display
+    spi_write_str(score_str, 0);                                // display the score on the top line of the display
 }
 
 void game_button_press()
@@ -48,12 +58,19 @@ void game_ball_detection()
     int sensor_index = search_hcsr04(1); // enables the necessary interrupts at the beginning and disables them at the end
     if (sensor_index != BALL_NOT_FOUND)  // -1 = not found, otherwise, gives index of the sensor that found the ball
     {
-        score += SENSOR_SCORES[sensor_index]; // increment the score based on the sensor that found the ball
-        play_sound();                         // not yet implemented, Jen will do this
+        int additional_score = SENSOR_SCORES[sensor_index]; // get the score for the sensor that found the ball
+        score += additional_score;                          // increment the score based on the sensor that found the ball
+        play_sound();                                       // not yet implemented, Jen will do this
         // display_score(score); // update the score on the 4-line display, David will implement this
+
+        snprintf(success_str, sizeof(success_str), "+%d points!", score); // format the score string for display
+        spi_write_str(success_str, 1);                                    // display the score on the top line of the display
     }
 
     remaining_attempts--; // doing all this used one attempt, so decrement the number of attempts
+
+    snprintf(attempts_str, sizeof(attempts_str), "Attempts: %d", remaining_attempts); // format the score string for display
+    spi_write_str(attempts_str, 2);                                                   // display the score on the top line of the display
 
     // transition to the next state, depending on how many attempts remain
     if (remaining_attempts == 0) // no more attempts, so go back to idle state
