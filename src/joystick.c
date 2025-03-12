@@ -1,19 +1,34 @@
 #include "stm32f0xx.h"
 #include <stdio.h>
+#include "joystick.h"
 
 // Servo Parameters
 #define SERVO_MIN_PULSE  500   // 500us
 #define SERVO_MAX_PULSE  2500  // 2500us
-#define PWM_PERIOD       3325  // Corresponding to 50Hz (20ms) with 48MHz clock
 
 volatile int degrees = 45;
 volatile int adc = 0;
-void setup_adc(void);
-void setup_tim16(void);
-void init_tim2(void);
-void move_to_angle(int angle);
-int read_joystick(void);
-int map_adc_to_degrees(int adc_val);
+
+void disable_joystick_interrupt(void)
+{
+    NVIC_DisableIRQ(EXTI0_1_IRQn);
+}
+
+void enable_joystick_interrupt(void)
+{
+    NVIC_EnableIRQ(EXTI0_1_IRQn);
+}
+
+void setup_joystick_exti(void)
+{
+    RCC->APB2ENR |= RCC_APB2ENR_SYSCFGEN;
+    EXTI->IMR |= EXTI_IMR_MR1; 
+}
+
+void EXTI0_1_IRQHandler(void)
+{
+    EXTI->PR |= EXTI_PR_PR1;
+}
 
 //Setup ADC for Joystick Input (PA1)
 void setup_adc(void) {
@@ -91,14 +106,19 @@ void TIM2_IRQHandler() {
     
     int adc_val = ADC1->DR;
     adc = adc_val;
-    int inc_degrees = map_adc_to_degrees(adc_val);
     
+    if(adc_val > 2000 | adc_val < 1900) //SW TRIGGER
+    {
+        EXTI->SWIER |= EXTI_SWIER_TR1;
+    }
+
+    int inc_degrees = map_adc_to_degrees(adc_val);
     if ((degrees + inc_degrees) >= 0 && (degrees + inc_degrees) <= 180) {
         degrees += inc_degrees;
     }
 
     move_to_angle(degrees);
-    }
+}
 
 //Setup TIM15 for Periodic Joystick Reading
 void init_tim2(void) {
