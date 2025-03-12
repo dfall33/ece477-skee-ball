@@ -5921,6 +5921,159 @@
 				)
 			)
 		)
+		(symbol "Oscillator:MAX7375AXR805"
+			(pin_names
+				(offset 0.254)
+			)
+			(exclude_from_sim no)
+			(in_bom yes)
+			(on_board yes)
+			(property "Reference" "U"
+				(at -2.54 6.35 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(justify right)
+				)
+			)
+			(property "Value" "MAX7375AXR805"
+				(at 1.27 -6.35 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(justify left)
+				)
+			)
+			(property "Footprint" "Package_TO_SOT_SMD:SOT-323_SC-70"
+				(at 27.94 -8.89 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Datasheet" "https://datasheets.maximintegrated.com/en/ds/MAX7375.pdf"
+				(at -2.54 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Description" "Silicon Clock Oscillator 8MHz, SC-70-3"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "ki_keywords" "Silicon Clock Oscillator 8MHz 8000kHz"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "ki_fp_filters" "*SC?70*"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(symbol "MAX7375AXR805_0_1"
+				(rectangle
+					(start -5.08 5.08)
+					(end 7.62 -5.08)
+					(stroke
+						(width 0.254)
+						(type default)
+					)
+					(fill
+						(type background)
+					)
+				)
+				(polyline
+					(pts
+						(xy -3.175 -0.635) (xy -2.54 -0.635) (xy -2.54 0.635) (xy -1.905 0.635) (xy -1.905 -0.635) (xy -1.27 -0.635)
+						(xy -1.27 0.635) (xy -0.635 0.635)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+			)
+			(symbol "MAX7375AXR805_1_1"
+				(pin power_in line
+					(at 0 7.62 270)
+					(length 2.54)
+					(name "V+"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin output line
+					(at 10.16 0 180)
+					(length 2.54)
+					(name "CLOCK"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "2"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin power_in line
+					(at 0 -7.62 90)
+					(length 2.54)
+					(name "GND"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "3"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+			)
+		)
 		(symbol "Regulator_Linear:LD1117S33TR_SOT223"
 			(exclude_from_sim no)
 			(in_bom yes)
@@ -6834,6 +6987,12 @@
 		(uuid "7ed0a6a4-f414-47fa-942a-3955e0a3c3bd")
 	)
 	(junction
+		(at 175.26 104.14)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "9192743d-3510-4fb1-bb7f-23443b3b10e2")
+	)
+	(junction
 		(at 242.57 71.12)
 		(diameter 0)
 		(color 0 0 0 0)
@@ -6892,10 +7051,6 @@
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "f82dfdfc-9ca2-4916-9044-72a95d2ad311")
-	)
-	(no_connect
-		(at 340.36 96.52)
-		(uuid "074bd29a-0947-419c-acb7-726fd3829673")
 	)
 	(no_connect
 		(at 340.36 116.84)
@@ -7329,6 +7484,16 @@
 	)
 	(wire
 		(pts
+			(xy 175.26 104.14) (xy 175.26 107.95)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "7266ae00-1f40-47fe-bc9d-a8694412891e")
+	)
+	(wire
+		(pts
 			(xy 248.92 109.22) (xy 247.65 109.22)
 		)
 		(stroke
@@ -7379,7 +7544,7 @@
 	)
 	(wire
 		(pts
-			(xy 175.26 101.6) (xy 175.26 107.95)
+			(xy 175.26 101.6) (xy 175.26 104.14)
 		)
 		(stroke
 			(width 0)
@@ -7456,6 +7621,16 @@
 			(type default)
 		)
 		(uuid "99385fa1-2424-442b-8c2e-6644452a11ff")
+	)
+	(wire
+		(pts
+			(xy 295.91 209.55) (xy 292.1 209.55)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "99a0b33b-a294-4e94-8143-9ab179d3e834")
 	)
 	(wire
 		(pts
@@ -7556,6 +7731,16 @@
 			(type default)
 		)
 		(uuid "b108e60b-2174-4f45-87f5-d8044743656c")
+	)
+	(wire
+		(pts
+			(xy 334.01 101.6) (xy 340.36 101.6)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "b1c71251-5309-4305-ad7d-da5161e9e1cb")
 	)
 	(wire
 		(pts
@@ -7739,16 +7924,6 @@
 	)
 	(wire
 		(pts
-			(xy 332.74 101.6) (xy 340.36 101.6)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "fa7d9250-0b28-4b62-bb05-b826a53851b2")
-	)
-	(wire
-		(pts
 			(xy 358.14 182.88) (xy 353.06 182.88)
 		)
 		(stroke
@@ -7780,6 +7955,18 @@
 			(type none)
 		)
 		(uuid 236a99f0-0f8f-44f6-9301-13ae81108c9a)
+	)
+	(rectangle
+		(start 257.175 190.5)
+		(end 307.34 226.314)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(fill
+			(type none)
+		)
+		(uuid 38900e67-cee7-4ec2-a5ec-9bcdb0239b30)
 	)
 	(rectangle
 		(start 154.94 229.87)
@@ -7974,6 +8161,19 @@
 		)
 		(uuid "0a625d1b-d90f-4e1d-a88b-223f8b100fdb")
 	)
+	(text "External Oscillator"
+		(exclude_from_sim no)
+		(at 271.018 193.548 0)
+		(effects
+			(font
+				(size 1.778 1.778)
+				(thickness 0.3556)
+				(bold yes)
+				(italic yes)
+			)
+		)
+		(uuid "1011073e-17f0-4c96-813e-ae53509da90b")
+	)
 	(text "Debugging"
 		(exclude_from_sim no)
 		(at 164.084 131.064 0)
@@ -8052,6 +8252,19 @@
 		)
 		(uuid "44d72e9e-e672-485e-a139-19cf9e49ba04")
 	)
+	(text "Ultrasonic Sensor Connections"
+		(exclude_from_sim no)
+		(at 176.276 192.786 0)
+		(effects
+			(font
+				(size 1.778 1.778)
+				(thickness 0.3556)
+				(bold yes)
+				(italic yes)
+			)
+		)
+		(uuid "51c0d9fd-f8f3-4d18-bfca-591d8ea91d47")
+	)
 	(text "Mounting Holes"
 		(exclude_from_sim no)
 		(at 288.036 84.582 0)
@@ -8093,7 +8306,7 @@
 	)
 	(text "OLED Display Connections"
 		(exclude_from_sim no)
-		(at 266.7 130.81 0)
+		(at 275.844 131.572 0)
 		(effects
 			(font
 				(size 1.778 1.778)
@@ -8170,13 +8383,13 @@
 		(uuid "edc0cb13-3bb5-491c-9227-ca0e8a7bb08a")
 	)
 	(label "BOOT0"
-		(at 332.74 101.6 0)
+		(at 339.09 101.6 180)
 		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
 			)
-			(justify left bottom)
+			(justify right bottom)
 		)
 		(uuid "585226c3-637d-47b7-b4d5-4634fedc3dd6")
 	)
@@ -8908,7 +9121,7 @@
 	)
 	(global_label "BUTTON_IN"
 		(shape input)
-		(at 175.26 102.87 0)
+		(at 182.88 104.14 0)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -8918,7 +9131,7 @@
 		)
 		(uuid "401b5d94-c2cb-4174-8caa-bfcf7263b961")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 188.3448 102.87 0)
+			(at 195.9648 104.14 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -9480,22 +9693,22 @@
 	)
 	(global_label "VDDA"
 		(shape input)
-		(at 194.31 250.19 0)
+		(at 193.04 246.38 270)
 		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
 			)
-			(justify left)
+			(justify right)
 		)
 		(uuid "6938350b-8dda-4151-9aad-f142dd21ea2f")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 202.0124 250.19 0)
+			(at 193.04 254.0824 90)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				(justify left)
+				(justify right)
 				(hide yes)
 			)
 		)
@@ -9632,6 +9845,50 @@
 			)
 		)
 	)
+	(global_label "EXTERNAL_CLK"
+		(shape input)
+		(at 295.91 209.55 90)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left)
+		)
+		(uuid "74abea82-c03c-424b-a00b-00d98ac1190c")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}"
+			(at 295.91 192.8368 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+	)
+	(global_label "EXTERNAL_CLK"
+		(shape input)
+		(at 340.36 96.52 180)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right)
+		)
+		(uuid "75bf22a9-b4d3-4f94-baad-45a76082cc87")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}"
+			(at 323.6468 96.52 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+				(hide yes)
+			)
+		)
+	)
 	(global_label "VDDIO"
 		(shape input)
 		(at 248.92 62.23 90)
@@ -9667,6 +9924,28 @@
 		(uuid "773486ac-d8ed-47b3-82f3-c8b7e9541401")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
 			(at 252.73 89.9062 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+	)
+	(global_label "VDD"
+		(shape input)
+		(at 281.94 201.93 90)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left)
+		)
+		(uuid "787b5812-db1e-4d11-bb35-88a1833f8895")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}"
+			(at 281.94 195.3162 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -11109,22 +11388,22 @@
 	)
 	(global_label "ADC_IN1"
 		(shape input)
-		(at 194.31 247.65 0)
+		(at 195.58 254 270)
 		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
 			)
-			(justify left)
+			(justify right)
 		)
 		(uuid "fa5e9746-4da3-498a-9501-c591c6b4dd4c")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 205.0362 247.65 0)
+			(at 195.58 264.7262 90)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				(justify left)
+				(justify right)
 				(hide yes)
 			)
 		)
@@ -11301,6 +11580,73 @@
 			(project ""
 				(path "/547d9dcb-6f5f-42b4-90d7-bfc006b86b9a"
 					(reference "#PWR022")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Device:R")
+		(at 179.07 104.14 90)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "0190fec8-3128-4ab4-8699-1d585aa44ca5")
+		(property "Reference" "R15"
+			(at 179.07 106.426 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "220"
+			(at 179.07 101.854 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "Resistor_SMD:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder"
+			(at 179.07 105.918 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 179.07 104.14 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Resistor"
+			(at 179.07 104.14 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "2"
+			(uuid "168b9c96-4c95-4d9d-b4d3-1917285742be")
+		)
+		(pin "1"
+			(uuid "98555221-166d-48d5-aaf5-49a4500da2a7")
+		)
+		(instances
+			(project "skee-ball"
+				(path "/547d9dcb-6f5f-42b4-90d7-bfc006b86b9a"
+					(reference "R15")
 					(unit 1)
 				)
 			)
@@ -11785,7 +12131,7 @@
 		(dnp no)
 		(uuid "14cc8bde-1d34-4d52-8de0-9ee0aa9888cf")
 		(property "Reference" "J21"
-			(at 161.29 193.294 0)
+			(at 157.48 199.136 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -11843,6 +12189,72 @@
 			(project ""
 				(path "/547d9dcb-6f5f-42b4-90d7-bfc006b86b9a"
 					(reference "J21")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "power:GND")
+		(at 281.94 217.17 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "15d57e9e-81eb-49ca-9005-70f003eba13b")
+		(property "Reference" "#PWR042"
+			(at 281.94 223.52 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Value" "GND"
+			(at 281.94 222.25 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 281.94 217.17 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 281.94 217.17 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Power symbol creates a global label with name \"GND\" , ground"
+			(at 281.94 217.17 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "da797f6c-d639-497e-a040-4cc14387142c")
+		)
+		(instances
+			(project ""
+				(path "/547d9dcb-6f5f-42b4-90d7-bfc006b86b9a"
+					(reference "#PWR042")
 					(unit 1)
 				)
 			)
@@ -13097,7 +13509,7 @@
 	)
 	(symbol
 		(lib_id "power:GND")
-		(at 194.31 252.73 90)
+		(at 190.5 246.38 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -13106,7 +13518,7 @@
 		(fields_autoplaced yes)
 		(uuid "30dc0d93-37e6-4fbe-a380-52a751f761ea")
 		(property "Reference" "#PWR049"
-			(at 200.66 252.73 0)
+			(at 190.5 252.73 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -13115,7 +13527,7 @@
 			)
 		)
 		(property "Value" "GND"
-			(at 198.12 252.7299 90)
+			(at 190.5001 250.19 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -13124,7 +13536,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 194.31 252.73 0)
+			(at 190.5 246.38 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -13133,7 +13545,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 194.31 252.73 0)
+			(at 190.5 246.38 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -13142,7 +13554,7 @@
 			)
 		)
 		(property "Description" "Power symbol creates a global label with name \"GND\" , ground"
-			(at 194.31 252.73 0)
+			(at 190.5 246.38 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -14341,6 +14753,76 @@
 			(project ""
 				(path "/547d9dcb-6f5f-42b4-90d7-bfc006b86b9a"
 					(reference "#PWR015")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Device:R")
+		(at 195.58 250.19 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "50af1668-e254-48f3-9e40-b439b43eb575")
+		(property "Reference" "R14"
+			(at 198.12 248.9199 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "220"
+			(at 198.12 251.4599 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "Resistor_SMD:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder"
+			(at 193.802 250.19 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 195.58 250.19 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Resistor"
+			(at 195.58 250.19 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "2"
+			(uuid "e64a42fc-2a8a-4851-97ef-2e1ec49f6bce")
+		)
+		(pin "1"
+			(uuid "0564cacf-b4ad-45ab-8e1a-f6eab834b6a3")
+		)
+		(instances
+			(project ""
+				(path "/547d9dcb-6f5f-42b4-90d7-bfc006b86b9a"
+					(reference "R14")
 					(unit 1)
 				)
 			)
@@ -16399,7 +16881,7 @@
 		(dnp no)
 		(uuid "7dff40a9-23ef-4302-9477-87958b079d5b")
 		(property "Reference" "J26"
-			(at 190.5 192.786 0)
+			(at 186.182 198.374 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -18651,6 +19133,73 @@
 		)
 	)
 	(symbol
+		(lib_id "Device:R")
+		(at 330.2 101.6 90)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "a76353c8-98cf-44f8-80c9-8139990dd4a2")
+		(property "Reference" "R16"
+			(at 330.2 103.886 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "2200"
+			(at 330.2 106.426 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "Resistor_SMD:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder"
+			(at 330.2 103.378 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 330.2 101.6 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Resistor"
+			(at 330.2 101.6 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "2"
+			(uuid "643105da-7260-4e4c-afd1-8ca9980fc97f")
+		)
+		(pin "1"
+			(uuid "d7fd0f94-00df-4340-b3a8-d42d4b474519")
+		)
+		(instances
+			(project ""
+				(path "/547d9dcb-6f5f-42b4-90d7-bfc006b86b9a"
+					(reference "R16")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
 		(lib_id "74xx:74LS08")
 		(at 173.99 68.58 0)
 		(unit 3)
@@ -19700,7 +20249,7 @@
 	)
 	(symbol
 		(lib_id "power:GND")
-		(at 332.74 101.6 270)
+		(at 326.39 101.6 270)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -19709,7 +20258,7 @@
 		(fields_autoplaced yes)
 		(uuid "c6bc04ce-8697-43ec-9937-4ec33c4cf444")
 		(property "Reference" "#PWR037"
-			(at 326.39 101.6 0)
+			(at 320.04 101.6 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -19718,7 +20267,7 @@
 			)
 		)
 		(property "Value" "GND"
-			(at 328.93 101.5999 90)
+			(at 322.58 101.5999 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -19727,7 +20276,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 332.74 101.6 0)
+			(at 326.39 101.6 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -19736,7 +20285,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 332.74 101.6 0)
+			(at 326.39 101.6 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -19745,7 +20294,7 @@
 			)
 		)
 		(property "Description" "Power symbol creates a global label with name \"GND\" , ground"
-			(at 332.74 101.6 0)
+			(at 326.39 101.6 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -20478,16 +21027,15 @@
 	)
 	(symbol
 		(lib_id "Connector_Generic:Conn_01x03")
-		(at 189.23 250.19 180)
+		(at 193.04 241.3 90)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
-		(fields_autoplaced yes)
 		(uuid "e088ae3c-1a1d-406f-829a-9cb4a58de693")
 		(property "Reference" "J19"
-			(at 189.23 241.3 0)
+			(at 199.644 241.046 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -20495,7 +21043,7 @@
 			)
 		)
 		(property "Value" "JOYSTICK"
-			(at 189.23 243.84 0)
+			(at 193.294 237.236 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -20503,7 +21051,7 @@
 			)
 		)
 		(property "Footprint" "Connector_PinHeader_2.54mm:PinHeader_1x03_P2.54mm_Vertical"
-			(at 189.23 250.19 0)
+			(at 193.04 241.3 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -20512,7 +21060,7 @@
 			)
 		)
 		(property "Datasheet" "~"
-			(at 189.23 250.19 0)
+			(at 193.04 241.3 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -20521,7 +21069,7 @@
 			)
 		)
 		(property "Description" "Generic connector, single row, 01x03, script generated (kicad-library-utils/schlib/autogen/connector/)"
-			(at 189.23 250.19 0)
+			(at 193.04 241.3 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -21691,6 +22239,79 @@
 			(project "skee-ball"
 				(path "/547d9dcb-6f5f-42b4-90d7-bfc006b86b9a"
 					(reference "#PWR07")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Oscillator:MAX7375AXR805")
+		(at 281.94 209.55 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "fb82d0b0-bc40-4772-a5ce-b759a3a042aa")
+		(property "Reference" "U11"
+			(at 275.59 208.2799 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(property "Value" "MAX7375AXR805"
+			(at 275.59 210.8199 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(property "Footprint" "Package_TO_SOT_SMD:SOT-323_SC-70"
+			(at 309.88 218.44 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "https://datasheets.maximintegrated.com/en/ds/MAX7375.pdf"
+			(at 279.4 209.55 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Silicon Clock Oscillator 8MHz, SC-70-3"
+			(at 281.94 209.55 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "b9101612-9219-4b74-8110-201b602c63a8")
+		)
+		(pin "2"
+			(uuid "afccde37-c15f-4c85-ba5a-1b3229a88af3")
+		)
+		(pin "3"
+			(uuid "df6b6737-283a-4ab2-b740-d3c03ed35d5d")
+		)
+		(instances
+			(project ""
+				(path "/547d9dcb-6f5f-42b4-90d7-bfc006b86b9a"
+					(reference "U11")
 					(unit 1)
 				)
 			)
