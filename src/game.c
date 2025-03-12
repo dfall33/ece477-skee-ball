@@ -11,6 +11,7 @@ void game_idle()
 {
     // enable interrupts for joystick and button
     enable_button_interrupt();
+    enable_joystick();
 
     // reset the score in between sessions
     score = 0;
@@ -30,6 +31,8 @@ void game_active()
 {
     // enable interrupts for joystick and button
     enable_button_interrupt();
+    enable_joystick();
+    enable_servo();
 
     snprintf(score_str, sizeof(score_str), "Score: %d", score); // format the score string for display
     spi_write_str(score_str, 0);                                // display the score on the top line of the display
@@ -37,7 +40,8 @@ void game_active()
 
 void game_button_press()
 {
-
+    disable_joystick();
+    disable_servo();
     /* ----- Leave only the button press interrupt enabled ----- */
     uint8_t press_level = get_press_duration(); // get the press duration from the button module (**BLOCKING**)
 
@@ -53,7 +57,6 @@ void game_button_press()
 
 void game_ball_detection()
 {
-
     // **BLOCKING** function that searches for the ball
     int sensor_index = search_hcsr04(1); // enables the necessary interrupts at the beginning and disables them at the end
     if (sensor_index != BALL_NOT_FOUND)  // -1 = not found, otherwise, gives index of the sensor that found the ball

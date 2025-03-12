@@ -9,27 +9,6 @@
 volatile int degrees = 45;
 volatile int adc = 0;
 
-void disable_joystick_interrupt(void)
-{
-    NVIC_DisableIRQ(EXTI0_1_IRQn);
-}
-
-void enable_joystick_interrupt(void)
-{
-    NVIC_EnableIRQ(EXTI0_1_IRQn);
-}
-
-void setup_joystick_exti(void)
-{
-    RCC->APB2ENR |= RCC_APB2ENR_SYSCFGEN;
-    EXTI->IMR |= EXTI_IMR_MR1; 
-}
-
-void EXTI0_1_IRQHandler(void)
-{
-    EXTI->PR |= EXTI_PR_PR1;
-}
-
 //Setup ADC for Joystick Input (PA1)
 void setup_adc(void) {
     RCC->AHBENR |= RCC_AHBENR_GPIOAEN;  
@@ -55,20 +34,27 @@ void setup_tim16(void) {
     GPIOB->AFR[1] |= 0x2;         
 
     TIM16->PSC = 16 - 1;                 
-    TIM16->ARR = 60000 - 1;         
-    TIM16->BDTR |= TIM_BDTR_MOE;
-    // PWM Mode 1 on CH1
-    TIM16->CCMR1 &= ~TIM_CCMR1_OC1M;
-    TIM16->CCMR1 |= (6 << TIM_CCMR1_OC1M_Pos);  // PWM mode 1
-    TIM16->CCMR1 |= TIM_CCMR1_OC1PE;         
+    TIM16->ARR = 60000 - 1;      
 
-    // Set duty cycle
-    // TIM16->CCR1 = 1500;
+    TIM16->BDTR |= TIM_BDTR_MOE;
+    TIM16->CCMR1 &= ~TIM_CCMR1_OC1M;
+    TIM16->CCMR1 |= (6 << TIM_CCMR1_OC1M_Pos);
+    TIM16->CCMR1 |= TIM_CCMR1_OC1PE;         
 
     TIM16->CCER |= TIM_CCER_CC1E;
     TIM16->EGR |= TIM_EGR_UG;
-    TIM16->CR1 |= TIM_CR1_CEN;
+    // TIM16->CR1 |= TIM_CR1_CEN;
     move_to_angle(degrees);    
+}
+
+void enable_servo(void)
+{
+    TIM16->CR1 |= TIM_CR1_CEN;
+}
+
+void disable_servo(void)
+{
+    TIM16->CR1 &= ~TIM_CR1_CEN;
 }
 
 
@@ -88,7 +74,6 @@ void move_to_angle(int angle) {
 
     int pulse_width = SERVO_MIN_PULSE + ((angle * (SERVO_MAX_PULSE - SERVO_MIN_PULSE)) / 180);
     TIM16->CCR1 = pulse_width;  // Set duty cycle
-    printf("Moving to %d degrees (Pulse: %d)\n", angle, pulse_width);
 }
 
 //Read Joystick ADC Value
@@ -107,10 +92,10 @@ void TIM2_IRQHandler() {
     int adc_val = ADC1->DR;
     adc = adc_val;
     
-    if(adc_val > 2000 | adc_val < 1900) //SW TRIGGER
-    {
-        EXTI->SWIER |= EXTI_SWIER_TR1;
-    }
+    // if(adc_val > 2000 | adc_val < 1900) //SW TRIGGER
+    // {
+       
+    // }
 
     int inc_degrees = map_adc_to_degrees(adc_val);
     if ((degrees + inc_degrees) >= 0 && (degrees + inc_degrees) <= 180) {
@@ -120,25 +105,35 @@ void TIM2_IRQHandler() {
     move_to_angle(degrees);
 }
 
-//Setup TIM15 for Periodic Joystick Reading
+//Setup TIM2 for Periodic Joystick Reading
 void init_tim2(void) {
 
     RCC->APB1ENR |= RCC_APB1ENR_TIM2EN;
     TIM2->PSC = 480 -1;
     TIM2->ARR = 1000 -1;
     TIM2->DIER |= TIM_DIER_UIE;
-    NVIC->ISER[0] = 1<< TIM2_IRQn;
+    // NVIC->ISER[0] = 1<< TIM2_IRQn;
     TIM2->CR1 |= TIM_CR1_CEN;
 }
 
-int main(void) {
-    RCC->AHBENR |= RCC_AHBENR_GPIOCEN;
-  GPIOC->MODER &= ~0x000000ff; //inputs
-  GPIOC->PUPDR |=  0x000000aa;
-  GPIOC->MODER |=  0x00005500; //outputs
-    setup_adc();
-    setup_tim16();
-    init_tim2();
-    GPIOC->ODR = 1 << (8-1);
-    while (1);
+void enable_joystick(void)
+{
+    NVIC->ISER[0] |= 1<< TIM2_IRQn;
 }
+
+void disable_joystick(void)
+{
+    NVIC->ISER[0] &= ~(1<< TIM2_IRQn);
+}
+
+// int main(void) {
+//     RCC->AHBENR |= RCC_AHBENR_GPIOCEN;
+//   GPIOC->MODER &= ~0x000000ff; //inputs
+//   GPIOC->PUPDR |=  0x000000aa;
+//   GPIOC->MODER |=  0x00005500; //outputs
+//     setup_adc();
+//     setup_tim16();
+//     init_tim2();
+//     GPIOC->ODR = 1 << (8-1);
+//     while (1);
+// }
