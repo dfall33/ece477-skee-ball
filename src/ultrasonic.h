@@ -11,13 +11,12 @@
 
 /* ---- Function Prototypes ----- */
 int read_hcsr04(int index);
-void pulse_hcsr04_trigger();
 void start_hcsr04_pulse_timer();
 void stop_hcsr04_pulse_timer();
 void start_hcsr04_search_timer();
 void stop_hcsr04_search_timer();
-void send_hcsr04_pulse(uint32_t pin);
-int wait_for_echo(volatile uint32_t pin, uint32_t odr_pin);
+void send_hcsr04_pulse(GPIO_TypeDef * port, uint32_t pin);
+int wait_for_echo(GPIO_TypeDef *port, uint32_t pin, uint32_t odr_pin);
 void time_out_pulse();
 void time_out_hcsr04_search();
 int search_hcsr04(int stability_count);
