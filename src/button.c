@@ -92,3 +92,33 @@ int get_press_duration()
         return 10;
     }
 }
+
+// enable exti on pc13
+void init_button_exti()
+{
+    // enable clock for syscfg
+    RCC->APB2ENR |= RCC_APB2ENR_SYSCFGEN;
+
+    // set PC13 as external interrupt source
+    SYSCFG->EXTICR[3] &= ~SYSCFG_EXTICR4_EXTI13;
+    SYSCFG->EXTICR[3] |= SYSCFG_EXTICR4_EXTI13_PC;
+
+    // enable interrupt on rising edge and falling edge
+    EXTI->RTSR |= EXTI_RTSR_TR13;
+    EXTI->FTSR |= EXTI_FTSR_TR13;
+
+    // enable interrupt on line 13
+    EXTI->IMR |= EXTI_IMR_MR13;
+
+    // enable the interrupt in the NVIC
+    NVIC_EnableIRQ(EXTI4_15_IRQn);
+}
+
+void init_button_gpio()
+{
+    // enable clock for GPIOC
+    RCC->AHBENR |= RCC_AHBENR_GPIOCEN;
+
+    // set PC13 to input mode
+    GPIOC->MODER &= ~(GPIO_MODER_MODER13);
+}

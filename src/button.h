@@ -56,4 +56,16 @@ void enable_button_interrupt();
  * @return int The duration of the button press scaled to a range [1, 10]
  */
 int get_press_duration();
+
+/**
+ * @brief Initializes the external interrupt associated with the button press and release (PC13)
+ *
+ */
+void init_button_exti();
+
+/**
+ * @brief Initializes the GPIO associated with the button press and release (PC13)
+ *
+ */
+void init_button_gpio();
 #endif // __BUTTON_H__

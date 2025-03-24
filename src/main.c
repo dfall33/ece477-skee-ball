@@ -20,7 +20,6 @@ volatile int detected_streak = 0;
 void nano_wait(int);
 void micro_wait(int);
 
-void init_exti();
 void init_gpio();
 
 void init_all();
@@ -135,6 +134,27 @@ void EXTI0_1_IRQHandler(void)
     // if the input data register is high, then the button is pressed and being held down,
     // so start the button press timer (will time out after BUTTON_MAX_PRESS_US, defined in src/button.h)
     if (GPIOC->IDR & GPIO_IDR_0)
+    {
+        start_button_press();
+    }
+
+    // if the input data register is low, then the button has been released
+    // so stop the button press timer and do whatever is necessary
+    else
+    {
+        stop_button_press();
+    }
+}
+
+// external interrupt handler for push button (pc13)
+void EXTI4_15_IRQHandler(void)
+{
+    // acknowledge the interrupt
+    EXTI->PR |= EXTI_PR_PR13;
+
+    // if the input data register is high, then the button is pressed and being held down,
+    // so start the button press timer (will time out after BUTTON_MAX_PRESS_US, defined in src/button.h)
+    if (GPIOC->IDR & GPIO_IDR_13)
     {
         start_button_press();
     }
@@ -287,7 +307,6 @@ void init_all()
     setup_tim15();
     init_spi1();
     // spi1_init_oled();
-    init_exti();
     init_display();
 }
 
@@ -299,7 +318,6 @@ int main(void)
     // setup_tim14();
     // init_spi1();
     // spi1_init_oled();
-    // init_exti();
     // init_display();
     init_all();
 
