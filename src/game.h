@@ -8,6 +8,7 @@
 #include "nhd_0440az.h"
 #include "ultrasonic.h"
 #include <stdio.h>
+#include "joystick.h"
 
 /* ----- Game Constants ----- */
 #define MAX_ATTEMPTS 3
