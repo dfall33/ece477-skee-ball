@@ -5,6 +5,11 @@
 #include "ultrasonic.h"
 #include "button.h"
 #include "nhd_0440az.h"
+#include "motor_control.h"
+// #include "game.h"
+extern game();
+extern state;
+// extern STATES;
 
 #define PULSE_TIMEOUT_US 30000
 #define PULSE_THRESHOLD_US 200
@@ -113,7 +118,7 @@ void init_exti()
     EXTI->IMR |= EXTI_IMR_MR0;
 
     // don't enable the interrupt until the game has started / button can be pressed
-    // NVIC_EnableIRQ(EXTI0_1_IRQn);
+    NVIC_EnableIRQ(EXTI0_1_IRQn);
 }
 
 /* ----- External Interrupt Handler for PC ----- */
@@ -281,7 +286,7 @@ void init_all()
     setup_tim14();
     setup_tim15();
     init_spi1();
-    spi1_init_oled();
+    // spi1_init_oled();
     init_exti();
     init_display();
 }
@@ -297,6 +302,40 @@ int main(void)
     // init_exti();
     // init_display();
     init_all();
+
+    // spi_write_str("Line 0", 0);
+    // spi_write_str("Line 1", 1);
+    // spi_write_str("Line 2", 2);
+    // spi_write_str("Line 3", 3);
+    // game_idle();
+
+    // get_press_duration
+
+    setup_tim17();
+    move_to_duty_cycle(0);
+    // return 0;
+
+    while (1)
+    {
+        int dur = get_press_duration();
+        char dur_str[20];
+        snprintf(dur_str, sizeof(dur_str), "Duration: %d", dur);
+
+        // if (dur > 10)
+        // {
+        //     spi_write_str("Duration > 10", 3);
+        // }
+        // else
+        // {
+        //     spi_write_str("Duration < 10", 3);
+        // }
+        spi_write_str(dur_str, 3);
+
+        if (dur == 10)
+            continue;
+
+        move_to_duty_cycle(dur);
+    }
 
     return 0;
 }

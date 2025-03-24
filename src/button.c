@@ -1,4 +1,7 @@
 #include "button.h"
+// #include "game.h"
+
+// extern game_active();
 
 volatile int button_released = 0;
 volatile int button_timed_out = 0;
@@ -10,6 +13,8 @@ void start_button_press()
     button_pressed = 1;
     button_released = 0;
     button_timed_out = 0;
+
+    // game_active();
 }
 
 void stop_button_press()

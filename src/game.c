@@ -6,6 +6,7 @@ volatile int remaining_attempts = MAX_ATTEMPTS;
 char score_str[20];    // string to hold the score for display
 char success_str[20];  // string to hold the success message for display
 char attempts_str[20]; // string to hold the attempts left for display
+char mode_str[20];     // string to hold the mode for display
 
 void game_idle()
 {
@@ -23,16 +24,22 @@ void game_idle()
         0);
 
     snprintf(attempts_str, sizeof(attempts_str), "Attempts: %d", remaining_attempts); // format the score string for display
-    spi_write_str(attempts_str, 2);                                                   // display the score on the top line of the display
+    spi_write_str(attempts_str, 2);
+
+    spi_write_str("Game mode = Idle", 1); // display the score on the top line of the display
 }
 
 void game_active()
 {
+
+    state = ACTIVE;
+    spi_write_str("Game mode = Active", 1);
     // enable interrupts for joystick and button
-    enable_button_interrupt();
+    // enable_button_interrupt();
 
     snprintf(score_str, sizeof(score_str), "Score: %d", score); // format the score string for display
-    spi_write_str(score_str, 0);                                // display the score on the top line of the display
+    spi_write_str(score_str, 0);
+    // display the score on the top line of the display
 }
 
 void game_button_press()
@@ -40,6 +47,10 @@ void game_button_press()
 
     /* ----- Leave only the button press interrupt enabled ----- */
     uint8_t press_level = get_press_duration(); // get the press duration from the button module (**BLOCKING**)
+
+    char press_duration_str[20];                                                                 // string to hold the press duration for display
+    snprintf(press_duration_str, sizeof(press_duration_str), "Press duration: %d", press_level); // format the press duration string for display
+    spi_write_str(press_duration_str, 3);                                                        // display the press duration on the top line of the display
 
     // power the motor to launch the ball
     // power_motor(press_duration); // motor is not yet implemented
@@ -58,9 +69,10 @@ void game_ball_detection()
     int sensor_index = search_hcsr04(1); // enables the necessary interrupts at the beginning and disables them at the end
     if (sensor_index != BALL_NOT_FOUND)  // -1 = not found, otherwise, gives index of the sensor that found the ball
     {
-        int additional_score = SENSOR_SCORES[sensor_index]; // get the score for the sensor that found the ball
-        score += additional_score;                          // increment the score based on the sensor that found the ball
-        play_sound();                                       // not yet implemented, Jen will do this
+        // int additional_score = SENSOR_SCORES[sensor_index]; // get the score for the sensor that found the ball
+        int additional_score = 5;  // placeholder score value, will almost certainly change
+        score += additional_score; // increment the score based on the sensor that found the ball
+        play_sound();              // not yet implemented, Jen will do this
         // display_score(score); // update the score on the 4-line display, David will implement this
 
         snprintf(success_str, sizeof(success_str), "+%d points!", score); // format the score string for display
@@ -86,6 +98,28 @@ void game_ball_detection()
 void game()
 {
 
+    // game_idle();
+
+    if (state == IDLE)
+    {
+        game_idle();
+        asm("wfi");
+    }
+    else if (state == ACTIVE)
+    {
+        game_active();
+        asm("wfi");
+    }
+    else if (state == BUTTON_PRESS)
+    {
+        game_button_press();
+        asm("wfi");
+    }
+    else if (state == BALL_DETECTION)
+    {
+        game_ball_detection();
+        asm("wfi");
+    }
     /*
 
         State 1: Powered up or turn is ended: in idle state

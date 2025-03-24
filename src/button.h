@@ -3,6 +3,8 @@
 #include "stm32f0xx.h"
 #define BUTTON_MAX_PRESS_US 5000 // 10s / 10000ms
 
+// volatile int press_duration = -1;
+
 /**
  * @brief Called by the button interrupt handler, this function will set or reset any necessary flags and start the timer to measure
  * how long the button is pressed.

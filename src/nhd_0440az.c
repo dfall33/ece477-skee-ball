@@ -150,6 +150,7 @@ void spi_write_str(const char *string, uint8_t line)
         spi_char(*string, line_pair);
         string++;
     }
+    spi_char(120, line_pair);
 }
 
 void spi_cmd_top_two(uint16_t data)

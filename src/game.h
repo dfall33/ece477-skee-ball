@@ -11,7 +11,16 @@
 
 /* ----- Game Constants ----- */
 #define MAX_ATTEMPTS 3
-const int8_t SENSOR_SCORES[5] = {5, 10, 15, 20, 25}; // placeholder score values, will almost certainly change
+int8_t SENSOR_SCORES[5] = {5, 10, 15, 20, 25}; // placeholder score values, will almost certainly change
+typedef enum STATES
+{
+    IDLE,
+    ACTIVE,
+    BUTTON_PRESS,
+    BALL_DETECTION
+} STATES;
+
+volatile int state = IDLE;
 
 /* ----- Function Declarations ----- */
 
