@@ -7,8 +7,14 @@ volatile int button_released = 0;
 volatile int button_timed_out = 0;
 volatile int button_pressed = 0;
 
+extern game_state; // get the game state variable from game.c
+
 void start_button_press()
 {
+
+    // if we are here, then we are in the active state and just pressed the button, so transition to the button press state
+    game_state = 2; // go to button press state
+
     start_button_timer();
     button_pressed = 1;
     button_released = 0;

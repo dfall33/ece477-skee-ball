@@ -21,12 +21,12 @@ typedef enum STATES
     BALL_DETECTION
 } STATES;
 
-volatile int state = IDLE;
+volatile int game_state = IDLE;
 
 /* ----- Function Declarations ----- */
 
 /**
- * @brief Function to initialize the game, the "main" function of the game
+ * @brief Function to loop over game states and execute accordingly.
  *
  */
 void game();

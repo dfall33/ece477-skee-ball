@@ -33,7 +33,7 @@ void game_idle()
 void game_active()
 {
 
-    state = ACTIVE;
+    game_state = ACTIVE;
     spi_write_str("Game mode = Active", 1);
     // enable interrupts for joystick and button
     enable_button_interrupt();
@@ -63,7 +63,8 @@ void game_button_press()
     disable_button_interrupt();
 
     // ball has been launched, so transition to the ball detection state
-    game_ball_detection();
+    // game_ball_detection();
+    game_state = BALL_DETECTION; // go to ball detection state
 }
 
 void game_ball_detection()
@@ -90,39 +91,40 @@ void game_ball_detection()
     // transition to the next state, depending on how many attempts remain
     if (remaining_attempts == 0) // no more attempts, so go back to idle state
     {
-        game_idle();
+        // game_idle();
+        game_state = IDLE; // go back to idle state
     }
     else // more attempts remain, so go back to active state
     {
-        game_active();
+        // game_active();
+        game_state = ACTIVE; // go back to active state
     }
 }
 
 void game()
 {
 
-    // game_idle();
+    while (1)
+    {
 
-    if (state == IDLE)
-    {
-        game_idle();
-        asm("wfi");
+        if (game_state == IDLE)
+        {
+            game_idle();
+        }
+        else if (game_state == ACTIVE)
+        {
+            game_active();
+        }
+        else if (game_state == BUTTON_PRESS)
+        {
+            game_button_press();
+        }
+        else if (game_state == BALL_DETECTION)
+        {
+            game_ball_detection();
+        }
     }
-    else if (state == ACTIVE)
-    {
-        game_active();
-        asm("wfi");
-    }
-    else if (state == BUTTON_PRESS)
-    {
-        game_button_press();
-        asm("wfi");
-    }
-    else if (state == BALL_DETECTION)
-    {
-        game_ball_detection();
-        asm("wfi");
-    }
+
     /*
 
         State 1: Powered up or turn is ended: in idle state

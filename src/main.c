@@ -8,8 +8,7 @@
 #include "motor_control.h"
 // #include "game.h"
 extern game();
-extern state;
-// extern STATES;
+extern game_state;
 
 #define PULSE_TIMEOUT_US 30000
 #define PULSE_THRESHOLD_US 200
@@ -151,6 +150,13 @@ void EXTI4_15_IRQHandler(void)
 {
     // acknowledge the interrupt
     EXTI->PR |= EXTI_PR_PR13;
+
+    // if currently in idle state, transition to active state (start a game session)
+    if (game_state == 0) // 0 = IDLE, see game.h typedef
+    {
+        game_state = 1; // 1 = ACTIVE
+        return;
+    }
 
     // if the input data register is high, then the button is pressed and being held down,
     // so start the button press timer (will time out after BUTTON_MAX_PRESS_US, defined in src/button.h)
