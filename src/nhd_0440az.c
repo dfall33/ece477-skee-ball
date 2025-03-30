@@ -5,6 +5,19 @@ void micro_wait();
 void init_display()
 {
 
+    // // enable the clock to GPIOA
+    // RCC->AHBENR |= RCC_AHBENR_GPIOAEN;
+
+    // // set GPIOA2 and GPIOA3 as output for NHD E1 and NHD E2 respectively
+    // GPIOA->MODER &= ~(GPIO_MODER_MODER2 | GPIO_MODER_MODER3); // Clear the mode bits for PA2 and PA3
+    // GPIOA->MODER |= GPIO_MODER_MODER2_0 | GPIO_MODER_MODER3_0; // Set PA2 and PA3 to output mode
+
+    // // set GPIOA4 as output for RCLK (latch clock)
+    // GPIOA->MODER &= ~(GPIO_MODER_MODER4); // Clear the mode bits for PA4
+    // GPIOA->MODER |= GPIO_MODER_MODER4_0; // Set PA4 to output mode
+
+    // setup_spi_display(); 
+
     /* ----- Setup Top Two Lines ----- */
     micro_wait(2000); // Wait for 2ms
 
@@ -205,4 +218,81 @@ void spi_cmd_bottom_two(uint16_t data)
 
     // wait for a short time (make sure satisfying the hold time of the data after falling edge of e2)
     micro_wait(1);
+}
+
+
+void setup_spi_display()
+{
+    // enable clock for SPI1
+    RCC->APB2ENR |= RCC_APB2ENR_SPI1EN;
+
+    RCC->AHBENR |= RCC_AHBENR_GPIOAEN;
+    GPIOA->MODER &= ~(GPIO_MODER_MODER15 | GPIO_MODER_MODER5 | GPIO_MODER_MODER7);
+    GPIOA->MODER |= GPIO_MODER_MODER15_1 | GPIO_MODER_MODER5_1 | GPIO_MODER_MODER7_1;
+
+    // set the alternate function for the pins (SCK, MOSI, NSS are all alternate function 0)
+
+    // reset the alternate function bits for the pins
+    GPIOA->AFR[0] &= ~(GPIO_AFRL_AFRL7 | GPIO_AFRL_AFRL5);
+    GPIOA->AFR[1] &= ~(GPIO_AFRH_AFRH7);
+
+    // configure NSS, SCK, MOSI signals of SPI1 to pins PA15, PA5, PA7, respectively
+    // set the alternate function bits for the pins
+    GPIOA->AFR[0] |= (0x0 << GPIO_AFRL_AFRL7_Pos) | (0x0 << GPIO_AFRL_AFRL5_Pos);
+    GPIOA->AFR[1] |= (0x0 << GPIO_AFRH_AFRH7_Pos);
+
+    // disable SPI1
+    SPI1->CR1 &= ~SPI_CR1_SPE;
+
+    // set baud rate to max possible
+    SPI1->CR1 |= SPI_CR1_BR;
+
+    // configure for 16-bit word size
+    SPI1->CR2 |= SPI_CR2_DS;
+    // SPI1->CR2 &= ~(SPI_CR2_DS_2 | SPI_CR2_DS_1);
+
+    // configure the SPI channel to be in master configuration
+    SPI1->CR1 |= SPI_CR1_MSTR;
+
+    // set the SS ouptut enable pit and enable NSSP
+    SPI1->CR2 |= SPI_CR2_SSOE;
+    SPI1->CR2 |= SPI_CR2_NSSP;
+
+    // set the TXDMAEN to enable DMA transfers on transmit buffer empty
+    SPI1->CR2 |= SPI_CR2_TXDMAEN;
+
+    // enable the SPI channel
+    SPI1->CR1 |= SPI_CR1_SPE;
+}
+
+void test_display()
+{
+    spi_write_str("Line 1", 0); // Write to the first line of the display (top line)
+    spi_write_str("Line 2", 1); // Write to the second line of the display (top line)
+    spi_write_str("Line 3", 2); // Write to the third line of the display (bottom line)
+    spi_write_str("Line 4", 3); // Write to the fourth line of the display (bottom line)
+    
+}
+
+
+void setup_gpio_display()
+{
+    RCC->AHBENR |= RCC_AHBENR_GPIOAEN; // Enable clock for GPIOA
+
+    // Set GPIOA2 and GPIOA3 as output for NHD E1 and NHD E2 respectively
+    GPIOA->MODER &= ~(GPIO_MODER_MODER2 | GPIO_MODER_MODER3); // Clear the mode bits for PA2 and PA3
+    GPIOA->MODER |= GPIO_MODER_MODER2_0 | GPIO_MODER_MODER3_0; // Set PA2 and PA3 to output mode
+
+    // Set GPIOA4 as output for RCLK (latch clock)
+    GPIOA->MODER &= ~(GPIO_MODER_MODER4); // Clear the mode bits for PA4
+    GPIOA->MODER |= GPIO_MODER_MODER4_0; // Set PA4 to output mode
+}
+
+void setup_display()
+{
+    // This function initializes the display by setting up the GPIO pins and sending the initial commands to the display
+
+    setup_gpio_display(); // Setup GPIO pins for the display
+    setup_spi_display();  // Setup SPI for the display
+    init_display(); // Initialize the display with the necessary commands
 }

@@ -6,12 +6,17 @@
 #include "button.h"
 #include "nhd_0440az.h"
 #include "motor_control.h"
+#include "joystick.h"
+#include "debug.h"
 // #include "game.h"
 extern game();
 extern game_state;
 
 #define PULSE_TIMEOUT_US 30000
 #define PULSE_THRESHOLD_US 200
+
+extern void setup_tim17();
+extern int play_sound(); 
 
 volatile int detected_streak = 0;
 
@@ -318,47 +323,68 @@ void init_all()
 
 int main(void)
 {
-    // internal_clock();
-    // init_gpio();
-    // setup_tim3();
-    // setup_tim14();
-    // init_spi1();
-    // spi1_init_oled();
-    // init_display();
-    init_all();
+    internal_clock();
 
-    // spi_write_str("Line 0", 0);
-    // spi_write_str("Line 1", 1);
-    // spi_write_str("Line 2", 2);
-    // spi_write_str("Line 3", 3);
-    // game_idle();
+    setup_debug_ports(); 
+    setup_ultrasonic_ports(); 
+    setup_tim14(); 
+    setup_display(); 
 
-    // get_press_duration
+    test_display(); 
+    micro_wait(5000000); 
 
-    setup_tim17();
-    move_to_duty_cycle(0);
-    // return 0;
+    led_high(0); 
+    micro_wait(100000); 
+    led_high(1);
+    micro_wait(100000);
+    led_high(2);
+    micro_wait(100000);
+    led_high(3);
+    micro_wait(100000);
+    led_low(0);
+    led_low(1);
+    led_low(2);
+    led_low(3);
 
     while (1)
     {
-        int dur = get_press_duration();
-        char dur_str[20];
-        snprintf(dur_str, sizeof(dur_str), "Duration: %d", dur);
+        // GPIOC->ODR |= GPIO_ODR_15;
+        micro_wait(100000); 
+        GPIOC->ODR &= ~GPIO_ODR_15; // Turn off the LED on PC15 to indicate the start of the program
+        micro_wait(100000);
+    }
 
-        // if (dur > 10)
-        // {
-        //     spi_write_str("Duration > 10", 3);
-        // }
-        // else
-        // {
-        //     spi_write_str("Duration < 10", 3);
-        // }
-        spi_write_str(dur_str, 3);
+    return 0; // This line will never be reached, but it's good practice to include it
 
-        if (dur == 10)
-            continue;
+    int count = 0;
 
-        move_to_duty_cycle(dur);
+    while (1)
+    {
+        int duration = test_sensor(0); 
+        char *duration_str = (char *)malloc(20 * sizeof(char)); // allocate memory for the string
+        snprintf(duration_str, 20, "Duration: %d us", duration); // format the string with the duration value
+        spi_write_str(duration_str, 0); // Write the duration to the first line of the display (top line)
+
+        if (duration > 0)
+        {
+            led_high(0);
+        }
+        else
+        {
+            led_low(0); 
+        }
+
+
+        micro_wait(1000); 
+        led_off(); 
+        micro_wait(1000);
+
+        count++;
+        if (count > 20)   
+        {
+            count = 0; 
+            micro_wait(1000000); // wait for 1 second before updating the display again
+        }
     }
 
     return 0;

@@ -16,4 +16,10 @@ void spi_write_str(const char *string, uint8_t line);
 void spi_cmd_top_two(uint16_t data);
 void spi_cmd_bottom_two(uint16_t data);
 
+void setup_spi_display(); 
+void setup_gpio_display(); 
+void setup_display(); 
+
+void test_display(); 
+
 #endif // __NHD0440AZ_H__

@@ -1,6 +1,7 @@
 #ifndef __ULTRASONIC_H
 #define __ULTRASONIC_H
 #include <stdint.h>
+#include "stm32f0xx.h"
 
 /* ---- Constants ----- */
 #define HCSR04_PULSE_THRESHOLD_US 250
@@ -15,9 +16,15 @@ void start_hcsr04_pulse_timer();
 void stop_hcsr04_pulse_timer();
 void start_hcsr04_search_timer();
 void stop_hcsr04_search_timer();
-void send_hcsr04_pulse(GPIO_TypeDef * port, uint32_t pin);
+void send_hcsr04_pulse(GPIO_TypeDef *port, uint32_t pin);
 int wait_for_echo(GPIO_TypeDef *port, uint32_t pin, uint32_t odr_pin);
 void time_out_pulse();
 void time_out_hcsr04_search();
 int search_hcsr04(int stability_count);
+
+int test_sensor(int8_t index);
+int test_sensors();
+
+void setup_ultrasonic_ports(); 
+
 #endif // __ULTRASONIC_H
