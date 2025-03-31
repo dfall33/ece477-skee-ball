@@ -22,4 +22,7 @@ void setup_display();
 
 void test_display(); 
 
+void clear_display(); 
+void progress_bar(uint8_t amount, uint8_t line); 
+
 #endif // __NHD0440AZ_H__

@@ -330,62 +330,59 @@ int main(void)
     setup_tim14(); 
     setup_display(); 
 
-    test_display(); 
-    micro_wait(5000000); 
+    // test_display(); 
+    // micro_wait(5000000); 
 
-    led_high(0); 
-    micro_wait(100000); 
-    led_high(1);
-    micro_wait(100000);
-    led_high(2);
-    micro_wait(100000);
-    led_high(3);
-    micro_wait(100000);
-    led_low(0);
-    led_low(1);
-    led_low(2);
-    led_low(3);
+    flash_leds(); 
 
-    while (1)
+    test_display(); // Test the display to ensure it's working correctly
+    micro_wait(1000000);
+    clear_display(); // Clear the display after testing
+    // micro_wait(1000000);
+    // test_display(); // Test the display again to ensure it's still working correctly
+    // micro_wait(1000000);
+    // clear_display(); // Clear the display again
+
+    // progress_bar(5, 0);
+    // micro_wait(250000);
+
+    for (int line = 0; line < 4; line++)
     {
-        // GPIOC->ODR |= GPIO_ODR_15;
-        micro_wait(100000); 
-        GPIOC->ODR &= ~GPIO_ODR_15; // Turn off the LED on PC15 to indicate the start of the program
-        micro_wait(100000);
+        for (int i = 0; i < 11; i++)
+        {
+            progress_bar(i, line); // Update the progress bar on the first line of the display
+            micro_wait(250000); // Wait for a short time to see the progress bar update
+        }
+
     }
 
-    return 0; // This line will never be reached, but it's good practice to include it
+        // while (1)
+        // {
+        //     int duration = test_sensor(0);
+        //     char *duration_str = (char *)malloc(20 * sizeof(char)); // allocate memory for the string
+        //     snprintf(duration_str, 20, "Duration: %d us", duration); // format the string with the duration value
+        //     spi_write_str(duration_str, 0); // Write the duration to the first line of the display (top line)
 
-    int count = 0;
+        //     if (duration > 0)
+        //     {
+        //         led_high(0);
+        //     }
+        //     else
+        //     {
+        //         led_low(0);
+        //     }
 
-    while (1)
-    {
-        int duration = test_sensor(0); 
-        char *duration_str = (char *)malloc(20 * sizeof(char)); // allocate memory for the string
-        snprintf(duration_str, 20, "Duration: %d us", duration); // format the string with the duration value
-        spi_write_str(duration_str, 0); // Write the duration to the first line of the display (top line)
+        //     micro_wait(1000);
+        //     led_off();
+        //     micro_wait(1000);
 
-        if (duration > 0)
-        {
-            led_high(0);
-        }
-        else
-        {
-            led_low(0); 
-        }
+        //     count++;
+        //     if (count > 20)
+        //     {
+        //         count = 0;
+        //         micro_wait(1000000); // wait for 1 second before updating the display again
+        //     }
+        // }
 
-
-        micro_wait(1000); 
-        led_off(); 
-        micro_wait(1000);
-
-        count++;
-        if (count > 20)   
-        {
-            count = 0; 
-            micro_wait(1000000); // wait for 1 second before updating the display again
-        }
-    }
-
-    return 0;
+        return 0;
 }

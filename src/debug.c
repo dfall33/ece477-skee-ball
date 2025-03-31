@@ -1,5 +1,7 @@
 #include "debug.h"
 
+extern void micro_wait(int); 
+
 void setup_debug_ports()
 {
 
@@ -91,4 +93,39 @@ void led_off()
                     GPIO_BSRR_BR_6 |  // Set PB6 low
                     GPIO_BSRR_BR_7);  // Set PB7 low
     // Alternatively, you could loop through each LED and call led_low(index) for each one.
+}
+
+
+void flash_leds()
+{
+    led_high(0); // Turn on LED at index 0 (PB3)
+    micro_wait(100000); // Wait for 100ms
+    
+    led_high(1); // Turn on LED at index 1 (PB4)
+    micro_wait(100000); // Wait for 100ms
+
+    led_high(2); // Turn on LED at index 2 (PB5)
+    micro_wait(100000); // Wait for 100ms
+
+    led_high(3); // Turn on LED at index 3 (PB6)
+    micro_wait(100000); // Wait for 100ms
+
+    led_high(4); // Turn on LED at index 4 (PB7)
+    micro_wait(100000); // Wait for 100ms
+
+    led_low(0); // Turn off LED at index 0 (PB3)
+    micro_wait(100000); // Wait for 100ms
+
+    led_low(1); // Turn off LED at index 1 (PB4)
+    micro_wait(100000); // Wait for 100ms
+
+    led_low(2); // Turn off LED at index 2 (PB5)
+    micro_wait(100000); // Wait for 100ms
+
+    led_low(3); // Turn off LED at index 3 (PB6)
+    micro_wait(100000); // Wait for 100ms
+
+    led_low(4); // Turn off LED at index 4 (PB7)
+    micro_wait(100000); // Wait for 100ms
+
 }

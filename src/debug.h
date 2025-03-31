@@ -10,4 +10,6 @@ void led_low(int8_t index);
 
 void led_off(); 
 
+void flash_leds(); 
+
 #endif // __DEBUG_H__

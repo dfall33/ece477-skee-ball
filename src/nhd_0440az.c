@@ -163,7 +163,7 @@ void spi_write_str(const char *string, uint8_t line)
         spi_char(*string, line_pair);
         string++;
     }
-    spi_char(120, line_pair);
+    // spi_char(120, line_pair);
 }
 
 void spi_cmd_top_two(uint16_t data)
@@ -295,4 +295,53 @@ void setup_display()
     setup_gpio_display(); // Setup GPIO pins for the display
     setup_spi_display();  // Setup SPI for the display
     init_display(); // Initialize the display with the necessary commands
+}
+
+
+void clear_display()
+{
+    // This function clears the display by sending the clear command to both the top and bottom lines
+
+    // Clear the top two lines
+    spi_cmd_top_two(0x0001); // Clear display command for top two lines
+    micro_wait(2000);        // Wait for 2ms
+
+    // Clear the bottom two lines
+    spi_cmd_bottom_two(0x0001); // Clear display command for bottom two lines
+    micro_wait(2000);           // Wait for 2ms
+}
+
+void progress_bar(uint8_t amount, uint8_t line)
+{
+    char buf[15]; // Increase size to 15 to handle the "100%" case and null terminator
+
+    if (amount > 10)
+    {
+        amount = 10; // Cap the amount to 10 to avoid overflow in the progress bar
+    }
+
+    for (int i = 0; i < amount; i++)
+    {
+        buf[i] = 0xFF; // Fill with 0xFF for the filled part of the progress bar
+    }
+    for (int i = amount; i < 10; i++)
+    {
+        buf[i] = ' '; // Fill the rest with spaces
+    }
+
+    // Null-terminate the progress bar portion
+    buf[10] = '\0';
+
+    // Append the percentage value
+    if (amount == 10)
+    {
+        snprintf(buf + 10, 5, "100%%"); // Use 5 to include "100%" and the null terminator
+    }
+    else
+    {
+        snprintf(buf + 10, 4, "%d%%", (amount * 10)); // Use 4 for "X%" and the null terminator
+    }
+
+    // Write the progress bar to the specified line
+    spi_write_str(buf, line);
 }
