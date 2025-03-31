@@ -59,8 +59,8 @@ void setup_tim16(void)
     GPIOB->AFR[1] &= ~0x0000000F;
     GPIOB->AFR[1] |= 0x2;
 
-    // TIM16->PSC = 16 - 1;
-    TIM16->PSC = 96 - 1;
+    TIM16->PSC = 16 - 1;
+    // TIM16->PSC = 96 - 1;
 
     TIM16->ARR = 60000 - 1;
     TIM16->BDTR |= TIM_BDTR_MOE;
@@ -97,8 +97,8 @@ void move_to_angle(int angle)
     // if (angle > 270)
     //     angle = 270;
 
-    int pulse_width = SERVO_MIN_PULSE + ((angle * (SERVO_MAX_PULSE - SERVO_MIN_PULSE)) / 270);
-    TIM16->CCR1 = pulse_width; // Set duty cycle
+    int pulse_width = SERVO_MIN_PULSE + ((angle * (SERVO_MAX_PULSE - SERVO_MIN_PULSE)) / 180);
+    TIM16->CCR1 = 3*pulse_width; // Set duty cycle
     printf("Moving to %d degrees (Pulse: %d)\n", angle, pulse_width);
 }
 
@@ -141,8 +141,8 @@ void init_tim2(void)
 {
 
     RCC->APB1ENR |= RCC_APB1ENR_TIM2EN;
-    // TIM2->PSC = 480 - 1;
-    TIM2->PSC = 2880 - 1; 
+    TIM2->PSC = 480 - 1;
+    // TIM2->PSC = 2880 - 1; 
     TIM2->ARR = 1000 - 1;
     TIM2->DIER |= TIM_DIER_UIE;
     NVIC->ISER[0] = 1 << TIM2_IRQn;
