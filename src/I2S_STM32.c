@@ -171,5 +171,12 @@ int play_sound(void)
 
     // Stop DMA when done
     DMA1_Channel5->CCR &= ~DMA_CCR_EN;
+
+    // reset state 
+
+    audio_pos = WAV_HEADER_SIZE; // Reset position to start of audio data
+    audio_done = 0;              // Reset done flag for next playback
+    
+
     return 0; // Exit after full playback
 }
