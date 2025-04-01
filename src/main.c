@@ -24,81 +24,79 @@ volatile int detected_streak = 0;
 void nano_wait(int);
 void micro_wait(int);
 
-void init_gpio();
 
 void init_all();
 
-void init_spi1();
 
 void setup_tim3();
 void setup_tim14();
 void setup_tim15();
 
-void init_gpio()
-{
+// void init_gpio()
+// {
 
-    // =======================================================
-    /* ----- Configure Port A ----- */
-    // =======================================================
-    RCC->AHBENR |= RCC_AHBENR_GPIOAEN;
-    /* ----- Configure PA4 as Output for RCLK ----- */
-    GPIOA->MODER &= ~(GPIO_MODER_MODER4);
-    GPIOA->MODER |= GPIO_MODER_MODER4_0; // Output mode
+//     // =======================================================
+//     /* ----- Configure Port A ----- */
+//     // =======================================================
+//     RCC->AHBENR |= RCC_AHBENR_GPIOAEN;
+//     /* ----- Configure PA4 as Output for RCLK ----- */
+//     GPIOA->MODER &= ~(GPIO_MODER_MODER4);
+//     GPIOA->MODER |= GPIO_MODER_MODER4_0; // Output mode
 
-    /* ----- Configure PA2 and PA3 as NHD E1 and NHD E2, respectively ----- */
-    GPIOA->MODER &= ~(GPIO_MODER_MODER2 | GPIO_MODER_MODER3);
-    GPIOA->MODER |= GPIO_MODER_MODER2_0 | GPIO_MODER_MODER3_0; // Output mode
+//     /* ----- Configure PA2 and PA3 as NHD E1 and NHD E2, respectively ----- */
+//     GPIOA->MODER &= ~(GPIO_MODER_MODER2 | GPIO_MODER_MODER3);
+//     GPIOA->MODER |= GPIO_MODER_MODER2_0 | GPIO_MODER_MODER3_0; // Output mode
 
-    // =======================================================
-    /* ----- Configure Port C ----- */
-    // =======================================================
+//     // =======================================================
+//     /* ----- Configure Port C ----- */
+//     // =======================================================
 
-    RCC->AHBENR |= RCC_AHBENR_GPIOCEN;
+//     RCC->AHBENR |= RCC_AHBENR_GPIOCEN;
 
-    /* ----- Configure PC0 for Push Button */
-    GPIOC->MODER &= ~(GPIO_MODER_MODER0);
+//     /* ----- Configure PC0 for Push Button */
+//     GPIOC->MODER &= ~(GPIO_MODER_MODER0);
 
-    /* ----- Configure PC1-PC10 for ultrasonic sensors -----  */
-    // Configure PC1 as input with internal pull-down
-    GPIOC->MODER &= ~(GPIO_MODER_MODER1);
-    GPIOC->PUPDR &= ~(GPIO_PUPDR_PUPDR1);
+//     /* ----- Configure PC1-PC10 for ultrasonic sensors -----  */
+//     // Configure PC1 as input with internal pull-down
+//     GPIOC->MODER &= ~(GPIO_MODER_MODER1);
+//     GPIOC->PUPDR &= ~(GPIO_PUPDR_PUPDR1);
 
-    // Configure PC2 as input with internal pull-down
-    GPIOC->MODER &= ~(GPIO_MODER_MODER2);
-    GPIOC->PUPDR &= ~(GPIO_PUPDR_PUPDR2);
+//     // Configure PC2 as input with internal pull-down
+//     GPIOC->MODER &= ~(GPIO_MODER_MODER2);
+//     GPIOC->PUPDR &= ~(GPIO_PUPDR_PUPDR2);
 
-    // Configure PC3 as input with internal pull-down
-    GPIOC->MODER &= ~(GPIO_MODER_MODER3);
-    GPIOC->PUPDR &= ~(GPIO_PUPDR_PUPDR3);
+//     // Configure PC3 as input with internal pull-down
+//     GPIOC->MODER &= ~(GPIO_MODER_MODER3);
+//     GPIOC->PUPDR &= ~(GPIO_PUPDR_PUPDR3);
 
-    // Configure PC4 as input with internal pull-down
-    GPIOC->MODER &= ~(GPIO_MODER_MODER4);
-    GPIOC->PUPDR &= ~(GPIO_PUPDR_PUPDR4);
+//     // Configure PC4 as input with internal pull-down
+//     GPIOC->MODER &= ~(GPIO_MODER_MODER4);
+//     GPIOC->PUPDR &= ~(GPIO_PUPDR_PUPDR4);
 
-    // Configure PC5 as input with internal pull-down
-    GPIOC->MODER &= ~(GPIO_MODER_MODER5);
-    GPIOC->PUPDR &= ~(GPIO_PUPDR_PUPDR5);
+//     // Configure PC5 as input with internal pull-down
+//     GPIOC->MODER &= ~(GPIO_MODER_MODER5);
+//     GPIOC->PUPDR &= ~(GPIO_PUPDR_PUPDR5);
 
-    // Configure PC6 as output
-    GPIOC->MODER &= ~(GPIO_MODER_MODER6);
-    GPIOC->MODER |= GPIO_MODER_MODER6_0; // Output mode
+//     // Configure PC6 as output
+//     GPIOC->MODER &= ~(GPIO_MODER_MODER6);
+//     GPIOC->MODER |= GPIO_MODER_MODER6_0; // Output mode
 
-    // Configure PC7 as output
-    GPIOC->MODER &= ~(GPIO_MODER_MODER7);
-    GPIOC->MODER |= GPIO_MODER_MODER7_0; // Output mode
+//     // Configure PC7 as output
+//     GPIOC->MODER &= ~(GPIO_MODER_MODER7);
+//     GPIOC->MODER |= GPIO_MODER_MODER7_0; // Output mode
 
-    // Configure PC8 as output
-    GPIOC->MODER &= ~(GPIO_MODER_MODER8);
-    GPIOC->MODER |= GPIO_MODER_MODER8_0; // Output mode
+//     // Configure PC8 as output
+//     GPIOC->MODER &= ~(GPIO_MODER_MODER8);
+//     GPIOC->MODER |= GPIO_MODER_MODER8_0; // Output mode
 
-    // Configure PC9 as output
-    GPIOC->MODER &= ~(GPIO_MODER_MODER9);
-    GPIOC->MODER |= GPIO_MODER_MODER9_0; // Output mode
+//     // Configure PC9 as output
+//     GPIOC->MODER &= ~(GPIO_MODER_MODER9);
+//     GPIOC->MODER |= GPIO_MODER_MODER9_0; // Output mode
 
-    // Configure PC10 as output
-    GPIOC->MODER &= ~(GPIO_MODER_MODER10);
-    GPIOC->MODER |= GPIO_MODER_MODER10_0; // Output mode
-}
+//     // Configure PC10 as output
+//     GPIOC->MODER &= ~(GPIO_MODER_MODER10);
+//     GPIOC->MODER |= GPIO_MODER_MODER10_0; // Output mode
+// }
 
 /**
  * @brief Initializes external interrupt to be triggered from button press or release (for ball launching with DC motor)
@@ -160,6 +158,8 @@ void EXTI4_15_IRQHandler(void)
     if (game_state == 0) // 0 = IDLE, see game.h typedef
     {
         game_state = 1; // 1 = ACTIVE
+
+        spi_write_str("trig in exti4_15", 3); 
         return;
     }
 
@@ -264,125 +264,76 @@ void TIM15_IRQHandler(void)
     time_out_hcsr04_search();
 }
 
-void init_spi1()
-{
-    // enable clock for SPI1
-    RCC->APB2ENR |= RCC_APB2ENR_SPI1EN;
-
-    RCC->AHBENR |= RCC_AHBENR_GPIOAEN;
-    GPIOA->MODER &= ~(GPIO_MODER_MODER15 | GPIO_MODER_MODER5 | GPIO_MODER_MODER7);
-    GPIOA->MODER |= GPIO_MODER_MODER15_1 | GPIO_MODER_MODER5_1 | GPIO_MODER_MODER7_1;
-
-    // set the alternate function for the pins (SCK, MOSI, NSS are all alternate function 0)
-
-    // reset the alternate function bits for the pins
-    GPIOA->AFR[0] &= ~(GPIO_AFRL_AFRL7 | GPIO_AFRL_AFRL5);
-    GPIOA->AFR[1] &= ~(GPIO_AFRH_AFRH7);
-
-    // configure NSS, SCK, MOSI signals of SPI1 to pins PA15, PA5, PA7, respectively
-    // set the alternate function bits for the pins
-    GPIOA->AFR[0] |= (0x0 << GPIO_AFRL_AFRL7_Pos) | (0x0 << GPIO_AFRL_AFRL5_Pos);
-    GPIOA->AFR[1] |= (0x0 << GPIO_AFRH_AFRH7_Pos);
-
-    // disable SPI1
-    SPI1->CR1 &= ~SPI_CR1_SPE;
-
-    // set baud rate to max possible
-    SPI1->CR1 |= SPI_CR1_BR;
-
-    // configure for 16-bit word size
-    SPI1->CR2 |= SPI_CR2_DS;
-    // SPI1->CR2 &= ~(SPI_CR2_DS_2 | SPI_CR2_DS_1);
-
-    // configure the SPI channel to be in master configuration
-    SPI1->CR1 |= SPI_CR1_MSTR;
-
-    // set the SS ouptut enable pit and enable NSSP
-    SPI1->CR2 |= SPI_CR2_SSOE;
-    SPI1->CR2 |= SPI_CR2_NSSP;
-
-    // set the TXDMAEN to enable DMA transfers on transmit buffer empty
-    SPI1->CR2 |= SPI_CR2_TXDMAEN;
-
-    // enable the SPI channel
-    SPI1->CR1 |= SPI_CR1_SPE;
-}
 
 void init_all()
 {
 
-    internal_clock();
-    init_gpio();
-    setup_tim3();
+    // internal_clock();
+    // setup_tim3();
+    // setup_tim15();
+
+    /* ----- Fpr joystick and servo motor ----- */
+    setup_debug_ports();
+
+    led_off(); 
+    led_high(0); 
+
+    setup_tim16();
+    setup_adc(); 
+    init_tim2();
+
+    led_high(1);
+
+    setup_ultrasonic_ports(); 
     setup_tim14();
-    setup_tim15();
-    init_spi1();
-    // spi1_init_oled();
-    init_display();
+
+    led_high(2);
+
+    led_high(3);
+    // setup_display();
+
+    led_high(3); 
+
+    setup_tim17();
+    
+    // led_high(4);
+    // led_off(); 
+
 }
 
 int main(void)
 {
     internal_clock();
+    
+    // setup_debug_ports();
 
-    setup_debug_ports(); 
-    setup_ultrasonic_ports(); 
-    setup_tim14(); 
-    setup_display(); 
 
-    // test_display(); 
-    // micro_wait(5000000); 
+    setup_tim16();
+    setup_adc(); 
+    init_tim2();
 
-    flash_leds(); 
 
-    test_display(); // Test the display to ensure it's working correctly
-    micro_wait(1000000);
-    clear_display(); // Clear the display after testing
-    // micro_wait(1000000);
-    // test_display(); // Test the display again to ensure it's still working correctly
-    // micro_wait(1000000);
-    // clear_display(); // Clear the display again
+    // setup_ultrasonic_ports(); 
+    // setup_tim14();
 
-    // progress_bar(5, 0);
-    // micro_wait(250000);
+    // setup_display();
 
-    for (int line = 0; line < 4; line++)
-    {
-        for (int i = 0; i < 11; i++)
-        {
-            progress_bar(i, line); // Update the progress bar on the first line of the display
-            micro_wait(250000); // Wait for a short time to see the progress bar update
-        }
+    // setup_tim17();
 
-    }
+    // flash_leds();
 
-        // while (1)
-        // {
-        //     int duration = test_sensor(0);
-        //     char *duration_str = (char *)malloc(20 * sizeof(char)); // allocate memory for the string
-        //     snprintf(duration_str, 20, "Duration: %d us", duration); // format the string with the duration value
-        //     spi_write_str(duration_str, 0); // Write the duration to the first line of the display (top line)
+    // // spi_write_str("made it to end", 2); 
 
-        //     if (duration > 0)
-        //     {
-        //         led_high(0);
-        //     }
-        //     else
-        //     {
-        //         led_low(0);
-        //     }
+    // GPIOB->MODER &= ~(GPIO_MODER_MODER8); 
+    // GPIOB->MODER |= GPIO_MODER_MODER8_0; // Set PB8 to output mode for TIM17
 
-        //     micro_wait(1000);
-        //     led_off();
-        //     micro_wait(1000);
+    // while (1)
+    // {
+    //     GPIOB->ODR |= GPIO_ODR_8; // Set PB8 high to indicate the program is running
+    //     micro_wait(1000); 
+    //     GPIOB->ODR &= ~GPIO_ODR_8; // Set PB8 low to indicate the program is running
+    //     micro_wait(1000);
+    // }
 
-        //     count++;
-        //     if (count > 20)
-        //     {
-        //         count = 0;
-        //         micro_wait(1000000); // wait for 1 second before updating the display again
-        //     }
-        // }
-
-        return 0;
+    return 0;
 }

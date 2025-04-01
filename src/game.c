@@ -11,8 +11,11 @@ char mode_str[20];     // string to hold the mode for display
 void game_idle()
 {
     // enable interrupts for joystick and button
-    enable_button_interrupt();
-    enable_joystick();
+    // enable_button_interrupt();
+    // enable_joystick();
+    disable_button_interrupt(); 
+    disable_joystick(); // disable joystick to prevent any movement while in idle state
+    disable_servo(); 
 
     // reset the score in between sessions
     score = 0;
@@ -28,6 +31,15 @@ void game_idle()
     spi_write_str(attempts_str, 2);
 
     spi_write_str("Game mode = Idle", 1); // display the score on the top line of the display
+
+    micro_wait(1000000);
+    micro_wait(1000000);
+    micro_wait(1000000);
+    micro_wait(1000000);
+    micro_wait(1000000);
+    micro_wait(1000000);
+
+    game_state = ACTIVE; 
 }
 
 void game_active()
@@ -36,7 +48,7 @@ void game_active()
     game_state = ACTIVE;
     spi_write_str("Game mode = Active", 1);
     // enable interrupts for joystick and button
-    enable_button_interrupt();
+    // enable_button_interrupt();
     enable_joystick();
     enable_servo();
 

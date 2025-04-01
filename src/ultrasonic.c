@@ -127,7 +127,7 @@ int wait_for_echo(GPIO_TypeDef *port, volatile uint32_t idr_pin, uint32_t odr_pi
     int offset = TIM14->CNT;
     while (!pulse_timed_out || start)
     {
-        led_high(4); 
+        // led_high(4); 
         // if ((GPIOC->IDR & idr_pin) && start == 0)
         if ((port->IDR & idr_pin) && start == 0)
         {
@@ -146,23 +146,23 @@ int wait_for_echo(GPIO_TypeDef *port, volatile uint32_t idr_pin, uint32_t odr_pi
         }
     }
 
-    led_low(4); 
+    // led_low(4); 
     stop_hcsr04_pulse_timer();
     if (pulse_timed_out)
     {
-        led_high(1); 
+        // led_high(1); 
         return 0;
     }
     else if (duration)
     {
 
         // return duration <= HCSR04_PULSE_THRESHOLD_US && duration > 0 ? duration : 0;
-        led_high(2); 
+        // led_high(2); 
         return duration > 0 && duration <= 250 ? duration : 0;
     }
     else
     {
-        led_high(3); 
+        // led_high(3); 
         return 0;
     }
 }

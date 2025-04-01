@@ -98,6 +98,10 @@ void led_off()
 
 void flash_leds()
 {
+
+    led_off(); 
+    micro_wait(1000000); 
+
     led_high(0); // Turn on LED at index 0 (PB3)
     micro_wait(100000); // Wait for 100ms
     

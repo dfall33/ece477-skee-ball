@@ -3,6 +3,9 @@
 
 // extern game_active();
 
+extern void led_high(int); 
+extern void led_low(int); 
+
 volatile int button_released = 0;
 volatile int button_timed_out = 0;
 volatile int button_pressed = 0;
@@ -63,14 +66,16 @@ void disable_button_interrupt()
 {
     // disable the external interrupt associated with the button
     // EXTI->IMR &= ~EXTI_IMR_IM0;
-    NVIC_DisableIRQ(EXTI0_1_IRQn);
+    // NVIC_DisableIRQ(EXTI0_1_IRQn);
+    NVIC_DisableIRQ(EXTI4_15_IRQn); 
 }
 
 void enable_button_interrupt()
 {
     // enable the external interrupt associated with the button
     // EXTI->IMR |= EXTI_IMR_IM0;
-    NVIC_EnableIRQ(EXTI0_1_IRQn);
+    // NVIC_EnableIRQ(EXTI0_1_IRQn);
+    NVIC_EnableIRQ(EXTI4_15_IRQn); // enable the interrupt for the button on PC13
 }
 
 int get_press_duration()
@@ -127,4 +132,26 @@ void init_button_gpio()
 
     // set PC13 to input mode
     GPIOC->MODER &= ~(GPIO_MODER_MODER13);
+}
+
+
+void test_button()
+{
+
+    while (1)
+    {
+        if (GPIOC->IDR & GPIO_IDR_13) // Check if button is pressed (PC13)
+        {
+            // Button is pressed
+            led_high(1); // Turn on LED 1 to indicate button press
+        }
+        else
+        {
+            // Button is not pressed
+            led_low(1); // Turn off LED 1 to indicate button not pressed
+        }
+        // Add a small delay to avoid bouncing issues
+        micro_wait(100000); // Adjust the delay as needed for your application
+    }
+
 }

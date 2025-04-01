@@ -68,4 +68,8 @@ void init_button_exti();
  *
  */
 void init_button_gpio();
+
+
+void test_button(); 
+
 #endif // __BUTTON_H__
