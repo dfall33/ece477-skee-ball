@@ -8,6 +8,8 @@ char success_str[20];  // string to hold the success message for display
 char attempts_str[20]; // string to hold the attempts left for display
 char mode_str[20];     // string to hold the mode for display
 
+char final_score_str[40]; 
+
 extern void led_high(int); 
 extern void led_low(int);
 extern void led_off(); 
@@ -145,6 +147,19 @@ void game_ball_detection()
     if (remaining_attempts == 0) // no more attempts, so go back to idle state
     {
         // game_idle();
+
+        // clear_display(); 
+        // snprintf(success_str, sizeof(success_str), "Game Over! Final Score: %d", score); // format the score string for display
+        // spi_write_str(success_str, 0);                                                  // display the score on the top line of the display
+
+        // micro_wait(1000000);
+        // micro_wait(1000000);
+        // micro_wait(1000000);
+        // micro_wait(1000000);
+        // micro_wait(1000000);
+
+        show_final_score(); 
+
         game_state = IDLE; // go back to idle state
     }
     else // more attempts remain, so go back to active state
@@ -152,6 +167,21 @@ void game_ball_detection()
         // game_active();
         game_state = ACTIVE; // go back to active state
     }
+}
+
+
+void show_final_score()
+{
+    clear_display(); 
+    snprintf(final_score_str, sizeof(final_score_str), "Final Score: %d", score); // format the score string for display
+    spi_write_str("Game Over!", 1); // display the score on the top line of the display
+    spi_write_str(final_score_str, 2); // display the score on the top line of the display
+    micro_wait(1000000);
+    micro_wait(1000000);
+    micro_wait(1000000);
+    micro_wait(1000000);
+    micro_wait(1000000);
+    micro_wait(1000000);
 }
 
 void game()

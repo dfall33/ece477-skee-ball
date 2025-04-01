@@ -55,4 +55,11 @@ void game_button_press();
  */
 void game_ball_detection();
 
+/**
+ * @brief Display a string showing that the game is over and the final score.
+ * 
+ * @param score The final score to display.
+ */
+void show_final_score(); 
+
 #endif // __GAME_H__#

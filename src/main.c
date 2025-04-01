@@ -189,7 +189,7 @@ int main(void)
     // }
 
     
-    // game(); // start the game loop
+    game(); // start the game loop
 
     return 0;
 }
