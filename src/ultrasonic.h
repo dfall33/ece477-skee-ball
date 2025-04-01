@@ -6,7 +6,6 @@
 /* ---- Constants ----- */
 #define HCSR04_PULSE_THRESHOLD_US 250
 #define HCSR04_PULSE_TIMEOUT_US 30000
-#define HCSR04_SEARCH_TIMEOUT_US 10000000
 #define HCSR04_GAP_TIME_US 250
 #define BALL_NOT_FOUND -1
 
@@ -26,5 +25,9 @@ int test_sensor(int8_t index);
 int test_sensors();
 
 void setup_ultrasonic_ports(); 
+
+void setup_tim14(); 
+void setup_tim15();
+
 
 #endif // __ULTRASONIC_H

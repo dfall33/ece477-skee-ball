@@ -126,7 +126,8 @@ void game_ball_detection()
     {
         // int additional_score = SENSOR_SCORES[sensor_index]; // get the score for the sensor that found the ball
         led_high(sensor_index); 
-        int additional_score = 5;  // placeholder score value, will almost certainly change
+        // int additional_score = 5;  // placeholder score value, will almost certainly change
+        int additional_score = SENSOR_SCORES[sensor_index]; // get the score for the sensor that found the ball
         score += additional_score; // increment the score based on the sensor that found the ball
         play_sound();              // not yet implemented, Jen will do this
         // display_score(score); // update the score on the 4-line display, David will implement this

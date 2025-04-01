@@ -96,15 +96,20 @@ void stop_hcsr04_pulse_timer()
 
 void start_hcsr04_search_timer()
 {
-    TIM14->DIER |= TIM_DIER_UIE;
-    TIM14->CNT = 0;
-    TIM14->CR1 |= TIM_CR1_CEN;
+    // TIM14->DIER |= TIM_DIER_UIE;
+    // TIM14->CNT = 0;
+    // TIM14->CR1 |= TIM_CR1_CEN;
+    TIM15->DIER |= TIM_DIER_UIE;
+    TIM15->CNT = 0;
+    TIM15->CR1 |= TIM_CR1_CEN;
 }
 
 void stop_hcsr04_search_timer()
 {
-    TIM14->CR1 &= ~TIM_CR1_CEN;
-    TIM14->DIER &= ~TIM_DIER_UIE;
+    // TIM14->CR1 &= ~TIM_CR1_CEN;
+    // TIM14->DIER &= ~TIM_DIER_UIE;
+    TIM15->CR1 &= ~TIM_CR1_CEN;
+    TIM15->DIER &= ~TIM_DIER_UIE;
 }
 
 void send_hcsr04_pulse(GPIO_TypeDef *port, uint32_t pin)
@@ -249,4 +254,66 @@ void setup_ultrasonic_ports()
 
     GPIOA->MODER |= (GPIO_MODER_MODER9_0 | 
                      GPIO_MODER_MODER11_0); // PA9 and PA11 are used for the third and fourth sensors respectively
+}
+
+
+/* ----- This timer is used for timing out the ultrasonic search overall, i.e., search for the ball for N seconds then give up ----- */
+void setup_tim15()
+{
+    RCC->APB2ENR |= RCC_APB2ENR_TIM15EN;
+    TIM15->PSC = 48000 - 1; // 48 MHz / 48000 = 1 kHz
+    TIM15->ARR = 10000 - 1;  // 1 kHz / 10000 = 0.1 Hz (10 seconds)
+    TIM15->DIER |= TIM_DIER_UIE;
+    NVIC_EnableIRQ(TIM15_IRQn);
+    // don't enable the timer yet, because we want to start it when we start the ultrasonic sensor
+}
+
+/**
+ * @brief This is the interrupt handler for TIM15. This is invoked if the ultrasonic sensor search times out (ball not detected within a certain window)
+ *
+ */
+void TIM15_IRQHandler(void)
+{
+    TIM15->SR &= ~TIM_SR_UIF;
+    time_out_hcsr04_search();
+}
+
+
+
+/**
+ * @brief This timer is used for timing out individual ultrasonic sensor readings
+ *
+ */
+
+
+void setup_tim14()
+{
+
+    // enable clock to TIM14
+    RCC->APB1ENR |= RCC_APB1ENR_TIM14EN;
+
+    // TIM14->ARR = 1440000;
+    TIM14->PSC = 48 - 1; // 48 MHz / 48 = 1 MHz
+    TIM14->ARR = 30000;  // 1 MHz / 30000 = 33.33 Hz
+
+    // enable the interrupt on timer overflow
+    TIM14->DIER |= TIM_DIER_UIE;
+
+    // enable the interrupt in the NVIC
+    NVIC_EnableIRQ(TIM14_IRQn);
+
+    // enable the timer
+    // TIM14->CR1 |= TIM_CR1_CEN;
+
+    // don't enable the timer yet, because we want to start it when we start the ultrasonic sensor
+}
+
+/**
+ * @brief This is the interrupt handler for TIM14. This is invoked if the ultrasonic sensor pulse times out
+ *
+ */
+void TIM14_IRQHandler(void)
+{
+    TIM14->SR &= ~TIM_SR_UIF;
+    time_out_pulse();
 }

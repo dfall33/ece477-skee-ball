@@ -25,78 +25,12 @@ void nano_wait(int);
 void micro_wait(int);
 
 
-void init_all();
 
 
 void setup_tim3();
 void setup_tim14();
 void setup_tim15();
 
-// void init_gpio()
-// {
-
-//     // =======================================================
-//     /* ----- Configure Port A ----- */
-//     // =======================================================
-//     RCC->AHBENR |= RCC_AHBENR_GPIOAEN;
-//     /* ----- Configure PA4 as Output for RCLK ----- */
-//     GPIOA->MODER &= ~(GPIO_MODER_MODER4);
-//     GPIOA->MODER |= GPIO_MODER_MODER4_0; // Output mode
-
-//     /* ----- Configure PA2 and PA3 as NHD E1 and NHD E2, respectively ----- */
-//     GPIOA->MODER &= ~(GPIO_MODER_MODER2 | GPIO_MODER_MODER3);
-//     GPIOA->MODER |= GPIO_MODER_MODER2_0 | GPIO_MODER_MODER3_0; // Output mode
-
-//     // =======================================================
-//     /* ----- Configure Port C ----- */
-//     // =======================================================
-
-//     RCC->AHBENR |= RCC_AHBENR_GPIOCEN;
-
-//     /* ----- Configure PC0 for Push Button */
-//     GPIOC->MODER &= ~(GPIO_MODER_MODER0);
-
-//     /* ----- Configure PC1-PC10 for ultrasonic sensors -----  */
-//     // Configure PC1 as input with internal pull-down
-//     GPIOC->MODER &= ~(GPIO_MODER_MODER1);
-//     GPIOC->PUPDR &= ~(GPIO_PUPDR_PUPDR1);
-
-//     // Configure PC2 as input with internal pull-down
-//     GPIOC->MODER &= ~(GPIO_MODER_MODER2);
-//     GPIOC->PUPDR &= ~(GPIO_PUPDR_PUPDR2);
-
-//     // Configure PC3 as input with internal pull-down
-//     GPIOC->MODER &= ~(GPIO_MODER_MODER3);
-//     GPIOC->PUPDR &= ~(GPIO_PUPDR_PUPDR3);
-
-//     // Configure PC4 as input with internal pull-down
-//     GPIOC->MODER &= ~(GPIO_MODER_MODER4);
-//     GPIOC->PUPDR &= ~(GPIO_PUPDR_PUPDR4);
-
-//     // Configure PC5 as input with internal pull-down
-//     GPIOC->MODER &= ~(GPIO_MODER_MODER5);
-//     GPIOC->PUPDR &= ~(GPIO_PUPDR_PUPDR5);
-
-//     // Configure PC6 as output
-//     GPIOC->MODER &= ~(GPIO_MODER_MODER6);
-//     GPIOC->MODER |= GPIO_MODER_MODER6_0; // Output mode
-
-//     // Configure PC7 as output
-//     GPIOC->MODER &= ~(GPIO_MODER_MODER7);
-//     GPIOC->MODER |= GPIO_MODER_MODER7_0; // Output mode
-
-//     // Configure PC8 as output
-//     GPIOC->MODER &= ~(GPIO_MODER_MODER8);
-//     GPIOC->MODER |= GPIO_MODER_MODER8_0; // Output mode
-
-//     // Configure PC9 as output
-//     GPIOC->MODER &= ~(GPIO_MODER_MODER9);
-//     GPIOC->MODER |= GPIO_MODER_MODER9_0; // Output mode
-
-//     // Configure PC10 as output
-//     GPIOC->MODER &= ~(GPIO_MODER_MODER10);
-//     GPIOC->MODER |= GPIO_MODER_MODER10_0; // Output mode
-// }
 
 /**
  * @brief Initializes external interrupt to be triggered from button press or release (for ball launching with DC motor)
@@ -178,42 +112,7 @@ void EXTI4_15_IRQHandler(void)
     }
 }
 
-/**
- * @brief This timer is used for timing out individual ultrasonic sensor readings
- *
- */
-void setup_tim14()
-{
 
-    // enable clock to TIM14
-    RCC->APB1ENR |= RCC_APB1ENR_TIM14EN;
-
-    // TIM14->ARR = 1440000;
-    TIM14->PSC = 48 - 1; // 48 MHz / 48 = 1 MHz
-    TIM14->ARR = 30000;  // 1 MHz / 30000 = 33.33 Hz
-
-    // enable the interrupt on timer overflow
-    TIM14->DIER |= TIM_DIER_UIE;
-
-    // enable the interrupt in the NVIC
-    NVIC_EnableIRQ(TIM14_IRQn);
-
-    // enable the timer
-    // TIM14->CR1 |= TIM_CR1_CEN;
-
-    // don't enable the timer yet, because we want to start it when we start the ultrasonic sensor
-}
-
-/* ----- This timer is used for timing out the ultrasonic search overall, i.e., search for the ball for N seconds then give up ----- */
-void setup_tim15()
-{
-    RCC->APB2ENR |= RCC_APB2ENR_TIM15EN;
-    TIM15->PSC = 48 - 1;                   // 48 MHz / 48 = 1 MHz
-    TIM15->ARR = HCSR04_SEARCH_TIMEOUT_US; // 1 MHz / 10000 = 100 Hz
-
-    TIM15->DIER |= TIM_DIER_UIE;
-    NVIC_EnableIRQ(TIM15_IRQn);
-}
 
 /**
  * @brief TIM3 is used for timing how long the button is pressed. The prescaler is set such that
@@ -244,62 +143,6 @@ void TIM3_IRQHandler(void)
     time_out_button();       // time out the button (disables the timer and forces the motor to launch the ball)
 }
 
-/**
- * @brief This is the interrupt handler for TIM14. This is invoked if the ultrasonic sensor pulse times out
- *
- */
-void TIM14_IRQHandler(void)
-{
-    TIM14->SR &= ~TIM_SR_UIF;
-    time_out_pulse();
-}
-
-/**
- * @brief This is the interrupt handler for TIM15. This is invoked if the ultrasonic sensor search times out (ball not detected within a certain window)
- *
- */
-void TIM15_IRQHandler(void)
-{
-    TIM15->SR &= ~TIM_SR_UIF;
-    time_out_hcsr04_search();
-}
-
-
-void init_all()
-{
-
-    // internal_clock();
-    // setup_tim3();
-    // setup_tim15();
-
-    /* ----- Fpr joystick and servo motor ----- */
-    setup_debug_ports();
-
-    led_off(); 
-    led_high(0); 
-
-    setup_tim16();
-    setup_adc(); 
-    init_tim2();
-
-    led_high(1);
-
-    setup_ultrasonic_ports(); 
-    setup_tim14();
-
-    led_high(2);
-
-    led_high(3);
-    // setup_display();
-
-    led_high(3); 
-
-    setup_tim17();
-    
-    // led_high(4);
-    // led_off(); 
-
-}
 
 int main(void)
 {
@@ -322,6 +165,30 @@ int main(void)
 
     clear_display();
 
+    // while (1)
+    // {
+    //     int index = search_hcsr04(1); 
+    //     if (index != BALL_NOT_FOUND) // -1 = not found, otherwise, gives index of the sensor that found the ball
+    //     {
+    //         led_high(index); 
+    //         // micro_wait(1000000);
+    //         micro_wait(1000000); 
+    //         micro_wait(1000000); 
+    //         micro_wait(1000000); 
+    //         led_off(); 
+    //     }
+    //     else
+    //     {
+    //         flash_leds(); 
+    //         flash_leds(); 
+    //         led_off(); 
+    //         micro_wait(1000000);
+    //         micro_wait(1000000);
+    //         micro_wait(1000000);
+    //     }
+    // }
+
+    
     // game(); // start the game loop
 
     return 0;
