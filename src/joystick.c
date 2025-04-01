@@ -92,7 +92,7 @@ void setup_tim16(void)
 
     TIM16->CCER |= TIM_CCER_CC1E;
     TIM16->EGR |= TIM_EGR_UG;
-    TIM16->CR1 |= TIM_CR1_CEN;
+    // TIM16->CR1 |= TIM_CR1_CEN;
     // move_to_angle(degrees);
 }
 
@@ -100,7 +100,7 @@ void setup_tim16(void)
 int map_adc_to_degrees(int adc_val)
 {
     int adc_min = 0, adc_max = 4095;
-    int deg_min = -4, deg_max = 4;
+    int deg_min = -2, deg_max = 2;
     int val = ((adc_val - adc_min) * (deg_max - deg_min) / (adc_max - adc_min)) + deg_min;
     if (adc_val <= 4000 && adc_val >= 1800)
         val = 0;
@@ -219,5 +219,5 @@ void init_tim2(void)
     TIM2->DIER |= TIM_DIER_UIE;
     NVIC->ISER[0] = 1 << TIM2_IRQn;
     NVIC_EnableIRQ(TIM2_IRQn); // Enable the interrupt for TIM2
-    TIM2->CR1 |= TIM_CR1_CEN;
+    // TIM2->CR1 |= TIM_CR1_CEN;
 }
