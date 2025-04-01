@@ -6,7 +6,7 @@
 #define SERVO_MIN_PULSE 500  // 500us
 #define SERVO_MAX_PULSE 2500 // 2500us
 
-volatile int degrees = 45;
+volatile int degrees;
 volatile int adc = 0;
 
 void disable_joystick_interrupt(void)
@@ -75,7 +75,7 @@ void setup_tim16(void)
     TIM16->CCER |= TIM_CCER_CC1E;
     TIM16->EGR |= TIM_EGR_UG;
     TIM16->CR1 |= TIM_CR1_CEN;
-    move_to_angle(degrees);
+    // move_to_angle(degrees);
 }
 
 // Convert ADC Value to Degree
@@ -84,7 +84,7 @@ int map_adc_to_degrees(int adc_val)
     int adc_min = 0, adc_max = 4095;
     int deg_min = -2, deg_max = 2;
     int val = ((adc_val - adc_min) * (deg_max - deg_min) / (adc_max - adc_min)) + deg_min;
-    if (adc_val <= 2100 && adc_val >= 1900)
+    if (adc_val <= 4000 && adc_val >= 1800)
         val = 0;
     return val;
 }
@@ -122,13 +122,8 @@ void TIM2_IRQHandler()
     int adc_val = ADC1->DR;
     adc = adc_val;
 
-    // if(adc_val > 2000 | adc_val < 1900) //SW TRIGGER
-    // {
-    //     EXTI->SWIER |= EXTI_SWIER_TR1;
-    // }
-
     int inc_degrees = map_adc_to_degrees(adc_val);
-    if ((degrees + inc_degrees) >= 0 && (degrees + inc_degrees) <= 270)
+    if ((degrees + inc_degrees) >= 0 && (degrees + inc_degrees) <= 180)
     {
         degrees += inc_degrees;
     }

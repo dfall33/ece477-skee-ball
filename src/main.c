@@ -326,18 +326,20 @@ int main(void)
     internal_clock();
 
     setup_debug_ports(); 
-    setup_ultrasonic_ports(); 
-    setup_tim14(); 
-    setup_display(); 
+    // setup_ultrasonic_ports(); 
+    // setup_tim14(); 
+    // setup_display(); 
 
     // test_display(); 
     // micro_wait(5000000); 
 
     flash_leds(); 
-
-    test_display(); // Test the display to ensure it's working correctly
-    micro_wait(1000000);
-    clear_display(); // Clear the display after testing
+    setup_adc();
+    setup_tim16();
+    init_tim2();
+    // test_display(); // Test the display to ensure it's working correctly
+    // micro_wait(1000000);
+    // clear_display(); // Clear the display after testing
     // micro_wait(1000000);
     // test_display(); // Test the display again to ensure it's still working correctly
     // micro_wait(1000000);
@@ -346,15 +348,15 @@ int main(void)
     // progress_bar(5, 0);
     // micro_wait(250000);
 
-    for (int line = 0; line < 4; line++)
-    {
-        for (int i = 0; i < 11; i++)
-        {
-            progress_bar(i, line); // Update the progress bar on the first line of the display
-            micro_wait(250000); // Wait for a short time to see the progress bar update
-        }
+    // for (int line = 0; line < 4; line++)
+    // {
+    //     for (int i = 0; i < 11; i++)
+    //     {
+    //         progress_bar(i, line); // Update the progress bar on the first line of the display
+    //         micro_wait(250000); // Wait for a short time to see the progress bar update
+    //     }
 
-    }
+    // }
 
         // while (1)
         // {
