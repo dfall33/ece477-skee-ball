@@ -4,7 +4,7 @@
 #include "stm32f0xx.h"
 #include "stdint.h"
 
-#define NHD_DATA_HOLD_TIME = 10 // 10 ns
+#define CHARS_PER_LINE 40 // number of characters per line on the display 
 
 void init_display();
 

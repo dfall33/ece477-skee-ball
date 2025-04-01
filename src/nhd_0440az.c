@@ -137,6 +137,12 @@ void spi_char(char character, uint8_t line_pair)
 void spi_write_str(const char *string, uint8_t line)
 {
 
+    // if (line == 0)
+
+    // write line of blank characters to clear the line
+
+
+
     // set the cursor to the correct position
     if (line == 0)
     {
@@ -158,12 +164,37 @@ void spi_write_str(const char *string, uint8_t line)
     // spi_cmd_top_two(0xC0); // Move the cursor to the home position
     int line_pair = line / 2;
 
+    // clear the line (fill line with blanks)
+    for (int i = 0; i < CHARS_PER_LINE; i++)
+    {
+        spi_char(' ', line_pair); // Send a space character to clear the line
+    }
+
+
+    // reset the cursor 
+    if (line == 0)
+    {
+        spi_cmd_top_two(0x02); // Move the cursor to the home position
+    }
+    else if (line == 1)
+    {
+        spi_cmd_top_two(0xC0); // Move the cursor to the home position
+    }
+    else if (line == 2)
+    {
+        spi_cmd_bottom_two(0x02); // Move the cursor to the home position
+    }
+    else if (line == 3)
+    {
+        spi_cmd_bottom_two(0xC0); // Move the cursor to the home position
+    }
+
+    // actually write the string to the display
     while (*string != '\0')
     {
         spi_char(*string, line_pair);
         string++;
     }
-    // spi_char(120, line_pair);
 }
 
 void spi_cmd_top_two(uint16_t data)

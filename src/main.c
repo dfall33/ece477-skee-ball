@@ -315,8 +315,14 @@ int main(void)
     setup_tim16();
     init_tim2();
 
-    enable_joystick(); 
-    enable_servo(); 
-    
+    setup_ultrasonic_ports();
+    setup_tim14(); 
+    setup_tim15();
+
+
+    clear_display();
+
+    // game(); // start the game loop
+
     return 0;
 }

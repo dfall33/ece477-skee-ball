@@ -8,6 +8,10 @@ char success_str[20];  // string to hold the success message for display
 char attempts_str[20]; // string to hold the attempts left for display
 char mode_str[20];     // string to hold the mode for display
 
+extern void led_high(int); 
+extern void led_low(int);
+extern void led_off(); 
+
 void game_idle()
 {
     // enable interrupts for joystick and button
@@ -38,6 +42,11 @@ void game_idle()
     micro_wait(1000000);
     micro_wait(1000000);
     micro_wait(1000000);
+    micro_wait(1000000);
+    micro_wait(1000000);
+    micro_wait(1000000);
+    micro_wait(1000000);
+    micro_wait(1000000);
 
     game_state = ACTIVE; 
 }
@@ -55,14 +64,41 @@ void game_active()
     snprintf(score_str, sizeof(score_str), "Score: %d", score); // format the score string for display
     spi_write_str(score_str, 0);
     // display the score on the top line of the display
+
+    micro_wait(1000000);
+    micro_wait(1000000);
+    micro_wait(1000000);
+    micro_wait(1000000);
+    micro_wait(1000000);
+    micro_wait(1000000);
+    micro_wait(1000000);
+    micro_wait(1000000);
+    micro_wait(1000000);
+    micro_wait(1000000);
+
+    game_state = BUTTON_PRESS;
+
 }
 
 void game_button_press()
 {
+
+    spi_write_str("Game mode = Button Press", 1); // display the score on the top line of the display
+
     disable_joystick();
     disable_servo();
     /* ----- Leave only the button press interrupt enabled ----- */
-    uint8_t press_level = get_press_duration(); // get the press duration from the button module (**BLOCKING**)
+    // uint8_t press_level = get_press_duration(); // get the press duration from the button module (**BLOCKING**)
+
+
+    // no button yet. for now, just wait 5 seconds, generate a random number [1, 10] and use that as the press duration
+    micro_wait(1000000); 
+    micro_wait(1000000);
+    micro_wait(1000000);
+    micro_wait(1000000);
+    micro_wait(1000000);
+    uint8_t press_level = rand() % 10 + 1; // generate a random number between 1 and 10
+
 
     char press_duration_str[20];                                                                 // string to hold the press duration for display
     snprintf(press_duration_str, sizeof(press_duration_str), "Press duration: %d", press_level); // format the press duration string for display
@@ -81,11 +117,15 @@ void game_button_press()
 
 void game_ball_detection()
 {
+
+    spi_write_str("Game mode = Ball Detection", 1); // display the score on the top line of the display
+
     // **BLOCKING** function that searches for the ball
     int sensor_index = search_hcsr04(1); // enables the necessary interrupts at the beginning and disables them at the end
     if (sensor_index != BALL_NOT_FOUND)  // -1 = not found, otherwise, gives index of the sensor that found the ball
     {
         // int additional_score = SENSOR_SCORES[sensor_index]; // get the score for the sensor that found the ball
+        led_high(sensor_index); 
         int additional_score = 5;  // placeholder score value, will almost certainly change
         score += additional_score; // increment the score based on the sensor that found the ball
         play_sound();              // not yet implemented, Jen will do this
