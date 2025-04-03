@@ -69,7 +69,12 @@ void init_button_exti();
  */
 void init_button_gpio();
 
-
-void test_button(); 
+/**
+ * @brief TIM3 is used for timing how long the button is pressed. The prescaler is set such that
+ * the timer counter represents the time pressed in microseconds. The timer has an interrupt so that the button can be constrained to a
+ * maximum press time (defined in src/button.h)
+ *
+ */
+void setup_tim3();
 
 #endif // __BUTTON_H__

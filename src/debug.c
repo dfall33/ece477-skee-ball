@@ -13,14 +13,16 @@ void setup_debug_ports()
         GPIO_MODER_MODER3 |
         GPIO_MODER_MODER4 |
         GPIO_MODER_MODER5 |
-        GPIO_MODER_MODER6 |
-        GPIO_MODER_MODER7);
+        GPIO_MODER_MODER6); 
+        // GPIO_MODER_MODER6 |
+        // GPIO_MODER_MODER7);
 
     GPIOB->MODER |= (GPIO_MODER_MODER3_0 |
                      GPIO_MODER_MODER4_0 |
                      GPIO_MODER_MODER5_0 |
-                     GPIO_MODER_MODER6_0 |
-                     GPIO_MODER_MODER7_0);
+                     GPIO_MODER_MODER6_0);
+                    //  GPIO_MODER_MODER6_0 |
+                    //  GPIO_MODER_MODER7_0);
 }
 
 void led_high(int8_t index)
@@ -52,9 +54,9 @@ void led_high(int8_t index)
         break;
 
     // for GPIOB7
-    case 4:
-        GPIOB->BSRR |= GPIO_BSRR_BS_7;
-        break;
+    // case 4:
+    //     GPIOB->BSRR |= GPIO_BSRR_BS_7;
+    //     break;
     }
 }
 
@@ -77,9 +79,9 @@ void led_low(int8_t index)
         case 3:
             GPIOB->BSRR |= GPIO_BSRR_BR_6; // Set PB6 low
             break;
-        case 4:
-            GPIOB->BSRR |= GPIO_BSRR_BR_7; // Set PB7 low
-            break;
+        // case 4:
+        //     GPIOB->BSRR |= GPIO_BSRR_BR_7; // Set PB7 low
+        //     break;
     }
 }
 
@@ -87,11 +89,12 @@ void led_off()
 {
     
     // Turn off all LEDs by setting all bits low
-    GPIOB->BSRR |= (GPIO_BSRR_BR_3 |  // Set PB3 low
-                    GPIO_BSRR_BR_4 |  // Set PB4 low
-                    GPIO_BSRR_BR_5 |  // Set PB5 low
-                    GPIO_BSRR_BR_6 |  // Set PB6 low
-                    GPIO_BSRR_BR_7);  // Set PB7 low
+    GPIOB->BSRR |= (GPIO_BSRR_BR_3 | // Set PB3 low
+                    GPIO_BSRR_BR_4 | // Set PB4 low
+                    GPIO_BSRR_BR_5 | // Set PB5 low
+                    GPIO_BSRR_BR_6); // Set PB6 low
+                                     // GPIO_BSRR_BR_6 |  // Set PB6 low
+                                     // GPIO_BSRR_BR_7);  // Set PB7 low
     // Alternatively, you could loop through each LED and call led_low(index) for each one.
 }
 
@@ -114,8 +117,8 @@ void flash_leds()
     led_high(3); // Turn on LED at index 3 (PB6)
     micro_wait(100000); // Wait for 100ms
 
-    led_high(4); // Turn on LED at index 4 (PB7)
-    micro_wait(100000); // Wait for 100ms
+    // led_high(4); // Turn on LED at index 4 (PB7)
+    // micro_wait(100000); // Wait for 100ms
 
     led_low(0); // Turn off LED at index 0 (PB3)
     micro_wait(100000); // Wait for 100ms
@@ -129,7 +132,7 @@ void flash_leds()
     led_low(3); // Turn off LED at index 3 (PB6)
     micro_wait(100000); // Wait for 100ms
 
-    led_low(4); // Turn off LED at index 4 (PB7)
-    micro_wait(100000); // Wait for 100ms
+    // led_low(4); // Turn off LED at index 4 (PB7)
+    // micro_wait(100000); // Wait for 100ms
 
 }
