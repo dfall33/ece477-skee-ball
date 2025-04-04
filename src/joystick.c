@@ -9,10 +9,10 @@
 volatile int degrees;
 volatile int adc = 0;
 
-extern void spi_write_str(char*, int); 
+extern void spi_write_str(char *, int);
 
 extern void led_high(int);
-extern void led_off(); 
+extern void led_off();
 
 // void disable_joystick_interrupt(void)
 void disable_joystick(void)
@@ -110,13 +110,9 @@ int map_adc_to_degrees(int adc_val)
 // Move Servo to Specified Angle
 void move_to_angle(int angle)
 {
-    // if (angle < 0)
-    //     angle = 0;
-    // if (angle > 270)
-    //     angle = 270;
 
     int pulse_width = SERVO_MIN_PULSE + ((angle * (SERVO_MAX_PULSE - SERVO_MIN_PULSE)) / 180);
-    TIM16->CCR1 = 3*pulse_width; // Set duty cycle
+    TIM16->CCR1 = 3 * pulse_width; // Set duty cycle
     printf("Moving to %d degrees (Pulse: %d)\n", angle, pulse_width);
 }
 
@@ -147,65 +143,6 @@ void TIM2_IRQHandler()
     }
 
     move_to_angle(degrees);
-
-    // if (0 <= degrees <= 40)
-    // {
-    //     led_off(); 
-    //     led_high(0);
-    // }
-    // else if (degrees > 40 && degrees <= 80)
-    // {
-    //     led_off(); 
-    //     led_high(1);
-    // }
-    // else if (degrees > 80 && degrees <= 120)
-    // {
-    //     led_off(); 
-    //     led_high(2);
-    // }
-    // else if (degrees > 120 && degrees <= 160)
-    // {
-    //     led_off(); 
-    //     led_high(3);
-    // }
-    // else if (degrees > 160 && degrees <= 270)
-    // {
-    //     led_off(); 
-    //     led_high(4);
-    // }
-
-    // if (adc_val >= 0 && adc_val <= 1000)
-    // {
-    //     led_off(); 
-    //     led_high(0); 
-    // }
-    // else if (adc_val > 1000 && adc_val <= 2000)
-    // {
-    //     led_off(); 
-    //     led_high(1); // Indicate the range of ADC value
-    // }
-    // else if (adc_val > 2000 && adc_val <= 3000)
-    // {
-    //     led_off(); 
-    //     led_high(2); // Indicate the range of ADC value
-    // }
-    // else if (adc_val > 3000 && adc_val <= 4095)
-    // {
-    //     led_off(); 
-    //     led_high(3); // Indicate the range of ADC value
-    // }
-    // else
-    // {
-    //     led_off(); // Turn off all LEDs if ADC value is out of range
-    //     led_high(4);
-    // }
-
-
-    // led_high(1);
-
-    // char *val_msg = "ADC Value: %d, Degrees: %d";
-    // snprintf(val_msg, 50, "ADC Value: %d, Degrees: %d", adc_val, degrees);
-    // spi_write_str(val_msg, 3); // Send the ADC value and degrees to the SPI display
 }
 
 // Setup TIM15 for Periodic Joystick Reading
@@ -214,7 +151,7 @@ void init_tim2(void)
 
     RCC->APB1ENR |= RCC_APB1ENR_TIM2EN;
     TIM2->PSC = 480 - 1;
-    // TIM2->PSC = 2880 - 1; 
+    // TIM2->PSC = 2880 - 1;
     TIM2->ARR = 1000 - 1;
     TIM2->DIER |= TIM_DIER_UIE;
     NVIC->ISER[0] = 1 << TIM2_IRQn;

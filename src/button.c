@@ -22,17 +22,15 @@ volatile int button_pressed = 0;
 void EXTI4_15_IRQHandler(void)
 {
     // acknowledge the interrupt
-    // EXTI->PR |= EXTI_PR_PR13;
     EXTI->PR = EXTI_PR_PR7; // Clear the pending bit for line 7 (PB7)
 
     // // if currently in idle state, transition to active state (start a game session)
-    // if (game_state == 0) // 0 = IDLE, see game.h typedef
-    // {
-    //     game_state = 1; // 1 = ACTIVE
-
-    //     // spi_write_str("trig in exti4_15", 3); 
-    //     return;
-    // }
+    if (game_state == 0) // 0 = IDLE, see game.h typedef
+    {
+        game_state = 1; // 1 = ACTIVE
+        led_high(2); 
+        return;
+    }
 
     // if the input data register is high, then the button is pressed and being held down,
     // so start the button press timer (will time out after BUTTON_MAX_PRESS_US, defined in src/button.h)
@@ -40,6 +38,7 @@ void EXTI4_15_IRQHandler(void)
     // {
     //     start_button_press();
     // }
+    led_low(2); 
     if (GPIOB->IDR & GPIO_IDR_7) // Check if PB7 is high (button pressed)
     {
         start_button_press();

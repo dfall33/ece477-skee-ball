@@ -6,7 +6,7 @@ void micro_wait(int);
 volatile int pulse_timed_out = 0;
 volatile int search_timed_out = 0;
 
-extern void led_high(int index); 
+extern void led_high(int index);
 extern void led_low(int index);
 
 void time_out_pulse()
@@ -132,12 +132,12 @@ int wait_for_echo(GPIO_TypeDef *port, volatile uint32_t idr_pin, uint32_t odr_pi
     int offset = TIM14->CNT;
     while (!pulse_timed_out || start)
     {
-        // led_high(4); 
+        // led_high(4);
         // if ((GPIOC->IDR & idr_pin) && start == 0)
         if ((port->IDR & idr_pin) && start == 0)
         {
             start = TIM14->CNT;
-            // led_high(1); 
+            // led_high(1);
         }
 
         // if (!(GPIOC->IDR & idr_pin) && start != 0)
@@ -146,28 +146,28 @@ int wait_for_echo(GPIO_TypeDef *port, volatile uint32_t idr_pin, uint32_t odr_pi
             duration = TIM14->CNT - start - offset;
             stop_hcsr04_pulse_timer();
             pulse_timed_out = 0;
-            // led_high(3); 
+            // led_high(3);
             break;
         }
     }
 
-    // led_low(4); 
+    // led_low(4);
     stop_hcsr04_pulse_timer();
     if (pulse_timed_out)
     {
-        // led_high(1); 
+        // led_high(1);
         return 0;
     }
     else if (duration)
     {
 
         // return duration <= HCSR04_PULSE_THRESHOLD_US && duration > 0 ? duration : 0;
-        // led_high(2); 
+        // led_high(2);
         return duration > 0 && duration <= 250 ? duration : 0;
     }
     else
     {
-        // led_high(3); 
+        // led_high(3);
         return 0;
     }
 }
@@ -199,10 +199,9 @@ int search_hcsr04(int stability_count)
     return BALL_NOT_FOUND;
 }
 
-
 int test_sensor(int8_t index)
 {
-    
+
     // This function is used to test a single ultrasonic sensor by its index
     // It will return the duration of the echo received from the sensor
     // If no echo is received, it will return 0
@@ -218,13 +217,11 @@ int test_sensor(int8_t index)
         // No echo received from the sensor
         return 0;
     }
-
 }
-
 
 void setup_ultrasonic_ports()
 {
-    
+
     // This function is used to setup the ultrasonic sensor ports for input and output
 
     // Enable clock for GPIOC and GPIOA (assuming sensors are connected to these ports)
@@ -235,10 +232,9 @@ void setup_ultrasonic_ports()
         GPIO_MODER_MODER6 |
         GPIO_MODER_MODER7 |
         GPIO_MODER_MODER8 |
-        GPIO_MODER_MODER9 | 
-        GPIO_MODER_MODER14 | 
-        GPIO_MODER_MODER15
-    );
+        GPIO_MODER_MODER9 |
+        GPIO_MODER_MODER14 |
+        GPIO_MODER_MODER15);
 
     GPIOA->MODER &= ~(
         GPIO_MODER_MODER8 |
@@ -252,17 +248,16 @@ void setup_ultrasonic_ports()
                      GPIO_MODER_MODER9_0 |
                      GPIO_MODER_MODER15_0);
 
-    GPIOA->MODER |= (GPIO_MODER_MODER9_0 | 
+    GPIOA->MODER |= (GPIO_MODER_MODER9_0 |
                      GPIO_MODER_MODER11_0); // PA9 and PA11 are used for the third and fourth sensors respectively
 }
-
 
 /* ----- This timer is used for timing out the ultrasonic search overall, i.e., search for the ball for N seconds then give up ----- */
 void setup_tim15()
 {
     RCC->APB2ENR |= RCC_APB2ENR_TIM15EN;
     TIM15->PSC = 48000 - 1; // 48 MHz / 48000 = 1 kHz
-    TIM15->ARR = 10000 - 1;  // 1 kHz / 10000 = 0.1 Hz (10 seconds)
+    TIM15->ARR = 10000 - 1; // 1 kHz / 10000 = 0.1 Hz (10 seconds)
     TIM15->DIER |= TIM_DIER_UIE;
     NVIC_EnableIRQ(TIM15_IRQn);
     // don't enable the timer yet, because we want to start it when we start the ultrasonic sensor
@@ -278,14 +273,10 @@ void TIM15_IRQHandler(void)
     time_out_hcsr04_search();
 }
 
-
-
 /**
  * @brief This timer is used for timing out individual ultrasonic sensor readings
  *
  */
-
-
 void setup_tim14()
 {
 
