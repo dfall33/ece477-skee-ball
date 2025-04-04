@@ -3,18 +3,19 @@
 
 // extern game_active();
 
-extern void led_high(int); 
-extern void led_low(int); 
+extern void led_high(int);
+extern void led_low(int);
 extern volatile int game_state;
-extern void progress_bar(); 
+extern void progress_bar();
 
 volatile int8_t button_press_progress; // int [1, 10] to indicate progress of button press as percent of max.
 
-#define BUTTON_MAX_VALUE 10 
+#define BUTTON_MAX_VALUE 10
 
 volatile int button_released = 0;
 volatile int button_timed_out = 0;
 volatile int button_pressed = 0;
+volatile int button_pressable = 0;
 
 // extern game_state; // get the game state variable from game.c
 
@@ -28,7 +29,14 @@ void EXTI4_15_IRQHandler(void)
     if (game_state == 0) // 0 = IDLE, see game.h typedef
     {
         game_state = 1; // 1 = ACTIVE
-        led_high(2); 
+        button_pressable = 0;
+        led_high(2);
+        return;
+    }
+
+    if (game_state == 1 && !button_pressable)
+    {
+        button_pressable = 1;
         return;
     }
 
@@ -38,7 +46,7 @@ void EXTI4_15_IRQHandler(void)
     // {
     //     start_button_press();
     // }
-    led_low(2); 
+    led_low(2);
     if (GPIOB->IDR & GPIO_IDR_7) // Check if PB7 is high (button pressed)
     {
         start_button_press();
@@ -50,10 +58,9 @@ void EXTI4_15_IRQHandler(void)
     else
     {
         stop_button_press();
-        led_low(0); 
+        led_low(0);
     }
 }
-
 
 void start_button_press()
 {
@@ -110,7 +117,7 @@ void disable_button_interrupt()
     // disable the external interrupt associated with the button
     // EXTI->IMR &= ~EXTI_IMR_IM0;
     // NVIC_DisableIRQ(EXTI0_1_IRQn);
-    NVIC_DisableIRQ(EXTI4_15_IRQn); 
+    NVIC_DisableIRQ(EXTI4_15_IRQn);
 }
 
 void enable_button_interrupt()
@@ -147,13 +154,13 @@ int get_press_duration()
     // }
 
     button_timed_out = 0; // reset timeout flag
-    button_released = 0; // reset released flag
-    button_pressed = 0; 
+    button_released = 0;  // reset released flag
+    button_pressed = 0;
 
-    int8_t ret = button_press_progress; 
+    int8_t ret = button_press_progress;
 
     button_press_progress = 0; // reset the progress for next button press
-    return ret; 
+    return ret;
 }
 
 // enable exti on pc13
@@ -173,9 +180,9 @@ void init_button_exti()
     // // enable interrupt on line 13
     // EXTI->IMR |= EXTI_IMR_MR13;
 
-    // set PB7 as external interrupt source 
-    SYSCFG->EXTICR[1] &= ~SYSCFG_EXTICR2_EXTI7; 
-    SYSCFG->EXTICR[1] |= SYSCFG_EXTICR2_EXTI7_PB; 
+    // set PB7 as external interrupt source
+    SYSCFG->EXTICR[1] &= ~SYSCFG_EXTICR2_EXTI7;
+    SYSCFG->EXTICR[1] |= SYSCFG_EXTICR2_EXTI7_PB;
 
     // enable interrupt on rising edge and falling edge
     EXTI->RTSR |= EXTI_RTSR_TR7; // Rising edge trigger for PB7
@@ -196,19 +203,16 @@ void init_button_gpio()
     // // set PC13 to input mode
     // GPIOC->MODER &= ~(GPIO_MODER_MODER13);
 
-    RCC->AHBENR |= RCC_AHBENR_GPIOBEN; 
+    RCC->AHBENR |= RCC_AHBENR_GPIOBEN;
     GPIOB->MODER &= ~(GPIO_MODER_MODER7); // Clear mode for PB7
 }
-
-
-
 
 void setup_tim3()
 {
     RCC->APB1ENR |= RCC_APB1ENR_TIM3EN;
     // TIM3->PSC = 48000 - 1; // 48 MHz / 48000 = 1 kHz
 
-    // make 10x faster to poll button for progress bar 
+    // make 10x faster to poll button for progress bar
     TIM3->PSC = 4800 - 1; // 48 MHz / 48000 = 1 kHz
     TIM3->ARR = BUTTON_MAX_PRESS_US;
     TIM3->CNT = 0;
@@ -217,7 +221,6 @@ void setup_tim3()
 
     // don't enable the timer until we are ready to accept button presses (depends on game state)
 }
-
 
 /**
  * @brief This is the interrupt handler for TIM3. This is invoked if the user holds down the button longer than the
@@ -231,17 +234,15 @@ void TIM3_IRQHandler(void)
 
     if (button_press_progress < BUTTON_MAX_VALUE)
     {
-        button_press_progress++; 
-        progress_bar( button_press_progress, 1); // Update the progress bar on line 1 of the display
-
+        button_press_progress++;
+        progress_bar(button_press_progress, 1); // Update the progress bar on line 1 of the display
     }
-        
 
-    else 
+    else
     {
         button_press_progress = BUTTON_MAX_VALUE; // cap it at max value
-        progress_bar( button_press_progress, 1); // Update the progress bar on line 1 of the display
-        time_out_button(); 
+        progress_bar(button_press_progress, 1);   // Update the progress bar on line 1 of the display
+        time_out_button();
     }
 
     // time_out_button();       // time out the button (disables the timer and forces the motor to launch the ball)

@@ -6,8 +6,12 @@ void micro_wait(int);
 volatile int pulse_timed_out = 0;
 volatile int search_timed_out = 0;
 
+volatile int timeout_counter = 0;
+
 extern void led_high(int index);
 extern void led_low(int index);
+
+extern void spi_write_str(char *, int);
 
 void time_out_pulse()
 {
@@ -16,26 +20,12 @@ void time_out_pulse()
 
 void time_out_hcsr04_search()
 {
+    spi_write_str("Time out!", 3); // Display timeout message on the display
     search_timed_out = 1;
 }
 
 int read_hcsr04(int index)
 {
-    // switch (index)
-    // {
-    // case 0:
-    //     return wait_for_echo(GPIO_IDR_1, GPIO_ODR_6);
-    // case 1:
-    //     return wait_for_echo(GPIO_IDR_2, GPIO_ODR_7);
-    // case 2:
-    //     return wait_for_echo(GPIO_IDR_3, GPIO_ODR_8);
-    // case 3:
-    //     return wait_for_echo(GPIO_IDR_4, GPIO_ODR_9);
-    // case 4:
-    //     return wait_for_echo(GPIO_IDR_5, GPIO_ODR_10);
-    // default:
-    //     return 0;
-    // }
 
     switch (index)
     {
@@ -83,8 +73,8 @@ int read_hcsr04(int index)
 
 void start_hcsr04_pulse_timer()
 {
-    TIM14->DIER |= TIM_DIER_UIE;
     TIM14->CNT = 0;
+    TIM14->DIER |= TIM_DIER_UIE;
     TIM14->CR1 |= TIM_CR1_CEN;
 }
 
@@ -99,17 +89,23 @@ void start_hcsr04_search_timer()
     // TIM14->DIER |= TIM_DIER_UIE;
     // TIM14->CNT = 0;
     // TIM14->CR1 |= TIM_CR1_CEN;
-    TIM15->DIER |= TIM_DIER_UIE;
+    NVIC_ClearPendingIRQ(TIM15_IRQn); // Clear any pending interrupt for TIM15 before starting it
     TIM15->CNT = 0;
+    TIM15->DIER |= TIM_DIER_UIE;
+    TIM15->SR &= ~TIM_SR_UIF; // clear any pending update interrupt flag
     TIM15->CR1 |= TIM_CR1_CEN;
+    NVIC_EnableIRQ(TIM15_IRQn); // Enable the interrupt for TIM15 to handle timeouts
+    timeout_counter = 0;
 }
 
 void stop_hcsr04_search_timer()
 {
     // TIM14->CR1 &= ~TIM_CR1_CEN;
     // TIM14->DIER &= ~TIM_DIER_UIE;
+    timeout_counter = 0;
     TIM15->CR1 &= ~TIM_CR1_CEN;
     TIM15->DIER &= ~TIM_DIER_UIE;
+    NVIC_DisableIRQ(TIM15_IRQn); // Disable the interrupt for TIM15 to prevent further timeouts
 }
 
 void send_hcsr04_pulse(GPIO_TypeDef *port, uint32_t pin)
@@ -126,6 +122,7 @@ int wait_for_echo(GPIO_TypeDef *port, volatile uint32_t idr_pin, uint32_t odr_pi
 {
     pulse_timed_out = 0;
     start_hcsr04_pulse_timer();
+
     volatile int start = 0;
     volatile int duration = 0;
     send_hcsr04_pulse(port, odr_pin);
@@ -176,6 +173,8 @@ int search_hcsr04(int stability_count)
 {
     search_timed_out = 0;
     start_hcsr04_search_timer();
+    search_timed_out = 0;
+
     volatile int count = 0;
     int duration = 0;
     while (!search_timed_out)
@@ -256,10 +255,12 @@ void setup_ultrasonic_ports()
 void setup_tim15()
 {
     RCC->APB2ENR |= RCC_APB2ENR_TIM15EN;
-    TIM15->PSC = 48000 - 1; // 48 MHz / 48000 = 1 kHz
+    // TIM15->PSC = 48000 - 1; // 48 MHz / 48000 = 1 kHz
+    TIM15->PSC = 480 - 1;   // 48 MHz / 48000 = 1 kHz
     TIM15->ARR = 10000 - 1; // 1 kHz / 10000 = 0.1 Hz (10 seconds)
-    TIM15->DIER |= TIM_DIER_UIE;
-    NVIC_EnableIRQ(TIM15_IRQn);
+    // TIM15->DIER |= TIM_DIER_UIE;
+    // NVIC_EnableIRQ(TIM15_IRQn);
+
     // don't enable the timer yet, because we want to start it when we start the ultrasonic sensor
 }
 
@@ -270,7 +271,11 @@ void setup_tim15()
 void TIM15_IRQHandler(void)
 {
     TIM15->SR &= ~TIM_SR_UIF;
-    time_out_hcsr04_search();
+
+    if (timeout_counter < 100)
+        timeout_counter++;
+    else
+        time_out_hcsr04_search();
 }
 
 /**
