@@ -13,11 +13,17 @@ char final_score_str[40];
 extern void led_high(int);
 extern void led_low(int);
 extern void led_off();
+extern void setup_tim17();
+extern void setup_tim16();
+extern void power_motor();
+
+extern void micro_wait(int);
 
 void game_idle()
 {
     // enable interrupts for joystick and button
     enable_button_interrupt();
+
     disable_joystick(); // disable joystick to prevent any movement while in idle state
     disable_servo();
 
@@ -35,49 +41,25 @@ void game_idle()
     spi_write_str(attempts_str, 2);
 
     spi_write_str("Game mode = Idle", 1); // display the score on the top line of the display
-
-    // micro_wait(1000000);
-    // micro_wait(1000000);
-    // micro_wait(1000000);
-    // micro_wait(1000000);
-    // micro_wait(1000000);
-    // micro_wait(1000000);
-    // micro_wait(1000000);
-    // micro_wait(1000000);
-    // micro_wait(1000000);
-    // micro_wait(1000000);
-    // micro_wait(1000000);
-
-    // game_state = ACTIVE;
 }
 
 void game_active()
 {
 
-    game_state = ACTIVE;
     spi_write_str("Game mode = Active", 1);
 
+    disable_button_interrupt();
+
+    micro_wait(1000000);
     // enable interrupts for joystick and button
     enable_button_interrupt();
+
+    setup_tim16();
     enable_joystick();
     enable_servo();
 
     snprintf(score_str, sizeof(score_str), "Score: %d", score); // format the score string for display
     spi_write_str(score_str, 0);
-    // display the score on the top line of the display
-
-    // micro_wait(1000000);
-    // micro_wait(1000000);
-    // micro_wait(1000000);
-    // micro_wait(1000000);
-    // micro_wait(1000000);
-    // micro_wait(1000000);
-    // micro_wait(1000000);
-    // micro_wait(1000000);
-    // micro_wait(1000000);
-    // micro_wait(1000000);
-
-    // game_state = BUTTON_PRESS;
 }
 
 void game_button_press()
@@ -87,34 +69,28 @@ void game_button_press()
 
     disable_joystick();
     disable_servo();
+
     /* ----- Leave only the button press interrupt enabled ----- */
     uint8_t press_level = get_press_duration(); // get the press duration from the button module (**BLOCKING**)
-
-    // no button yet. for now, just wait 5 seconds, generate a random number [1, 10] and use that as the press duration
-    // micro_wait(1000000);
-    // micro_wait(1000000);
-    // micro_wait(1000000);
-    // micro_wait(1000000);
-    // micro_wait(1000000);
-    // uint8_t press_level = rand() % 10 + 1; // generate a random number between 1 and 10
 
     char press_duration_str[20];                                                                 // string to hold the press duration for display
     snprintf(press_duration_str, sizeof(press_duration_str), "Press duration: %d", press_level); // format the press duration string for display
     spi_write_str(press_duration_str, 3);                                                        // display the press duration on the top line of the display
 
-    // power the motor to launch the ball
-    // power_motor(press_duration); // motor is not yet implemented
+    power_motor(1);
 
     // be done with the button for now
     disable_button_interrupt();
 
     // ball has been launched, so transition to the ball detection state
-    // game_ball_detection();
     game_state = BALL_DETECTION; // go to ball detection state
 }
 
 void game_ball_detection()
 {
+
+    disable_joystick();
+    disable_servo();
 
     disable_button_interrupt();                     // disable button interrupt to prevent any button presses during ball detection
     spi_write_str("Game mode = Ball Detection", 1); // display the score on the top line of the display
@@ -143,25 +119,11 @@ void game_ball_detection()
     // transition to the next state, depending on how many attempts remain
     if (remaining_attempts == 0) // no more attempts, so go back to idle state
     {
-        // game_idle();
-
-        // clear_display();
-        // snprintf(success_str, sizeof(success_str), "Game Over! Final Score: %d", score); // format the score string for display
-        // spi_write_str(success_str, 0);                                                  // display the score on the top line of the display
-
-        // micro_wait(1000000);
-        // micro_wait(1000000);
-        // micro_wait(1000000);
-        // micro_wait(1000000);
-        // micro_wait(1000000);
-
         show_final_score();
-
         game_state = IDLE; // go back to idle state
     }
     else // more attempts remain, so go back to active state
     {
-        // game_active();
         game_state = ACTIVE; // go back to active state
     }
 }

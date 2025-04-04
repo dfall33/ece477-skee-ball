@@ -31,16 +31,25 @@ int main(void)
 {
     internal_clock();
 
-    setup_debug_ports();      // setup GPIO ports for debugging LEDs
-    flash_leds();             // light sequence to show that the LEDs are working, program has started
-    setup_display();          // initialize SPI, GPIO ports for display
-    test_display();           // display some text to show that the display is working correctly
-    init_button_gpio();       // setup GPIO port for external button (PB7)
-    init_button_exti();       // setup external interrupt for button press on PB7
-    setup_tim3();             // setup Timer 3, the timer used for recording button press duration
-    setup_adc();              // setup ADC for joystick input
-    setup_tim16();            // setup Timer 16 for PWM output to the servo motor
-    init_tim2();              // setup Timer 16 for joystick input polling
+    /* ----- Setup debugging LEDs ----- */
+    setup_debug_ports();
+    flash_leds();
+
+    /* ----- Setup LCD Display ----- */
+    setup_display(); // initialize SPI, GPIO ports for display
+    test_display();  // display some text to show that the display is working correctly
+
+    /* ----- Setup joystick and servo ----- */
+    setup_adc();   // setup ADC for joystick input
+    setup_tim16(); // setup Timer 16 for PWM output to the servo motor
+    init_tim2();   // setup Timer 16 for joystick input polling
+
+    /* ----- Setup external push button ----- */
+    init_button_gpio(); // setup GPIO port for external button (PB7)
+    init_button_exti(); // setup external interrupt for button press on PB7
+    setup_tim3();       // setup Timer 3, the timer used for recording button press duration
+
+    /* ----- Setup ultrasonic sensors ----- */
     setup_ultrasonic_ports(); // setup GPIO ports for ultrasonic sensors (HC-SR04)
     setup_tim14();            // setup Timer 14 for timing out individual ultrasonic sensor readings
     setup_tim15();            // setup Timer 15 for timing out the overall ultrasonic search (i.e., if the ball is not found within a certain time limit)

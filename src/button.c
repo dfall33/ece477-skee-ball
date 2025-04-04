@@ -25,12 +25,16 @@ void EXTI4_15_IRQHandler(void)
     // acknowledge the interrupt
     EXTI->PR = EXTI_PR_PR7; // Clear the pending bit for line 7 (PB7)
 
-    // // if currently in idle state, transition to active state (start a game session)
+    // if currently in idle state, transition to active state (start a game session)
     if (game_state == 0) // 0 = IDLE, see game.h typedef
     {
         game_state = 1; // 1 = ACTIVE
         button_pressable = 0;
-        led_high(2);
+
+        // disable button interrupt (will enable it again a bit later in game_active())
+        // disable_button_interrupt();
+        NVIC_DisableIRQ(EXTI4_15_IRQn); // Disable the button interrupt to prevent further interrupts while transitioning
+
         return;
     }
 
@@ -46,6 +50,10 @@ void EXTI4_15_IRQHandler(void)
     // {
     //     start_button_press();
     // }
+
+    if (!button_pressable)
+        return;
+
     led_low(2);
     if (GPIOB->IDR & GPIO_IDR_7) // Check if PB7 is high (button pressed)
     {
