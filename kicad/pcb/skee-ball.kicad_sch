@@ -8661,9 +8661,9 @@
 		)
 		(uuid "b0c14a5f-2d4e-4c0d-bdbe-2db531ab030b")
 	)
-	(text "OLED Display Connections"
+	(text "LCD Display Connectors"
 		(exclude_from_sim no)
-		(at 275.844 131.572 0)
+		(at 276.098 131.064 0)
 		(effects
 			(font
 				(size 1.778 1.778)
@@ -8741,7 +8741,6 @@
 	)
 	(label "BOOT0"
 		(at 339.09 101.6 180)
-		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
