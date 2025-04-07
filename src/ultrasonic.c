@@ -160,7 +160,7 @@ int wait_for_echo(GPIO_TypeDef *port, volatile uint32_t idr_pin, uint32_t odr_pi
 
         // return duration <= HCSR04_PULSE_THRESHOLD_US && duration > 0 ? duration : 0;
         // led_high(2);
-        return duration > 0 && duration <= 250 ? duration : 0;
+        return duration > 0 && duration <= 300 ? duration : 0;
     }
     else
     {

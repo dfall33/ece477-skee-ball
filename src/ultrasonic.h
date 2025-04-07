@@ -24,10 +24,9 @@ int search_hcsr04(int stability_count);
 int test_sensor(int8_t index);
 int test_sensors();
 
-void setup_ultrasonic_ports(); 
+void setup_ultrasonic_ports();
 
-void setup_tim14(); 
+void setup_tim14();
 void setup_tim15();
-
 
 #endif // __ULTRASONIC_H

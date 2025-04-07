@@ -54,6 +54,66 @@ int main(void)
     setup_tim14();            // setup Timer 14 for timing out individual ultrasonic sensor readings
     setup_tim15();            // setup Timer 15 for timing out the overall ultrasonic search (i.e., if the ball is not found within a certain time limit)
 
+    // while (1)
+    // {
+    //     int duration = read_hcsr04(1);
+
+    //     if (duration > 0)
+    //     {
+    //         led_high(1);
+    //         play_sound();
+    //     }
+    //     else
+    //     {
+    //         led_low(1);
+    //     }
+
+    //     micro_wait(100000);
+    // }
+
+    // return 0;
+
+    // while (1)
+    // {
+    //     // int index = search_hcsr04(1);
+
+    //     int index = search_hcsr04(1);
+    //     led_high(0);
+    //     micro_wait(1000000);
+    //     led_low(0);
+    //     micro_wait(1000000); // wait for 1 second before the next search
+
+    //     // if (index == -1)
+    //     // {
+    //     //     flash_leds();
+    //     //     led_high(1);
+    //     //     led_high(2);
+    //     //     led_high(3);
+    //     //     led_high(0);
+    //     //     break;
+    //     // }
+    //     // else if (index == 3 || index == 4)
+    //     // {
+    //     //     led_high(3);
+    //     //     // play_sound();
+    //     // }
+    //     // else if (index == 0)
+    //     // {
+    //     //     led_high(0);
+    //     //     led_high(1);
+    //     //     led_high(2);
+    //     //     play_sound();
+    //     // }
+    //     // else
+    //     // {
+    //     //     led_high(index);
+    //     // }
+
+    //     // micro_wait(100000);
+    //     // led_off();
+
+    //     // micro_wait(1000000);
+    // }
     game(); // start the game loop
 
     return 0;
