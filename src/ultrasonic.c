@@ -24,7 +24,7 @@ void time_out_hcsr04_search()
     search_timed_out = 1;
 }
 
-int read_hcsr04(int index)
+uint8_t read_hcsr04(int index)
 {
 
     switch (index)
@@ -69,6 +69,8 @@ int read_hcsr04(int index)
             GPIO_ODR_15  // odr pin
         );
     }
+
+    return 0; 
 }
 
 void start_hcsr04_pulse_timer()
@@ -118,13 +120,13 @@ void send_hcsr04_pulse(GPIO_TypeDef *port, uint32_t pin)
     port->ODR &= ~pin;
 }
 
-int wait_for_echo(GPIO_TypeDef *port, volatile uint32_t idr_pin, uint32_t odr_pin)
+uint8_t wait_for_echo(GPIO_TypeDef *port, volatile uint32_t idr_pin, uint32_t odr_pin)
 {
     pulse_timed_out = 0;
     start_hcsr04_pulse_timer();
 
     volatile int start = 0;
-    volatile int duration = 0;
+    volatile uint8_t duration = 0;
     send_hcsr04_pulse(port, odr_pin);
     int offset = TIM14->CNT;
     while (!pulse_timed_out || start)
@@ -146,26 +148,32 @@ int wait_for_echo(GPIO_TypeDef *port, volatile uint32_t idr_pin, uint32_t odr_pi
             // led_high(3);
             break;
         }
+
+        // if (pulse_timed_out)
+        // {
+        //     // return -1; 
+        //     return 0; 
+        //     break; 
+        // }
     }
 
-    // led_low(4);
     stop_hcsr04_pulse_timer();
     if (pulse_timed_out)
     {
-        // led_high(1);
-        return 0;
+        // return -1;
+        return 0; 
     }
     else if (duration)
     {
 
-        // return duration <= HCSR04_PULSE_THRESHOLD_US && duration > 0 ? duration : 0;
-        // led_high(2);
-        return duration > 0 && duration <= 300 ? duration : 0;
+        return duration > 0 && duration < 255 ? duration : 0 ; 
+        return duration;
+        // return duration > 10 && duration <= 220 ? duration : 0;
     }
     else
     {
-        // led_high(3);
-        return 0;
+        // return -2;
+        return 0; 
     }
 }
 
@@ -176,21 +184,31 @@ int search_hcsr04(int stability_count)
     search_timed_out = 0;
 
     volatile int count = 0;
-    int duration = 0;
+    uint8_t duration = 0;
     while (!search_timed_out)
     {
-        for (int i = 0; i < 5; i++)
+        for (int i = 0; i < 4; i++)
         {
             count++;
 
+            // if (i == 2)
+            //     continue; 
+
             duration = read_hcsr04(i);
-            if (duration && count >= stability_count)
+            // if (duration && count >= stability_count)
+            // if (duration > 0 && count >= stability_count && i != 4)
+            if (duration > 0 && duration < 100)
+            // if (duration > 0)
             {
                 stop_hcsr04_search_timer();
+                char buf[20];
+                snprintf(buf, sizeof(buf), "Sensor %d: %d", i, duration); // format the duration string for display
+                spi_write_str(buf, 3);                                     // display the duration on the top line of the display
                 return i;
             }
 
-            micro_wait(HCSR04_GAP_TIME_US);
+            // micro_wait(HCSR04_GAP_TIME_US);
+            micro_wait(500); 
         }
     }
 
@@ -290,7 +308,9 @@ void setup_tim14()
 
     // TIM14->ARR = 1440000;
     TIM14->PSC = 48 - 1; // 48 MHz / 48 = 1 MHz
-    TIM14->ARR = 30000;  // 1 MHz / 30000 = 33.33 Hz
+    // TIM14->ARR = 30000;  // 1 MHz / 30000 = 33.33 Hz
+    // TIM14->ARR = 3000;  // 1 MHz / 30000 = 33.33 Hz
+    TIM14->ARR = 500;  // 1 MHz / 30000 = 33.33 Hz
 
     // enable the interrupt on timer overflow
     TIM14->DIER |= TIM_DIER_UIE;
@@ -312,4 +332,5 @@ void TIM14_IRQHandler(void)
 {
     TIM14->SR &= ~TIM_SR_UIF;
     time_out_pulse();
+    led_high(2); 
 }

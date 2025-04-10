@@ -152,7 +152,8 @@ void init_tim2(void)
     RCC->APB1ENR |= RCC_APB1ENR_TIM2EN;
     TIM2->PSC = 480 - 1;
     // TIM2->PSC = 2880 - 1;
-    TIM2->ARR = 1000 - 1;
+    // TIM2->ARR = 1000 - 1;
+    TIM2->ARR = 5000 - 1; 
     TIM2->DIER |= TIM_DIER_UIE;
     NVIC->ISER[0] = 1 << TIM2_IRQn;
     NVIC_EnableIRQ(TIM2_IRQn); // Enable the interrupt for TIM2

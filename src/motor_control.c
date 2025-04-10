@@ -69,6 +69,8 @@ void power_motor(int amount)
     setup_tim17();
     move_to_duty_cycle(amount); // Set the duty cycle based on the amount (0-100%)
     micro_wait(1000000);
+    micro_wait(1000000);
+    
     move_to_duty_cycle(0); // Stop the motor after 1 second
     disable_tim17();
 }
@@ -77,17 +79,28 @@ void move_to_duty_cycle(int duty_cycle)
 {
 
     setup_tim17();
-    // Ensure the duty cycle is within the PWM range (0 to 100)
+    // // Ensure the duty cycle is within the PWM range (0 to 100)
+    // if (duty_cycle < 0)
+    //     duty_cycle = 0;
+    // if (duty_cycle > 100)
+    //     duty_cycle = 100;
+
+    // // Calculate the duty cycle in terms of the ARR and CCR1 values
+    // // int pulse_width = 750 + (((duty_cycle - 1) * (1050 - 750)) / 9);
+    // int pulse_width = 750 + (((duty_cycle) * (1050 - 750)) / 9);
+    // TIM17->CCR1 = pulse_width; // Set the duty cycle for PWM
+
     if (duty_cycle < 0)
         duty_cycle = 0;
-    if (duty_cycle > 100)
-        duty_cycle = 100;
+    if (duty_cycle > 10)
+        duty_cycle = 10;
 
-    // Calculate the duty cycle in terms of the ARR and CCR1 values
-    // int pulse_width = 750 + (((duty_cycle - 1) * (1050 - 750)) / 9);
-    int pulse_width = 750 + (((duty_cycle) * (1050 - 750)) / 9);
+    if (duty_cycle == 1 || duty_cycle ==2 ) 
+        duty_cycle = 3; 
+
+    // linearly interpolate a number [0, 10] to [750, 820]
+    int pulse_width = 750 + ((duty_cycle * (820 - 750)) / 10);
     TIM17->CCR1 = pulse_width; // Set the duty cycle for PWM
-    double high_time_ms = (double)pulse_width / 3000.0;
     // printf("High time: %.2f ms\n", high_time_ms);
 }
 

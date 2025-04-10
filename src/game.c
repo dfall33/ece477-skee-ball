@@ -77,7 +77,8 @@ void game_button_press()
     snprintf(press_duration_str, sizeof(press_duration_str), "Press duration: %d", press_level); // format the press duration string for display
     spi_write_str(press_duration_str, 3);                                                        // display the press duration on the top line of the display
 
-    power_motor(1);
+    // power_motor(1);
+    power_motor(press_level); // power the motor based on the press level (0-10)
 
     // be done with the button for now
     disable_button_interrupt();
@@ -96,23 +97,19 @@ void game_ball_detection()
     spi_write_str("Game mode = Ball Detection", 1); // display the score on the top line of the display
 
     // **BLOCKING** function that searches for the ball
+    // int sensor_index = search_hcsr04(2); // enables the necessary interrupts at the beginning and disables them at the end
     int sensor_index = search_hcsr04(1); // enables the necessary interrupts at the beginning and disables them at the end
     if (sensor_index != BALL_NOT_FOUND)  // -1 = not found, otherwise, gives index of the sensor that found the ball
     {
-        // int additional_score = SENSOR_SCORES[sensor_index]; // get the score for the sensor that found the ball
         led_high(sensor_index);
-        // int additional_score = 5;  // placeholder score value, will almost certainly change
         int additional_score = SENSOR_SCORES[sensor_index]; // get the score for the sensor that found the ball
         score += additional_score;                          // increment the score based on the sensor that found the ball
         play_sound();                                       // not yet implemented, Jen will do this
-        // display_score(score); // update the score on the 4-line display, David will implement this
-
         snprintf(success_str, sizeof(success_str), "+%d points!", score); // format the score string for display
         spi_write_str(success_str, 1);                                    // display the score on the top line of the display
     }
 
     remaining_attempts--; // doing all this used one attempt, so decrement the number of attempts
-
     snprintf(attempts_str, sizeof(attempts_str), "Attempts: %d", remaining_attempts); // format the score string for display
     spi_write_str(attempts_str, 2);                                                   // display the score on the top line of the display
 
