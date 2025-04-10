@@ -6,7 +6,10 @@
 #define SERVO_MIN_PULSE 500  // 500us
 #define SERVO_MAX_PULSE 2500 // 2500us
 
-volatile int degrees;
+#define ANGLE_MIN 53 
+#define ANGLE_MAX 83
+
+volatile int degrees = 68; // experimentally determined to be the center position of the servo
 volatile int adc = 0;
 
 extern void spi_write_str(char *, int);
@@ -108,12 +111,15 @@ int map_adc_to_degrees(int adc_val)
 }
 
 // Move Servo to Specified Angle
+extern void spi_write_str (char *, int); 
 void move_to_angle(int angle)
 {
 
     int pulse_width = SERVO_MIN_PULSE + ((angle * (SERVO_MAX_PULSE - SERVO_MIN_PULSE)) / 180);
     TIM16->CCR1 = 3 * pulse_width; // Set duty cycle
-    printf("Moving to %d degrees (Pulse: %d)\n", angle, pulse_width);
+    char buf[20];
+    sprintf(buf, "Angle: %d", angle);
+    spi_write_str(buf, 0); // Display the angle on the display
 }
 
 // Read Joystick ADC Value
@@ -137,7 +143,9 @@ void TIM2_IRQHandler()
     adc = adc_val;
 
     int inc_degrees = map_adc_to_degrees(adc_val);
-    if ((degrees + inc_degrees) >= 0 && (degrees + inc_degrees) <= 180)
+    // if ((degrees + inc_degrees) >= 0 && (degrees + inc_degrees) <= 180)
+    // if (d(degress + inc_degrees))
+    if ((degrees + inc_degrees) >= ANGLE_MIN && (degrees + inc_degrees) <= ANGLE_MAX)
     {
         degrees += inc_degrees;
     }
