@@ -1,19 +1,14 @@
 #include "button.h"
-extern void led_high(int);
-extern void led_low(int);
 extern volatile int game_state;
 extern void progress_bar();
 volatile int8_t button_press_progress; // int [1, 10] to indicate progress of button press as percent of max.
-#define BUTTON_MAX_VALUE 10
+
+/* ----- Control Flags -----  */
 volatile int button_released = 0;
 volatile int button_timed_out = 0;
 volatile int button_pressed = 0;
 volatile int button_pressable = 0;
 
-/**
- * @brief External Interrupt Handler for the button on PB7. This is invoked when the button is pressed or released.
- * 
- */
 void EXTI4_15_IRQHandler(void)
 {
     // acknowledge the interrupt
@@ -26,9 +21,7 @@ void EXTI4_15_IRQHandler(void)
         button_pressable = 0;
 
         // disable button interrupt (will enable it again a bit later in game_active())
-        // disable_button_interrupt();
         NVIC_DisableIRQ(EXTI4_15_IRQn); // Disable the button interrupt to prevent further interrupts while transitioning
-
         return;
     }
 
@@ -40,15 +33,12 @@ void EXTI4_15_IRQHandler(void)
 
     // if the input data register is high, then the button is pressed and being held down,
     // so start the button press timer (will time out after BUTTON_MAX_PRESS_US, defined in src/button.h)
-
     if (!button_pressable)
         return;
 
-    led_low(2);
     if (GPIOB->IDR & GPIO_IDR_7) // Check if PB7 is high (button pressed)
     {
         start_button_press();
-        led_high(0); // Turn on LED 1 to indicate button press
     }
 
     // if the input data register is low, then the button has been released
@@ -56,7 +46,6 @@ void EXTI4_15_IRQHandler(void)
     else
     {
         stop_button_press();
-        led_low(0);
     }
 }
 

@@ -88,9 +88,6 @@ void stop_hcsr04_pulse_timer()
 
 void start_hcsr04_search_timer()
 {
-    // TIM14->DIER |= TIM_DIER_UIE;
-    // TIM14->CNT = 0;
-    // TIM14->CR1 |= TIM_CR1_CEN;
     NVIC_ClearPendingIRQ(TIM15_IRQn); // Clear any pending interrupt for TIM15 before starting it
     TIM15->CNT = 0;
     TIM15->DIER |= TIM_DIER_UIE;
@@ -102,8 +99,6 @@ void start_hcsr04_search_timer()
 
 void stop_hcsr04_search_timer()
 {
-    // TIM14->CR1 &= ~TIM_CR1_CEN;
-    // TIM14->DIER &= ~TIM_DIER_UIE;
     timeout_counter = 0;
     TIM15->CR1 &= ~TIM_CR1_CEN;
     TIM15->DIER &= ~TIM_DIER_UIE;
@@ -113,10 +108,8 @@ void stop_hcsr04_search_timer()
 void send_hcsr04_pulse(GPIO_TypeDef *port, uint32_t pin)
 {
 
-    // GPIOC->ODR |= pin;
     port->ODR |= pin;
     micro_wait(10);
-    // GPIOC->ODR &= ~pin;
     port->ODR &= ~pin;
 }
 
@@ -131,48 +124,33 @@ uint8_t wait_for_echo(GPIO_TypeDef *port, volatile uint32_t idr_pin, uint32_t od
     int offset = TIM14->CNT;
     while (!pulse_timed_out || start)
     {
-        // led_high(4);
-        // if ((GPIOC->IDR & idr_pin) && start == 0)
         if ((port->IDR & idr_pin) && start == 0)
         {
             start = TIM14->CNT;
-            // led_high(1);
         }
 
-        // if (!(GPIOC->IDR & idr_pin) && start != 0)
         if (!(port->IDR & idr_pin) && start != 0)
         {
             duration = TIM14->CNT - start - offset;
             stop_hcsr04_pulse_timer();
             pulse_timed_out = 0;
-            // led_high(3);
             break;
         }
 
-        // if (pulse_timed_out)
-        // {
-        //     // return -1; 
-        //     return 0; 
-        //     break; 
-        // }
     }
 
     stop_hcsr04_pulse_timer();
     if (pulse_timed_out)
     {
-        // return -1;
         return 0; 
     }
     else if (duration)
     {
 
-        return duration > 0 && duration < 255 ? duration : 0 ; 
-        return duration;
-        // return duration > 10 && duration <= 220 ? duration : 0;
+        return duration > 0 && duration < 150 ? duration : 0 ; 
     }
     else
     {
-        // return -2;
         return 0; 
     }
 }
@@ -191,24 +169,20 @@ int search_hcsr04(int stability_count)
         {
             count++;
 
-            // if (i == 2)
-            //     continue; 
-
             duration = read_hcsr04(i);
-            // if (duration && count >= stability_count)
-            // if (duration > 0 && count >= stability_count && i != 4)
-            if (duration > 0 && duration < 100)
-            // if (duration > 0)
+            // if (duration > 0 && duration < 80 && count > stability_count && i != 3)
+            if (duration > 10 && duration < 80 && count > stability_count)
             {
                 stop_hcsr04_search_timer();
-                char buf[20];
-                snprintf(buf, sizeof(buf), "Sensor %d: %d", i, duration); // format the duration string for display
-                spi_write_str(buf, 3);                                     // display the duration on the top line of the display
+
+                char buf[20] ; 
+                sprintf(buf, "Sensor %d: %d", i, duration);
+                spi_write_str(buf, 1);
+
                 return i;
             }
 
-            // micro_wait(HCSR04_GAP_TIME_US);
-            micro_wait(500); 
+            micro_wait(HCSR04_GAP_TIME_US);
         }
     }
 
@@ -218,10 +192,6 @@ int search_hcsr04(int stability_count)
 
 int test_sensor(int8_t index)
 {
-
-    // This function is used to test a single ultrasonic sensor by its index
-    // It will return the duration of the echo received from the sensor
-    // If no echo is received, it will return 0
 
     int duration = read_hcsr04(index);
     if (duration > 0)
@@ -269,23 +239,14 @@ void setup_ultrasonic_ports()
                      GPIO_MODER_MODER11_0); // PA9 and PA11 are used for the third and fourth sensors respectively
 }
 
-/* ----- This timer is used for timing out the ultrasonic search overall, i.e., search for the ball for N seconds then give up ----- */
 void setup_tim15()
 {
     RCC->APB2ENR |= RCC_APB2ENR_TIM15EN;
-    // TIM15->PSC = 48000 - 1; // 48 MHz / 48000 = 1 kHz
     TIM15->PSC = 480 - 1;   // 48 MHz / 48000 = 1 kHz
     TIM15->ARR = 10000 - 1; // 1 kHz / 10000 = 0.1 Hz (10 seconds)
-    // TIM15->DIER |= TIM_DIER_UIE;
-    // NVIC_EnableIRQ(TIM15_IRQn);
-
     // don't enable the timer yet, because we want to start it when we start the ultrasonic sensor
 }
 
-/**
- * @brief This is the interrupt handler for TIM15. This is invoked if the ultrasonic sensor search times out (ball not detected within a certain window)
- *
- */
 void TIM15_IRQHandler(void)
 {
     TIM15->SR &= ~TIM_SR_UIF;
@@ -296,20 +257,12 @@ void TIM15_IRQHandler(void)
         time_out_hcsr04_search();
 }
 
-/**
- * @brief This timer is used for timing out individual ultrasonic sensor readings
- *
- */
 void setup_tim14()
 {
 
     // enable clock to TIM14
     RCC->APB1ENR |= RCC_APB1ENR_TIM14EN;
-
-    // TIM14->ARR = 1440000;
     TIM14->PSC = 48 - 1; // 48 MHz / 48 = 1 MHz
-    // TIM14->ARR = 30000;  // 1 MHz / 30000 = 33.33 Hz
-    // TIM14->ARR = 3000;  // 1 MHz / 30000 = 33.33 Hz
     TIM14->ARR = 500;  // 1 MHz / 30000 = 33.33 Hz
 
     // enable the interrupt on timer overflow
@@ -318,16 +271,9 @@ void setup_tim14()
     // enable the interrupt in the NVIC
     NVIC_EnableIRQ(TIM14_IRQn);
 
-    // enable the timer
-    // TIM14->CR1 |= TIM_CR1_CEN;
-
     // don't enable the timer yet, because we want to start it when we start the ultrasonic sensor
 }
 
-/**
- * @brief This is the interrupt handler for TIM14. This is invoked if the ultrasonic sensor pulse times out
- *
- */
 void TIM14_IRQHandler(void)
 {
     TIM14->SR &= ~TIM_SR_UIF;

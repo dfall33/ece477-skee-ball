@@ -53,10 +53,6 @@ void led_high(int8_t index)
         GPIOB->BSRR |= GPIO_BSRR_BS_6;
         break;
 
-    // for GPIOB7
-    // case 4:
-    //     GPIOB->BSRR |= GPIO_BSRR_BS_7;
-    //     break;
     }
 }
 
@@ -79,9 +75,6 @@ void led_low(int8_t index)
         case 3:
             GPIOB->BSRR |= GPIO_BSRR_BR_6; // Set PB6 low
             break;
-        // case 4:
-        //     GPIOB->BSRR |= GPIO_BSRR_BR_7; // Set PB7 low
-        //     break;
     }
 }
 
@@ -117,9 +110,6 @@ void flash_leds()
     led_high(3); // Turn on LED at index 3 (PB6)
     micro_wait(100000); // Wait for 100ms
 
-    // led_high(4); // Turn on LED at index 4 (PB7)
-    // micro_wait(100000); // Wait for 100ms
-
     led_low(0); // Turn off LED at index 0 (PB3)
     micro_wait(100000); // Wait for 100ms
 
@@ -131,8 +121,4 @@ void flash_leds()
 
     led_low(3); // Turn off LED at index 3 (PB6)
     micro_wait(100000); // Wait for 100ms
-
-    // led_low(4); // Turn off LED at index 4 (PB7)
-    // micro_wait(100000); // Wait for 100ms
-
 }

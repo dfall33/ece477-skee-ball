@@ -60,8 +60,6 @@ void disable_tim17(void)
     // reset output compare mode
     TIM17->CCMR1 &= ~TIM_CCMR1_OC1M;      // Clear the output compare mode bits
     RCC->APB2ENR &= ~RCC_APB2ENR_TIM17EN; // Disable the clock for TIM17
-
-    // printf("TIM17 Disabled\n");
 }
 
 void power_motor(int amount)
@@ -79,29 +77,18 @@ void move_to_duty_cycle(int duty_cycle)
 {
 
     setup_tim17();
-    // // Ensure the duty cycle is within the PWM range (0 to 100)
-    // if (duty_cycle < 0)
-    //     duty_cycle = 0;
-    // if (duty_cycle > 100)
-    //     duty_cycle = 100;
-
-    // // Calculate the duty cycle in terms of the ARR and CCR1 values
-    // // int pulse_width = 750 + (((duty_cycle - 1) * (1050 - 750)) / 9);
-    // int pulse_width = 750 + (((duty_cycle) * (1050 - 750)) / 9);
-    // TIM17->CCR1 = pulse_width; // Set the duty cycle for PWM
-
     if (duty_cycle < 0)
         duty_cycle = 0;
     if (duty_cycle > 10)
         duty_cycle = 10;
 
-    if (duty_cycle == 1 || duty_cycle ==2 ) 
+    // enforce a lower bound of 3 for the press duration, 1 and 2 are very weak (makes for better UI)
+    if (duty_cycle == 1 || duty_cycle == 2 ) 
         duty_cycle = 3; 
 
     // linearly interpolate a number [0, 10] to [750, 820]
     int pulse_width = 750 + ((duty_cycle * (820 - 750)) / 10);
     TIM17->CCR1 = pulse_width; // Set the duty cycle for PWM
-    // printf("High time: %.2f ms\n", high_time_ms);
 }
 
 void enable_dc_motor()
@@ -112,6 +99,4 @@ void enable_dc_motor()
 void disable_dc_motor()
 {
     TIM17->CR1 &= ~TIM_CR1_CEN; // Disable the timer to stop PWM output
-    // TIM17->CCR1 = 0;            // Set duty cycle to 0 to stop the motor
-    printf("DC Motor Disabled\n");
 }

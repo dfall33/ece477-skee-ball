@@ -1,9 +1,12 @@
 #ifndef __BUTTON_H__
 #define __BUTTON_H__
 #include "stm32f0xx.h"
-#define BUTTON_MAX_PRESS_US 5000 // 10s / 10000ms
 
-// volatile int press_duration = -1;
+/* ----- Constants ----- */
+#define BUTTON_MAX_PRESS_US 5000 // 10s / 10000ms
+#define BUTTON_MAX_VALUE 10
+
+/* ----- Function Prototypes ----- */
 
 /**
  * @brief Called by the button interrupt handler, this function will set or reset any necessary flags and start the timer to measure

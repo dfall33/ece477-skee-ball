@@ -5,19 +5,6 @@ void micro_wait();
 void init_display()
 {
 
-    // // enable the clock to GPIOA
-    // RCC->AHBENR |= RCC_AHBENR_GPIOAEN;
-
-    // // set GPIOA2 and GPIOA3 as output for NHD E1 and NHD E2 respectively
-    // GPIOA->MODER &= ~(GPIO_MODER_MODER2 | GPIO_MODER_MODER3); // Clear the mode bits for PA2 and PA3
-    // GPIOA->MODER |= GPIO_MODER_MODER2_0 | GPIO_MODER_MODER3_0; // Set PA2 and PA3 to output mode
-
-    // // set GPIOA4 as output for RCLK (latch clock)
-    // GPIOA->MODER &= ~(GPIO_MODER_MODER4); // Clear the mode bits for PA4
-    // GPIOA->MODER |= GPIO_MODER_MODER4_0; // Set PA4 to output mode
-
-    // setup_spi_display(); 
-
     /* ----- Setup Top Two Lines ----- */
     micro_wait(2000); // Wait for 2ms
 
@@ -72,7 +59,7 @@ void pulse_rclk()
     while ((SPI1->SR & SPI_SR_BSY) != 0)
         ;
 
-    // // wait til the SPI buffer is empty
+    // wait til the SPI buffer is empty
     while ((SPI1->SR & SPI_SR_TXE) == 0)
         ;
 
@@ -113,9 +100,6 @@ void spi_char(char character, uint8_t line_pair)
         // Set the NHD E2 pin high
         GPIOA->ODR |= GPIO_ODR_3;
     }
-    // // set e1 high to prepare for loading data
-    // GPIOA->ODR |= GPIO_ODR_2;
-
     // hold enable high for a bit
     micro_wait(1);
 
@@ -136,12 +120,6 @@ void spi_char(char character, uint8_t line_pair)
 
 void spi_write_str(const char *string, uint8_t line)
 {
-
-    // if (line == 0)
-
-    // write line of blank characters to clear the line
-
-
 
     // set the cursor to the correct position
     if (line == 0)
@@ -302,7 +280,6 @@ void test_display()
     spi_write_str("Line 2", 1); // Write to the second line of the display (top line)
     spi_write_str("Line 3", 2); // Write to the third line of the display (bottom line)
     spi_write_str("Line 4", 3); // Write to the fourth line of the display (bottom line)
-    
 }
 
 
@@ -321,8 +298,6 @@ void setup_gpio_display()
 
 void setup_display()
 {
-    // This function initializes the display by setting up the GPIO pins and sending the initial commands to the display
-
     setup_gpio_display(); // Setup GPIO pins for the display
     setup_spi_display();  // Setup SPI for the display
     init_display(); // Initialize the display with the necessary commands
@@ -331,8 +306,6 @@ void setup_display()
 
 void clear_display()
 {
-    // This function clears the display by sending the clear command to both the top and bottom lines
-
     // Clear the top two lines
     spi_cmd_top_two(0x0001); // Clear display command for top two lines
     micro_wait(2000);        // Wait for 2ms
@@ -344,26 +317,24 @@ void clear_display()
 
 void progress_bar(uint8_t amount, uint8_t line)
 {
-    char buf[15]; // Increase size to 15 to handle the "100%" case and null terminator
+    char buf[15]; // max string = "XXXXXXXXXX100%" = 15 characters including null terminator
 
     if (amount > 10)
     {
-        amount = 10; // Cap the amount to 10 to avoid overflow in the progress bar
+        amount = 10; // cap progress to 10 (100%)
     }
 
     for (int i = 0; i < amount; i++)
     {
-        buf[i] = 0xFF; // Fill with 0xFF for the filled part of the progress bar
+        buf[i] = 0xFF; // fill "amount" characters with black blocks
     }
     for (int i = amount; i < 10; i++)
     {
-        buf[i] = ' '; // Fill the rest with spaces
+        buf[i] = ' '; // fill the rest with whitespace 
     }
 
-    // Null-terminate the progress bar portion
-    buf[10] = '\0';
+    buf[10] = '\0'; // add null terminator
 
-    // Append the percentage value
     if (amount == 10)
     {
         snprintf(buf + 10, 5, "100%%"); // Use 5 to include "100%" and the null terminator
@@ -373,6 +344,5 @@ void progress_bar(uint8_t amount, uint8_t line)
         snprintf(buf + 10, 4, "%d%%", (amount * 10)); // Use 4 for "X%" and the null terminator
     }
 
-    // Write the progress bar to the specified line
     spi_write_str(buf, line);
 }

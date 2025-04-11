@@ -17,19 +17,13 @@ extern void spi_write_str(char *, int);
 extern void led_high(int);
 extern void led_off();
 
-// void disable_joystick_interrupt(void)
 void disable_joystick(void)
 {
     TIM2->CR1 &= ~TIM_CR1_CEN; // Stop the timer for reading joystick ADC values
 }
-// {
-//     NVIC_DisableIRQ(EXTI0_1_IRQn);
-// }
 
 void enable_joystick(void)
 {
-
-    // NVIC_EnableIRQ(EXTI0_1_IRQn);
     TIM2->CR1 |= TIM_CR1_CEN; // Start the timer for reading joystick ADC values
 }
 
@@ -81,7 +75,6 @@ void setup_tim16(void)
     GPIOB->AFR[1] |= 0x2;
 
     TIM16->PSC = 16 - 1;
-    // TIM16->PSC = 96 - 1;
 
     TIM16->ARR = 60000 - 1;
     TIM16->BDTR |= TIM_BDTR_MOE;
@@ -90,13 +83,8 @@ void setup_tim16(void)
     TIM16->CCMR1 |= (6 << TIM_CCMR1_OC1M_Pos); // PWM mode 1
     TIM16->CCMR1 |= TIM_CCMR1_OC1PE;
 
-    // Set duty cycle
-    // TIM16->CCR1 = 1500;
-
     TIM16->CCER |= TIM_CCER_CC1E;
     TIM16->EGR |= TIM_EGR_UG;
-    // TIM16->CR1 |= TIM_CR1_CEN;
-    // move_to_angle(degrees);
 }
 
 // Convert ADC Value to Degree
@@ -117,9 +105,9 @@ void move_to_angle(int angle)
 
     int pulse_width = SERVO_MIN_PULSE + ((angle * (SERVO_MAX_PULSE - SERVO_MIN_PULSE)) / 180);
     TIM16->CCR1 = 3 * pulse_width; // Set duty cycle
-    char buf[20];
-    sprintf(buf, "Angle: %d", angle);
-    spi_write_str(buf, 0); // Display the angle on the display
+    // char buf[20];
+    // sprintf(buf, "Angle: %d", angle);
+    // spi_write_str(buf, 0); // Display the angle on the display
 }
 
 // Read Joystick ADC Value
@@ -131,7 +119,6 @@ int read_joystick(void)
     return ADC1->DR;
 }
 
-// Timer 2 ISR
 void TIM2_IRQHandler()
 {
     TIM2->SR &= ~TIM_SR_UIF;
@@ -143,9 +130,7 @@ void TIM2_IRQHandler()
     adc = adc_val;
 
     int inc_degrees = map_adc_to_degrees(adc_val);
-    // if ((degrees + inc_degrees) >= 0 && (degrees + inc_degrees) <= 180)
-    // if (d(degress + inc_degrees))
-    if ((degrees + inc_degrees) >= ANGLE_MIN && (degrees + inc_degrees) <= ANGLE_MAX)
+    if ((degrees + inc_degrees) >= 0 && (degrees + inc_degrees) <= 180)
     {
         degrees += inc_degrees;
     }
@@ -159,11 +144,9 @@ void init_tim2(void)
 
     RCC->APB1ENR |= RCC_APB1ENR_TIM2EN;
     TIM2->PSC = 480 - 1;
-    // TIM2->PSC = 2880 - 1;
-    // TIM2->ARR = 1000 - 1;
+    // TIM2->ARR =  - 1;
     TIM2->ARR = 5000 - 1; 
     TIM2->DIER |= TIM_DIER_UIE;
     NVIC->ISER[0] = 1 << TIM2_IRQn;
     NVIC_EnableIRQ(TIM2_IRQn); // Enable the interrupt for TIM2
-    // TIM2->CR1 |= TIM_CR1_CEN;
 }
