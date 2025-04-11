@@ -12,7 +12,7 @@
 
 /* ----- Game Constants ----- */
 #define MAX_ATTEMPTS 3
-int8_t SENSOR_SCORES[5] = {5, 10, 15, 20, 0}; // placeholder score values, will almost certainly change
+int8_t SENSOR_SCORES[5] = {30, 20, 30, 10, 0}; // placeholder score values, will almost certainly change
 
 /*
 

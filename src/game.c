@@ -117,6 +117,10 @@ void game_ball_detection()
         snprintf(success_str, sizeof(success_str), "+%d points!", score); // format the score string for display
         spi_write_str(success_str, 1);                                    // display the score on the top line of the display
     }
+    else
+    {
+        spi_write_str("+0 points!", 1); // display the score on the top line of the display
+    }
 
     remaining_attempts--; // doing all this used one attempt, so decrement the number of attempts
     snprintf(attempts_str, sizeof(attempts_str), "Attempts: %d", remaining_attempts); // format the score string for display

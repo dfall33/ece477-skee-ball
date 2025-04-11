@@ -171,13 +171,13 @@ int search_hcsr04(int stability_count)
 
             duration = read_hcsr04(i);
             // if (duration > 0 && duration < 80 && count > stability_count && i != 3)
-            if (duration > 10 && duration < 80 && count > stability_count)
+            if (duration > 10 && duration < 80 && count >= stability_count)
             {
                 stop_hcsr04_search_timer();
 
-                char buf[20] ; 
-                sprintf(buf, "Sensor %d: %d", i, duration);
-                spi_write_str(buf, 1);
+                // char buf[20] ; 
+                // sprintf(buf, "Sensor %d: %d", i, duration);
+                // spi_write_str(buf, 1);
 
                 return i;
             }

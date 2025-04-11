@@ -39,9 +39,8 @@ int main(void)
     setup_tim15();            // setup Timer 15 for timing out the overall ultrasonic search (i.e., if the ball is not found within a certain time limit)
 
     clear_display(); 
+
     game(); // start the game loop
-    return 0; 
 
-
-    return 0 ; 
+    return 0 ; // ideally never reached 
 }

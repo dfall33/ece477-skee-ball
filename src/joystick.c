@@ -6,10 +6,11 @@
 #define SERVO_MIN_PULSE 500  // 500us
 #define SERVO_MAX_PULSE 2500 // 2500us
 
-#define ANGLE_MIN 53 
-#define ANGLE_MAX 83
+#define ANGLE_MIN 165 
+#define ANGLE_MAX 135
+#define ANGLE_DEFAULT 122
 
-volatile int degrees = 68; // experimentally determined to be the center position of the servo
+volatile int degrees = ANGLE_DEFAULT; // experimentally determined to be the center position of the servo
 volatile int adc = 0;
 
 extern void spi_write_str(char *, int);
