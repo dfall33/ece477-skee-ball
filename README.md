@@ -17,7 +17,7 @@ This repository is divided into numerous discrete sections.
 * **src**: This folder contains the embedded C source code for the project. The software in this directory is the final software that was run on the hardware (specifically, on the STM32F091RCT6 MCU that was used in this project). 
 * **micropython**: This directory contains some micropython code that was used during early prototyping done on an ESP32 Feather v2 development board. This development board (or any type of ESP32) was not used in the final design of the project. None of the software in this directory was used in the final design of the project.
 * **docs**: This folder contains any and all technical documentation for the project. This includes a product overview, functional specification, etc.
-* **hardware**: This folder contains the KiCAD project files for the hardware of the project. This includes the schematic and PCB layout. It also contains a Bill of Materials (BOM) for the project.
+* **hardware**: This folder contains the KiCAD project files for the hardware of the project. This includes the schematic and PCB layout. 
 * **packaging**: This folder contains the CAD files for the packaging of the project. This includes the design files for the enclosure and any other packaging components.
 
 
@@ -26,7 +26,7 @@ This repository is divided into numerous discrete sections.
 Any and all technical documentation, including a product overview, functional specification, etc., can be found in the `docs` folder in this repository.
 
 ## Hardware Design
-The hardware of the project, including the schematic and PCB layout, is designed using KiCAD. The KiCAD project files can be found in the `hardware` folder. This folder also contains a Bill of Materials (BOM). 
+The hardware of the project, including the schematic and PCB layout, is designed using KiCAD. The KiCAD project files can be found in the `hardware` folder. 
 
 ## Packaging Design 
 The packaging for the product hardware and user interface was designed using a variety of softwares. The main components of the packaging design were designed using CAD. Relevant CAD files are contained in the `packaging` folder in this repository. 
