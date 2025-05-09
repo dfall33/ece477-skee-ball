@@ -25,6 +25,9 @@ This repository is divided into numerous discrete sections.
 
 Any and all technical documentation, including a product overview, functional specification, etc., can be found in the `docs` folder in this repository.
 
+## Demonstration Video
+A demonstration video of the project can be found at the following link: [Electronic Skee Ball Machine Demonstration Video](https://youtu.be/028JnDdOcIg). This same video is available in MP4 format in the A14 - Project Archive zip file in this repository.
+
 ## Hardware Design
 The hardware of the project, including the schematic and PCB layout, is designed using KiCAD. The KiCAD project files can be found in the `hardware` folder. 
 
